@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Mechanic
   - MechanicButton
+  - MainBody
+  - SubPart
   layers:
   - Default
   - TransparentFX
