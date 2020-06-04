@@ -6,30 +6,38 @@ using UnityEngine;
 //this is the main object that contains a list individual parts
 public class MainBody : MonoBehaviour
 {
+    public enum STATES { ASSEMBLED, DISMANTLED, CHANGING };
+
+    public STATES CURRENTSTATE;
+
+    public int totalSubParts;
+
+    public int totalPartsDismantled = 0;
 
     public List<SubPart> subParts;
 
+
     void Start()
     {
-        //remove rigidbodies from all objects
-        foreach (SubPart values in subParts)
-        {
-            Destroy(values.subPartElement.GetComponent<Rigidbody>());
-        }
+        InitialiseInitialPositionTransform(subParts);
+        totalSubParts = subParts.Count;
+
     }
+
     public void InitialiseInitialPositionTransform(List<SubPart> _subPart)
     {
         foreach (SubPart values in subParts)
         {
+            Destroy(values.subPartElement.GetComponent<Rigidbody>());
             values.initialPosition = values.subPartElement.GetComponent<Transform>().position;
             values.initialRotation = values.subPartElement.transform.rotation;
-
         }
+
+        this.CURRENTSTATE = STATES.ASSEMBLED;
     }
 
-    public void DismantleAllParts(List<SubPart> _subPart)
+    public void DismantleAllParts()
     {
-
         foreach (SubPart values in subParts)
         {
             DismantleIndividualParts(values);
@@ -38,16 +46,22 @@ public class MainBody : MonoBehaviour
 
     public void DismantleIndividualParts(SubPart _part)
     {
-        if (_part.subPartElement.GetComponent<Rigidbody>() == null)
+        if(_part.CURRENTSTATE != SubPart.STATES.DISMANTLED)
         {
-            _part.subPartElement.AddComponent<Rigidbody>();
-        }
+            this.CURRENTSTATE = STATES.DISMANTLED;
 
-        _part.dismantled = true;
+            if (_part.subPartElement.GetComponent<Rigidbody>() == null)
+            {
+                _part.subPartElement.AddComponent<Rigidbody>();
+            }
+            _part.CURRENTSTATE = SubPart.STATES.DISMANTLED;
+
+            this.totalPartsDismantled++;
+        }
 
     }
 
-    public void ReAssembleAllParts(List<SubPart> _subPart)
+    public void ReAssembleAllParts()
     {
         foreach (SubPart values in subParts)
         {
@@ -57,35 +71,28 @@ public class MainBody : MonoBehaviour
 
     public void ReAssembleIndividualSubPart(SubPart _part)
     {
+        if (_part.CURRENTSTATE != SubPart.STATES.ASSEMBLED)
+        {
             Destroy(_part.subPartElement.GetComponent<Rigidbody>());
 
-        _part.dismantled = false;
-        _part.subPartElement.transform.position = _part.initialPosition;
-        _part.subPartElement.transform.rotation = _part.initialRotation;
+            _part.subPartElement.transform.position = _part.initialPosition;
+            _part.subPartElement.transform.rotation = _part.initialRotation;
+
+            _part.CURRENTSTATE = SubPart.STATES.ASSEMBLED;
+            this.totalPartsDismantled--;
+
+            if (this.totalPartsDismantled <= 0)
+            {
+                this.CURRENTSTATE = STATES.CHANGING;
+                InitialiseInitialPositionTransform(subParts);
+
+            }
+        }
     }
 }
 
 
-//this class is for the individual components of the main object
-[System.Serializable]
-//[RequireComponent(typeof(MainBody))]
-public class SubPart
-{
 
-    public GameObject subPartElement;
-
-    [HideInInspector]
-    public Vector3 initialPosition;
-
-    [HideInInspector]
-    public Quaternion initialRotation;
-
-    public bool dismantled
-    {
-        get; set;
-    }
-    
-}
 
 
 

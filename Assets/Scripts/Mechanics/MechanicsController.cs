@@ -2,103 +2,89 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(MainBody))]
+//[RequireComponent(typeof(MainBody))]
 public class MechanicsController : MonoBehaviour
 {
-    public enum PARTSSTATE { assembled, dismantled };
-    public PARTSSTATE STATEMACHINE;
     public MainBody theBody;
-
-    public int numberOfDismantledItems;
 
     void Start()
     {
         theBody = this.GetComponent<MainBody>();
-        theBody.InitialiseInitialPositionTransform(theBody.subParts);
-        //initialise the object
-
-        InitialiseAssembly();
-        
-    }
-
-    void InitialiseAssembly()
-    {
-        theBody.ReAssembleAllParts(theBody.subParts);
-        STATEMACHINE = PARTSSTATE.assembled;
-        numberOfDismantledItems = theBody.subParts.Count;
     }
 
     void Update()
     {
-        if (STATEMACHINE == PARTSSTATE.assembled)
+
+        Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10f));
+        Vector3 direction = worldMousePosition - Camera.main.transform.position;
+        RaycastHit hit;
+
+        if (Physics.Raycast(Camera.main.transform.position, direction, out hit))
         {
-            InitialiseAssembly();
-
-            if (Input.GetKey(KeyCode.Mouse0))
+            if (hit.collider.gameObject.tag == "SubPart")
             {
-                theBody.DismantleAllParts(theBody.subParts);
-                STATEMACHINE = PARTSSTATE.dismantled;
-            }
-        }
+                Debug.DrawLine(Camera.main.transform.position, worldMousePosition, Color.red);
 
-        if (STATEMACHINE == PARTSSTATE.dismantled)
-        {
-
-            Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 10f));
-            Vector3 direction = worldMousePosition - Camera.main.transform.position;
-            RaycastHit hit;
-
-            if (Physics.Raycast(Camera.main.transform.position, direction, out hit))
-            {
-
-                if (hit.collider.gameObject.tag == "SubPart")
+                switch (theBody.CURRENTSTATE)
                 {
-                    Debug.Log(hit.transform.name);
-                    Debug.DrawLine(Camera.main.transform.position, worldMousePosition, Color.red);
-                    if (Input.GetKey(KeyCode.Mouse0))
-                    {
-                        foreach (SubPart values in theBody.subParts)
+                    case MainBody.STATES.ASSEMBLED:
                         {
-                            if (values.subPartElement == hit.collider.gameObject)
+                            if (Input.GetKey(KeyCode.Mouse1))
                             {
-                                //if already dismantled skip
-                                if (values.dismantled == true)
-                                {
-                                    theBody.ReAssembleIndividualSubPart(values);
+                                this.theBody.DismantleAllParts();
+                            }
+                            break;
+                        }
 
-                                    numberOfDismantledItems--;
+                    case MainBody.STATES.DISMANTLED:
+                        {
+                            Debug.Log(hit.transform.name);
+                            
+                            if (Input.GetKey(KeyCode.Mouse0))
+                            {
+                                foreach (SubPart values in theBody.subParts)
+                                {
+                                    if (values.subPartElement == hit.collider.gameObject)
+                                    {
+                                        //if already dismantled skip
+                                        if (values.CURRENTSTATE == SubPart.STATES.DISMANTLED)
+                                        {
+                                            theBody.ReAssembleIndividualSubPart(values);
+
+                                            if (theBody.totalPartsDismantled <= 0)
+                                            {
+                                                theBody.CURRENTSTATE = MainBody.STATES.CHANGING;
+                                                StartCoroutine(TimeDelay());
+                                            }
+                                        }
+                                    }
                                 }
                             }
+
+
+                            else
+                            {
+                                Debug.DrawLine(Camera.main.transform.position, worldMousePosition, Color.white);
+                            }
+
+                            break;
                         }
-                    }
-                }
-
-                else
-                {
-                    Debug.DrawLine(Camera.main.transform.position, worldMousePosition, Color.white);
                 }
             }
-            else
-            {
-                Debug.DrawLine(Camera.main.transform.position, worldMousePosition, Color.blue);
-            }
 
+        }
+        else
+        {
+            Debug.DrawLine(Camera.main.transform.position, worldMousePosition, Color.blue);
 
-            if (numberOfDismantledItems <= 0)
-            {
-                StartCoroutine(ChangeStateToAssembled(2f));
-            }
         }
     }
 
-    IEnumerator ChangeStateToAssembled(float _time)
+    IEnumerator TimeDelay()
     {
-        //wait few seconds after everything has been dismantled
-        theBody.ReAssembleAllParts(theBody.subParts);
-        yield return new WaitForSeconds(_time);
-        STATEMACHINE = PARTSSTATE.assembled;
+        yield return new WaitForSeconds(1);
+        theBody.CURRENTSTATE = MainBody.STATES.ASSEMBLED;
     }
 }
-
 
 
