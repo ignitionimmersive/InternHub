@@ -28,7 +28,6 @@ public class ParentBody : MonoBehaviour
             }
         }
     }
-
     public void AssembleAllParts()
     {
         foreach (GameObject values in childParts)
@@ -36,14 +35,10 @@ public class ParentBody : MonoBehaviour
             AssembleIndividualParts(values.GetComponent<ChildBody>());
         }
     }
-
     public void AssembleIndividualParts(ChildBody _parts)
     {
-
         _parts.CURRENTSTATE = ChildBody.STATES.ASSEMBLED;
-        CheckState();
     }    
-
     public void DismantleAllParts()
     {
         foreach (GameObject values in childParts)
@@ -51,37 +46,96 @@ public class ParentBody : MonoBehaviour
             DismantleIndividualParts(values.GetComponent<ChildBody>());
         }
     }
-
     public void DismantleIndividualParts(ChildBody _parts)
     {
         _parts.CURRENTSTATE = ChildBody.STATES.DISMANTLED;
-        CheckState();
+    }
+}
+
+public class ChildBody : MonoBehaviour
+{
+    public enum STATES
+    {
+        ASSEMBLED,
+        DISMANTLED
+    };
+
+    [HideInInspector]
+    public Vector3 initialPosition;
+
+    [HideInInspector]
+    public Quaternion initialRotation;
+
+
+    private STATES currentstate;
+
+    public STATES CURRENTSTATE
+    {
+        get
+        {
+            return this.currentstate;
+        }
+        set
+        {
+            ChangeState(value);
+        }
     }
 
-    public void CheckState()
+    private void Start()
+    {
+        this.initialPosition = this.GetComponent<Transform>().position;
+        this.initialRotation = this.GetComponent<Transform>().rotation;
+        ChangeState(STATES.ASSEMBLED);
+    }
+
+    private void ChangeState(STATES _state)
+    {
+        switch (_state)
+        {
+            case STATES.ASSEMBLED:
+                {
+                    if (this.GetComponent<Rigidbody>() != null)
+                    {
+                        Destroy(this.GetComponent<Rigidbody>());
+                    }
+                    this.transform.position = this.initialPosition;
+                    this.transform.rotation = this.initialRotation;
+                    this.currentstate = _state;
+                    break;
+                }
+            case STATES.DISMANTLED:
+                {
+                    if (this.GetComponent<Rigidbody>() == null)
+                    {
+                        this.gameObject.AddComponent<Rigidbody>();
+                    }
+                    this.currentstate = _state;
+                    break;
+                }
+        }
+
+        UpdateParentState();
+    }
+
+    private void UpdateParentState()
     {
         int i = 0;
-        foreach (GameObject values in childParts)
+        foreach (GameObject values in this.gameObject.GetComponentInParent<ParentBody>().childParts)
         {
-            if (values.GetComponent<ChildBody>().CURRENTSTATE == ChildBody.STATES.ASSEMBLED)
+            if (values.GetComponent<ChildBody>().CURRENTSTATE == STATES.ASSEMBLED)
             {
                 i++;
             }
         }
 
-
-        if (i == childParts.Count)
+        if (i == this.gameObject.GetComponentInParent<ParentBody>().childParts.Count)
         {
-            SetState(STATES.ASSEMBLED);
+            this.gameObject.GetComponentInParent<ParentBody>().CURRENTSTATE = ParentBody.STATES.ASSEMBLED;
         }
+
         else
         {
-            SetState(STATES.DISMANTLED);
+            this.gameObject.GetComponentInParent<ParentBody>().CURRENTSTATE = ParentBody.STATES.DISMANTLED;
         }
-    }
-
-    private void SetState(STATES _state)
-    {
-        this.CURRENTSTATE = _state;
     }
 }

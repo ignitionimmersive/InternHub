@@ -23,14 +23,13 @@ public class Controller : MonoBehaviour
                     Debug.DrawLine(Camera.main.transform.position, worldMousePosition, Color.white);
                     if (Input.GetMouseButtonUp(0))
                     {
-                        hit.collider.gameObject.GetComponentInParent<ParentBody>().CheckState();
                         if (hit.collider.gameObject.GetComponentInParent<ParentBody>().CURRENTSTATE == ParentBody.STATES.ASSEMBLED)
                         {
                             hit.collider.gameObject.GetComponentInParent<ParentBody>().DismantleAllParts();
                         }
-                        else if (hit.collider.gameObject.GetComponentInParent<ParentBody>().CURRENTSTATE == ParentBody.STATES.DISMANTLED)
+                        else if (hit.collider.gameObject.GetComponent<ChildBody>().CURRENTSTATE == ChildBody.STATES.DISMANTLED)
                         {
-                            hit.collider.gameObject.GetComponentInParent<ParentBody>().AssembleIndividualParts(hit.collider.gameObject.GetComponent<ChildBody>());
+                            hit.collider.gameObject.GetComponent<ChildBody>().CURRENTSTATE = ChildBody.STATES.ASSEMBLED;
                         }
                     }
                 }
@@ -52,14 +51,13 @@ public class Controller : MonoBehaviour
                         Debug.DrawLine(Camera.main.transform.position, worldTouchPosition, Color.white);
                         if (touch.phase == TouchPhase.Ended)
                         {
-                            hit.collider.gameObject.GetComponentInParent<ParentBody>().CheckState();
                             if (hit.collider.gameObject.GetComponentInParent<ParentBody>().CURRENTSTATE == ParentBody.STATES.ASSEMBLED)
                             {
                                 hit.collider.gameObject.GetComponentInParent<ParentBody>().DismantleAllParts();
                             }
-                            else if (hit.collider.gameObject.GetComponentInParent<ParentBody>().CURRENTSTATE == ParentBody.STATES.DISMANTLED)
+                            else if (hit.collider.gameObject.GetComponent<ChildBody>().CURRENTSTATE == ChildBody.STATES.DISMANTLED)
                             {
-                                hit.collider.gameObject.GetComponentInParent<ParentBody>().AssembleIndividualParts(hit.collider.gameObject.GetComponent<ChildBody>());
+                                hit.collider.gameObject.GetComponent<ChildBody>().CURRENTSTATE = ChildBody.STATES.ASSEMBLED;
                             }
                         }
                     }
