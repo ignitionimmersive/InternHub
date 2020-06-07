@@ -6,35 +6,39 @@ using UnityEngine.UI;
 
 public class UIBehaviour : MonoBehaviour
 {
-    private List<InfoPanel> panels = new List<InfoPanel>();
     public Text debug;
-    public ParentBody prefab;
 
     void Update()
     {
-        var ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+        //var ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
         debug.text = "Not found";
 
-        if (Physics.Raycast (ray, out RaycastHit hit))
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
-            GameObject open = hit.collider.gameObject;
+            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
 
-            if (open.CompareTag("MechanicButton"))
+            if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                // Mechanic.
-                debug.text = "FOUND";
-            }
-            else if (open.CompareTag("UsageButton"))
-            {
-                // Usage mode.
-            }
-            else if (open.CompareTag("LearnButton"))
-            {
-                // Learn mode.
-            }
-            else if (open.CompareTag("PlaceButton"))
-            {
-                // Place mode.
+                GameObject open = hit.collider.gameObject;
+
+                if (open.CompareTag("MechanicButton"))
+                {
+                    // Mechanic.
+                    debug.text = "FOUND";
+                    open.GetComponentInParent<TheParent>().DismantleAllChildren();
+                }
+                else if (open.CompareTag("UsageButton"))
+                {
+                    // Usage mode.
+                }
+                else if (open.CompareTag("LearnButton"))
+                {
+                    // Learn mode.
+                }
+                else if (open.CompareTag("PlaceButton"))
+                {
+                    // Place mode.
+                }
             }
         }
     }
