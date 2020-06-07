@@ -21,7 +21,6 @@ public class TheParent : MonoBehaviour
     public int child_on_body_count;
     public int child_on_blueprint_count;
 
-    public bool check;
     private void Start()
     {
         InitialiseChildBodyComponents();

@@ -8,9 +8,9 @@ public class MechanicsController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (touchInput == false)
+        if (touchInput == true)
         {
-            {
+            
                 Touch touch = Input.GetTouch(0);
                 Vector3 worldTouchPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, 100f));
                 Vector3 direction = worldTouchPosition - Camera.main.transform.position;
@@ -21,10 +21,11 @@ public class MechanicsController : MonoBehaviour
                     Debug.DrawLine(Camera.main.transform.position, worldTouchPosition, Color.red);
                     if (hit.collider.gameObject.GetComponent<TheChild>() != null)
                     {
-                        Debug.DrawLine(Camera.main.transform.position, worldTouchPosition, Color.white);
-
+                        
                         if (hit.collider.gameObject.GetComponentInParent<TheParent>().CURRENT_STATE == TheParent.PARENT_STATE.ALL_CHILD_ON_BODY)
                         {
+                            Debug.DrawLine(Camera.main.transform.position, worldTouchPosition, Color.white);
+
                             if (touch.phase == TouchPhase.Ended)
                             {
                                 hit.collider.gameObject.GetComponentInParent<TheParent>().DismantleAllChildren();
@@ -33,6 +34,7 @@ public class MechanicsController : MonoBehaviour
 
                         else if (hit.collider.gameObject.GetComponentInParent<TheParent>().CURRENT_STATE == TheParent.PARENT_STATE.ALL_CHILD_ON_BLUEPRINT)
                         {
+                            Debug.DrawLine(Camera.main.transform.position, worldTouchPosition, Color.white);
                             if (touch.phase == TouchPhase.Ended)
                             {
                                 hit.collider.gameObject.GetComponentInParent<TheParent>().AssembleAllChildren();
@@ -42,7 +44,7 @@ public class MechanicsController : MonoBehaviour
 
                     }
                 }
-            }
+            
         }
         else
         {
@@ -54,10 +56,11 @@ public class MechanicsController : MonoBehaviour
                 Debug.DrawLine(Camera.main.transform.position, worldMousePosition, Color.red);
                 if (hit.collider.gameObject.GetComponent<TheChild>() != null)
                 {
-                    Debug.DrawLine(Camera.main.transform.position, worldMousePosition, Color.white);
-
+                    
                     if (hit.collider.gameObject.GetComponentInParent<TheParent>().CURRENT_STATE == TheParent.PARENT_STATE.ALL_CHILD_ON_BODY)
                     {
+                        
+
                         if (Input.GetMouseButtonUp(0))
                         {
                             hit.collider.gameObject.GetComponentInParent<TheParent>().DismantleAllChildren();
@@ -66,6 +69,7 @@ public class MechanicsController : MonoBehaviour
 
                     else if (hit.collider.gameObject.GetComponentInParent<TheParent>().CURRENT_STATE == TheParent.PARENT_STATE.ALL_CHILD_ON_BLUEPRINT)
                     {
+                        Debug.DrawLine(Camera.main.transform.position, worldMousePosition, Color.white);
                         if (Input.GetMouseButtonUp(0))
                         {
                             hit.collider.gameObject.GetComponentInParent<TheParent>().AssembleAllChildren();
