@@ -65,6 +65,7 @@ public class SpawningObject : MonoBehaviour
         if (activeIndicator && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
             Instantiate(originalPrefab, indicatorPose.position, indicatorPose.rotation);
+            Indicator.SetActive(false);
             objectPlaced = true;
         }
     }
