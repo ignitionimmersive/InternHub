@@ -466,6 +466,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: {fileID: 1901181824}
+  theParent: {fileID: 7294045262552081452, guid: 10004297a1d58304b8bae062185ab1ae,
+    type: 3}
+  theBlueprint: {fileID: 8091714241293905550, guid: f39c0d0cb0b94444b90821da7037c6eb,
+    type: 3}
 --- !u!114 &643603846
 MonoBehaviour:
   m_ObjectHideFlags: 0
