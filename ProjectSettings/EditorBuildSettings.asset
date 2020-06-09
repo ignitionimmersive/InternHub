@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MechanicTest.unity
-    guid: cc5622bc2b7bd5d4aa58c2a0abd206ff
+    path: Assets/Scenes/FlipBookScene.unity
+    guid: 0231f47dfa3cf9f4c84635313d493502
   m_configObjects: {}

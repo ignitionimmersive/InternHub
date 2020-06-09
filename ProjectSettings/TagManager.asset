@@ -8,6 +8,7 @@ TagManager:
   - MechanicButton
   - MainBody
   - SubPart
+  - FlipPages
   layers:
   - Default
   - TransparentFX
