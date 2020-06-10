@@ -631,10 +631,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: {fileID: 1901181824}
-  hitColor: {fileID: 2100000, guid: c6aa84520218b5f448a7e0d84c155f2c, type: 2}
+  hitColor: {fileID: 0}
   isLearningActive: 0
   isPlaceModeActive: 0
   isUseModeActive: 0
+  theParent: {fileID: 0}
+  theBlueprint: {fileID: 0}
 --- !u!114 &643603846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -647,7 +649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4af04d5a5a07b9c479cfa173ccc249e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: {fileID: 1901181824}
+  debug: {fileID: 0}
 --- !u!1 &737593679
 GameObject:
   m_ObjectHideFlags: 0
@@ -794,7 +796,7 @@ GameObject:
   - component: {fileID: 1210901461}
   - component: {fileID: 1210901460}
   m_Layer: 0
-  m_Name: AR Default Plane
+  m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -996,7 +998,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1213777553
 GameObject:
