@@ -4,12 +4,14 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.Experimental.XR;
 using UnityEngine.XR.ARSubsystems;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(ARRaycastManager))]
 public class SpawningObject : MonoBehaviour
 {
     public GameObject Indicator;
     public GameObject placedPrefab;
+    //public Text debug;
 
     private bool objectPlaced = false;
     private bool activeIndicator = false;
@@ -55,6 +57,7 @@ public class SpawningObject : MonoBehaviour
         {
             Indicator.SetActive(true);
             Indicator.transform.SetPositionAndRotation(indicatorPose.position, indicatorPose.rotation);
+            objectPlaced = true;
         }         
         else
             Indicator.SetActive(false);
