@@ -8,6 +8,10 @@ TagManager:
   - MechanicButton
   - MainBody
   - SubPart
+  - UsagePanel
+  - LearnPanel
+  - PlacePanel
+  - MechanicPanel
   layers:
   - Default
   - TransparentFX
