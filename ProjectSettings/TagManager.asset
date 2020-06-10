@@ -13,6 +13,7 @@ TagManager:
   - PlacePanel
   - MechanicPanel
   - FlipPages
+  - TheARPlane
   layers:
   - Default
   - TransparentFX
