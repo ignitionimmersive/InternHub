@@ -119,7 +119,8 @@ public class UIBehaviour : MonoBehaviour
             var asset = GameObject.FindGameObjectWithTag("Player");
             asset.SetActive(false);
         }
-        
+
         yield return new WaitForSeconds(5f);
     }
 }
+

@@ -35,7 +35,8 @@ public class MechanicsController : MonoBehaviour
                             {
                                 this.theParentHasBeenSpawned = true;
                                 theParent01 = (GameObject)GameObject.Instantiate(this.theParent.gameObject, hit.point, Quaternion.identity);
-                            }
+                                theParent01.transform.Translate(0, 2, 0);
+                        }
                         }
                     }
 
