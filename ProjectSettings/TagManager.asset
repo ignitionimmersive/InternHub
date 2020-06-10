@@ -12,6 +12,7 @@ TagManager:
   - LearnPanel
   - PlacePanel
   - MechanicPanel
+  - FlipPages
   layers:
   - Default
   - TransparentFX
