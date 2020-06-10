@@ -6,22 +6,32 @@ public class InfoPanel : MonoBehaviour
 {
     const float speed = 6.0f;
 
-    [SerializeField] Transform infoPanel;
+    [SerializeField] Transform mechanicPanel;
+    [SerializeField] Transform usagePanel;
+    [SerializeField] Transform learnPanel;
+    [SerializeField] Transform placePanel;
+
+    private static List<Transform> panels = new List<Transform>();
 
     Vector3 scale = Vector3.zero;
 
+    private void Start()
+    {
+        panels.Add(mechanicPanel);
+        panels.Add(usagePanel);
+        panels.Add(learnPanel);
+        panels.Add(placePanel);
+    }
+
     void Update()
     {
-        infoPanel.localScale = Vector3.Lerp(infoPanel.localScale, scale, Time.deltaTime * speed);
+        foreach (Transform panel in panels)
+        {
+            panel.localScale = Vector3.Lerp(panel.localScale, scale, Time.deltaTime * speed);
+        }
     }
 
-    public void OpenPanel()
-    {
-        scale = Vector3.one;
-    }
+    public void OpenPanel() => scale = Vector3.one;
 
-    public void ClosePanel()
-    {
-        scale = Vector3.zero;
-    }
+    public void ClosePanel() => scale = Vector3.zero; 
 }
