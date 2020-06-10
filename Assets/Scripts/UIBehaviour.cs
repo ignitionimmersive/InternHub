@@ -49,7 +49,7 @@ public class UIBehaviour : MonoBehaviour
                         }
                         else if ((theBluePrintHasBeenSpawned == false) && (theParentHasBeenSpawned = true))
                         {
-                             theBluePrint01 = (GameObject)GameObject.Instantiate(this.theBlueprint.gameObject, hit.point, Quaternion.identity);
+                                    theBluePrint01 = (GameObject)GameObject.Instantiate(this.theBlueprint.gameObject, hit.point, Quaternion.identity);
                                     theBluePrint01.transform.Translate(0, 7, 0);
                                     theBluePrint01.transform.Rotate(-90.0f, 0.0f, 0.0f, Space.Self);
                                     theParent01.GetComponent<TheParent>().theBlueprint = theBluePrint01.GetComponent<TheBlueprint>();
