@@ -45,89 +45,53 @@ public class OpenBook : MonoBehaviour
     void Update()
     {
 
-        if (Input.touchCount > 0)
+        if ((isOpenClicked) || (isCloseClicked))
         {
-            Touch touch = Input.GetTouch(0);
-            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            transform.Rotate(rotationVector * Time.deltaTime);
+            endTime = DateTime.Now;
+
+            if (isOpenClicked)
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-                Vector3 worldTouchPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, 100f));
-                Vector3 direction = worldTouchPosition - Camera.main.transform.position;
-                RaycastHit hit;
-
-                if (Physics.Raycast(ray, out hit))
+                if ((endTime - startTime).TotalSeconds >= 1)
                 {
-                    GameObject open = hit.collider.gameObject;
+                    isOpenClicked = false;
+                    gameObject.SetActive(false);
+                    insideBackCover.SetActive(false);
+                    openedBook.SetActive(true);
 
-                    if (open.CompareTag("OpenBook"))
-                    {
-                        if ((isOpenClicked))
-                        {
+                    AppEvent.OpenBookFun();
 
-
-                            transform.Rotate(rotationVector * Time.deltaTime);
-                            endTime = DateTime.Now;
-
-
-                            if ((endTime - startTime).TotalSeconds >= 1)
-                            {
-                                isOpenClicked = false;
-                                gameObject.SetActive(false);
-                                insideBackCover.SetActive(false);
-                                openedBook.SetActive(true);
-
-                                AppEvent.OpenBookFun();
-
-                                Vector3 newRotation = new Vector3(startRotation.x, 180, startRotation.y);
-                                transform.rotation = Quaternion.Euler(newRotation);
-                            }
-                        }
-
-
-                    }
-                    else if (open.CompareTag("CloseBook"))
-                    {
-                        if (isCloseClicked)
-                        {
-                            if ((endTime - startTime).TotalSeconds >= 1)
-                            {
-                                isCloseClicked = false;
-
-
-                                Vector3 newRotation = new Vector3(startRotation.x, 0, startRotation.y);
-                                transform.rotation = Quaternion.Euler(newRotation);
-                            }
-                        }
-                    }
+                    Vector3 newRotation = new Vector3(startRotation.x, 180, startRotation.y);
+                    transform.rotation = Quaternion.Euler(newRotation);
                 }
-
-
-
-
             }
+            else if (isCloseClicked)
+            {
+                if ((endTime - startTime).TotalSeconds >= 1)
+                {
+                    isCloseClicked = false;
 
 
+                    Vector3 newRotation = new Vector3(startRotation.x, 0, startRotation.y);
+                    transform.rotation = Quaternion.Euler(newRotation);
+                }
+            }
         }
-
-
-    }
-
-
+    }   
     public void openButton_Click()
 
     {
-        isOpenClicked = true;
-        startTime = DateTime.Now;
-        rotationVector = new Vector3(0, 180, 0);
+            isOpenClicked = true;
+            startTime = DateTime.Now;
+            rotationVector = new Vector3(0, 180, 0);
 
-        PlaySound();
-
+            PlaySound();
+        
     }
-
+   
     public void closeButton_Click(object sender, EventArgs e)
     {
-        if (Input.GetTouch(0).phase == TouchPhase.Began)
-        {
+       
             gameObject.SetActive(true);
             insideBackCover.SetActive(true);
             openedBook.SetActive(false);
@@ -137,16 +101,16 @@ public class OpenBook : MonoBehaviour
             rotationVector = new Vector3(0, -180, 0);
 
             PlaySound();
-        }
+        
     }
 
-
+    
     private void PlaySound()
     {
-        if ((audioSource != null) && (openBookAudio != null))
+        if((audioSource != null) && (openBookAudio != null))
         {
             audioSource.PlayOneShot(openBookAudio);
         }
     }
-
+   
 }
