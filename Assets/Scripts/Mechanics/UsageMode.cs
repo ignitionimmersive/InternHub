@@ -38,6 +38,7 @@ public class UsageMode : MonoBehaviour
 
         else
         {
+            PauseTheVideo();
         }
     }
 
