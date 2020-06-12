@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-
+using UnityEngine.UI;
 
 public class ShowInfo : MonoBehaviour
 {
+    public Text debug;
+
     private List<InfoPanel> panels = new List<InfoPanel>();
 
     void Start()
@@ -22,30 +24,30 @@ public class ShowInfo : MonoBehaviour
         {
             GameObject open = hit.collider.gameObject;
 
-            if (open.CompareTag("Mechanic"))
+            if (open.CompareTag("Player"))
             {
-                //debug.text = panels.Count.ToString();
+                debug.text = "FOUND";
                 OpenPanel(open.GetComponent<InfoPanel>());
             }
-            else
-                CloseAll();
         }
+        else
+            CloseAll();
     }
 
     private void OpenPanel(InfoPanel info)
     {
         foreach (InfoPanel panel in panels)
         {
-            if (info == panel)
-                info.OpenPanel();
-            else
-                info.ClosePanel();
+            if (info == panel) panel.OpenPanel();
+            else panel.ClosePanel();
         }
     }
 
     private void CloseAll()
     {
         foreach (InfoPanel panel in panels)
+        {
             panel.ClosePanel();
+        }
     }
 }

@@ -45,17 +45,23 @@ public class MoveToAPoint : MonoBehaviour
                 }
             case MOVE_TO_A_POINT_STATE.MOVE:
                 {
-                    if (this.gameObject.transform.position == this.finalPosition)
-                    {
-                        this.gameObject.GetComponent<MoveToAPoint>().CURRENTSTATE = MOVE_TO_A_POINT_STATE.FINAL_POSITION;
-                    }
-
-
-                    if (moveSpeed == 0) moveSpeed = Random.Range(0.2f, 0.5f);
+              
+                    if (moveSpeed == 0) moveSpeed = Random.Range(0.4f, 0.75f);
                     if (timeToStart == 0) timeToStart = Random.Range(0, 1f);
 
                     StartCoroutine(MoveToPoint(moveSpeed, timeToStart));
-                    
+
+                    if ((this.gameObject.transform.position.x <= (this.finalPosition.x + 0.05)) &&
+                        (this.gameObject.transform.position.x >= (this.finalPosition.x - 0.05))&&
+                        (this.gameObject.transform.position.y <= (this.finalPosition.y + 0.05)) &&
+                        (this.gameObject.transform.position.y >= (this.finalPosition.y - 0.05)) &&
+                        (this.gameObject.transform.position.z <= (this.finalPosition.z + 0.05)) &&
+                        (this.gameObject.transform.position.z >= (this.finalPosition.z - 0.05)))
+                    {
+                        this.gameObject.transform.position = this.finalPosition;
+                        this.gameObject.GetComponent<MoveToAPoint>().CURRENTSTATE = MOVE_TO_A_POINT_STATE.FINAL_POSITION;
+                    }
+
                     break;
                 }
             case MOVE_TO_A_POINT_STATE.FINAL_POSITION:

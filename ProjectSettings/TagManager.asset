@@ -8,7 +8,12 @@ TagManager:
   - MechanicButton
   - MainBody
   - SubPart
+  - UsagePanel
+  - LearnPanel
+  - PlacePanel
+  - MechanicPanel
   - FlipPages
+  - TheARPlane
   layers:
   - Default
   - TransparentFX

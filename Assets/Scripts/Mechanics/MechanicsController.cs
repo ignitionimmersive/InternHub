@@ -26,7 +26,7 @@ public class MechanicsController : MonoBehaviour
 
             if (Physics.Raycast(Camera.main.transform.position, direction, out hit))
             {
-                
+
                     if (theParentHasBeenSpawned == false)
                     {
                         if (hit.collider.gameObject.name == "Plane")
@@ -35,6 +35,7 @@ public class MechanicsController : MonoBehaviour
                             {
                                 this.theParentHasBeenSpawned = true;
                                 theParent01 = (GameObject)GameObject.Instantiate(this.theParent.gameObject, hit.point, Quaternion.identity);
+                                theParent01.transform.Translate(0, 2, 0);
                             }
                         }
                     }
@@ -50,7 +51,7 @@ public class MechanicsController : MonoBehaviour
                             theBluePrint01.transform.Rotate(-90.0f, 0.0f, 0.0f, Space.Self);
                             theParent01.GetComponent<TheParent>().theBlueprint = theBluePrint01.GetComponent<TheBlueprint>();
                             this.theBluePrintHasBeenSpawned = true;
-                        }
+                            }
                         }
 
                     }

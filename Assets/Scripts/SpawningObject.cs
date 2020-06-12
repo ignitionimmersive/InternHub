@@ -4,16 +4,18 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.Experimental.XR;
 using UnityEngine.XR.ARSubsystems;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(ARRaycastManager))]
 public class SpawningObject : MonoBehaviour
 {
-    public GameObject originalPrefab;
     public GameObject Indicator;
+    public GameObject placedPrefab;
+    //public Text debug;
 
     private bool objectPlaced = false;
     private bool activeIndicator = false;
-    private Pose indicatorPose;
+    public Pose indicatorPose;
 
     private ARRaycastManager arRaycastManager;
     private static List<ARRaycastHit> hits = new List<ARRaycastHit>();
@@ -55,6 +57,7 @@ public class SpawningObject : MonoBehaviour
         {
             Indicator.SetActive(true);
             Indicator.transform.SetPositionAndRotation(indicatorPose.position, indicatorPose.rotation);
+            objectPlaced = true;
         }         
         else
             Indicator.SetActive(false);
@@ -64,7 +67,7 @@ public class SpawningObject : MonoBehaviour
     {
         if (activeIndicator && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
-            Instantiate(originalPrefab, indicatorPose.position, indicatorPose.rotation);
+            Instantiate(placedPrefab, indicatorPose.position, indicatorPose.rotation);
             Indicator.SetActive(false);
             objectPlaced = true;
         }
