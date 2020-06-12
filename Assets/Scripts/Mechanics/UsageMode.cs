@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.Video;
+using JetBrains.Annotations;
 
 public class UsageMode : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class UsageMode : MonoBehaviour
 
 
     public GameObject theVideoPlane;
+
+    public float requiredDistance = 1f;
 
     private void Start()
     {
@@ -23,6 +26,33 @@ public class UsageMode : MonoBehaviour
         theVideoPlane.GetComponent<VideoPlayer>().isLooping = true;
 
     }
+
+    private void Update()
+    {
+        float distance = Vector3.Distance(GameObject.FindWithTag("MainCamera").transform.position, this.gameObject.transform.position); 
+
+        if (distance <= requiredDistance)
+        {
+            PlayTheVideo();
+        }
+
+        else
+        {
+        }
+    }
+
+    public void PlayTheVideo()
+    {
+        theVideoPlane.GetComponent<VideoPlayer>().Play();
+    }
+
+    public void PauseTheVideo()
+    {
+
+        theVideoPlane.GetComponent<VideoPlayer>().Pause();
+    }
+
+    /*
     void OnCollisionEnter(Collision other)
     {
        // if (other.gameObject.tag == "Player")
@@ -40,4 +70,5 @@ public class UsageMode : MonoBehaviour
             Debug.Log("exit");
         }
     }
+    */
 }
