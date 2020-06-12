@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using TMPro;
+using UnityEngine.XR.ARFoundation;
 
 public class FlipPage : MonoBehaviour
 {
@@ -24,8 +25,7 @@ public class FlipPage : MonoBehaviour
     [SerializeField] TMP_Text Text1_2;
     [SerializeField] TMP_Text Text2_1;
     [SerializeField] TMP_Text Text2_2;
-
-
+    private ARRaycastManager arCast;
 
     private Vector3 rotationVector;
     private Quaternion startRotation;
@@ -39,7 +39,7 @@ public class FlipPage : MonoBehaviour
     {
         startRotation = transform.rotation;
         startPosition = transform.position;
-        if(closeButton != null)
+        if (closeButton != null)
         {
             closeButton.onClick.AddListener(() => closeButton_Click());
         }
@@ -56,28 +56,54 @@ public class FlipPage : MonoBehaviour
 
     private void Awake()
     {
+        arCast = GetComponent<ARRaycastManager>();
         AppEvent.OpenBook += new EventHandler(openButton_Click);
     }
 
     // Update is called once per frame
-    private void Update()
+    void Update()
     {
-       if(isClicked)
+        if (Input.touchCount > 0)
         {
-            transform.Rotate(rotationVector * Time.deltaTime);
-            endTime = DateTime.Now;
-            if((endTime - startTime).TotalSeconds >=1)
+            Touch touch = Input.GetTouch(0);
+            //var ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+
+
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
             {
-                isClicked = false;
-                transform.position = startPosition;
-                transform.rotation = startRotation;
+                Ray ray = Camera.main.ScreenPointToRay(touch.position);
+                RaycastHit hit;
 
-                SetVisibleText();
+                // Vector3 worldTouchPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, 100f));
+                // Vector3 direction = worldTouchPosition - Camera.main.transform.position;
+
+                if (Physics.Raycast(ray, out hit))
+                {
+                    GameObject open = hit.collider.gameObject;
+
+                    if (open.CompareTag("FlipPages"))
+                    {
+                        if (isClicked)
+                        {
+                            transform.Rotate(rotationVector * Time.deltaTime);
+                            endTime = DateTime.Now;
+                            if ((endTime - startTime).TotalSeconds >= 1)
+                            {
+                                isClicked = false;
+                                transform.position = startPosition;
+                                transform.rotation = startRotation;
+
+                                SetVisibleText();
+                            }
+
+
+                        }
+                    }
+                }
             }
-            
-
         }
     }
+
 
     private void turnOnePageButton_Click(ButtonType type)
     {
@@ -86,7 +112,7 @@ public class FlipPage : MonoBehaviour
         nextButton.gameObject.SetActive(true);
         prevButton.gameObject.SetActive(true);
 
-        if(type == ButtonType.NextButton)
+        if (type == ButtonType.NextButton)
         {
             rotationVector = new Vector3(0, 180, 0);
             SetFlipPageText(PageClass.CurrentPage2, PageClass.CurrentPage2 + 1);
@@ -96,12 +122,12 @@ public class FlipPage : MonoBehaviour
 
             PageClass pge = PageClass.RandomPage;
 
-            if((PageClass.CurrentPage1 >= pge.Pages.Count) || (PageClass.CurrentPage2 >= pge.Pages.Count))
+            if ((PageClass.CurrentPage1 >= pge.Pages.Count) || (PageClass.CurrentPage2 >= pge.Pages.Count))
             {
                 nextButton.gameObject.SetActive(false);
             }
         }
-        else if(type == ButtonType.PrevButton)
+        else if (type == ButtonType.PrevButton)
         {
             Vector3 newRotation = new Vector3(startRotation.x, 180, startRotation.y);
             transform.rotation = Quaternion.Euler(newRotation);
@@ -129,7 +155,7 @@ public class FlipPage : MonoBehaviour
         nextButton.gameObject.SetActive(false);
         prevButton.gameObject.SetActive(false);
 
-        if(pge.Pages.Count > 2)
+        if (pge.Pages.Count > 2)
         {
             nextButton.gameObject.SetActive(true);
         }
@@ -144,7 +170,7 @@ public class FlipPage : MonoBehaviour
         string body1 = "";
         string body2 = "";
 
-        if(PageClass.CurrentPage1 < pge.Pages.Count)
+        if (PageClass.CurrentPage1 < pge.Pages.Count)
         {
             body1 = pge.Pages[PageClass.CurrentPage1];
         }
@@ -192,5 +218,5 @@ public class FlipPage : MonoBehaviour
     }
 
 
-    
+
 }
