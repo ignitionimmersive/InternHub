@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using UnityEngine.XR.ARFoundation;
-using UnityEngine.XR.ARCore;
-
 
 public class OpenBook : MonoBehaviour
 {
-
+    
     [SerializeField] Button openButton = null;
     [SerializeField] GameObject openedBook = null;
     [SerializeField] GameObject insideBackCover = null;
@@ -31,44 +28,41 @@ public class OpenBook : MonoBehaviour
     void Start()
     {
         startRotation = transform.rotation;
-        if (openButton != null)
+        if(openButton!= null)
         {
             openButton.onClick.AddListener(() => openButton_Click());
         }
 
         AppEvent.CloseBook += new EventHandler(closeButton_Click);
 
+        
     }
 
 
     // Update is called once per frame
     void Update()
     {
-
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
-            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            Vector3 worldTouchPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, 100f));
+            Vector3 direction = worldTouchPosition - Camera.main.transform.position;
+            RaycastHit hit;
+
+            if (Physics.Raycast(Camera.main.transform.position, direction, out hit))
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-                Vector3 worldTouchPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, 100f));
-                Vector3 direction = worldTouchPosition - Camera.main.transform.position;
-                RaycastHit hit;
 
-                if (Physics.Raycast(ray, out hit))
+
+                if (touch.phase == TouchPhase.Began)
                 {
-                    GameObject open = hit.collider.gameObject;
 
-                    if (open.CompareTag("OpenBook"))
+                    if ((isOpenClicked) || (isCloseClicked))
                     {
-                        if ((isOpenClicked))
+                        transform.Rotate(rotationVector * Time.deltaTime);
+                        endTime = DateTime.Now;
+
+                        if (isOpenClicked)
                         {
-
-
-                            transform.Rotate(rotationVector * Time.deltaTime);
-                            endTime = DateTime.Now;
-
-
                             if ((endTime - startTime).TotalSeconds >= 1)
                             {
                                 isOpenClicked = false;
@@ -82,12 +76,7 @@ public class OpenBook : MonoBehaviour
                                 transform.rotation = Quaternion.Euler(newRotation);
                             }
                         }
-
-
-                    }
-                    else if (open.CompareTag("CloseBook"))
-                    {
-                        if (isCloseClicked)
+                        else if (isCloseClicked)
                         {
                             if ((endTime - startTime).TotalSeconds >= 1)
                             {
@@ -99,54 +88,44 @@ public class OpenBook : MonoBehaviour
                             }
                         }
                     }
+
+
                 }
-
-
-
-
             }
-
-
         }
-
-
     }
+    
 
-
-    public void openButton_Click()
-
+    private void openButton_Click()
     {
         isOpenClicked = true;
         startTime = DateTime.Now;
         rotationVector = new Vector3(0, 180, 0);
 
         PlaySound();
-
     }
-
-    public void closeButton_Click(object sender, EventArgs e)
+   
+    private void closeButton_Click(object sender, EventArgs e)
     {
-        if (Input.GetTouch(0).phase == TouchPhase.Began)
-        {
-            gameObject.SetActive(true);
-            insideBackCover.SetActive(true);
-            openedBook.SetActive(false);
 
-            isCloseClicked = true;
-            startTime = DateTime.Now;
-            rotationVector = new Vector3(0, -180, 0);
+        gameObject.SetActive(true);
+        insideBackCover.SetActive(true);
+        openedBook.SetActive(false);
 
-            PlaySound();
-        }
+        isCloseClicked = true;
+        startTime = DateTime.Now;
+        rotationVector = new Vector3(0, -180, 0);
+
+        PlaySound();
     }
 
-
+    
     private void PlaySound()
     {
-        if ((audioSource != null) && (openBookAudio != null))
+        if((audioSource != null) && (openBookAudio != null))
         {
             audioSource.PlayOneShot(openBookAudio);
         }
     }
-
+   
 }
