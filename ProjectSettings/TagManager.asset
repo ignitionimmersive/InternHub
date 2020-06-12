@@ -9,6 +9,7 @@ TagManager:
   - MainBody
   - SubPart
   - FlipPages
+  - Openbook
   layers:
   - Default
   - TransparentFX
