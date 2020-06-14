@@ -63,7 +63,7 @@ public class FlipPage : MonoBehaviour
     private void Update()
     {
        if(isClicked)
-        {
+       {
             transform.Rotate(rotationVector * Time.deltaTime);
             endTime = DateTime.Now;
             if((endTime - startTime).TotalSeconds >=1)
