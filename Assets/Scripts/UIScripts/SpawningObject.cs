@@ -9,7 +9,6 @@ using UnityEngine.UI;
 [RequireComponent(typeof(ARRaycastManager))]
 public class SpawningObject : MonoBehaviour
 {
-    public GameObject Indicator;
     public GameObject placedPrefab;
     //public Text debug;
 
@@ -32,7 +31,6 @@ public class SpawningObject : MonoBehaviour
 
         UpdateIndicatorPose();
         ActiveSpawnIndicator();
-        InstantiateModel();
     }
 
     private void UpdateIndicatorPose()
@@ -55,21 +53,11 @@ public class SpawningObject : MonoBehaviour
     {
         if (activeIndicator)
         {
-            Indicator.SetActive(true);
-            Indicator.transform.SetPositionAndRotation(indicatorPose.position, indicatorPose.rotation);
+            placedPrefab.SetActive(true);
+            placedPrefab.transform.SetPositionAndRotation(indicatorPose.position, indicatorPose.rotation);
             objectPlaced = true;
         }         
         else
-            Indicator.SetActive(false);
-    }
-
-    private void InstantiateModel()
-    {
-        if (activeIndicator && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-        {
-            Instantiate(placedPrefab, indicatorPose.position, indicatorPose.rotation);
-            Indicator.SetActive(false);
-            objectPlaced = true;
-        }
+            placedPrefab.SetActive(false);
     }
 }

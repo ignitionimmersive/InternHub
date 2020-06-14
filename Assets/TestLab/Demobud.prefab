@@ -621,7 +621,8 @@ MonoBehaviour:
   - {fileID: 7294045262552736199}
   - {fileID: 7294045262001655067}
   - {fileID: 7294045261917795174}
-  theBlueprint: {fileID: 0}
+  theBlueprint: {fileID: 8091714241293905550, guid: cd7d2ef27fb43c84ebabf723239200a0,
+    type: 3}
   child_on_body_count: 0
   child_on_blueprint_count: 0
 --- !u!1 &7294045262552736199

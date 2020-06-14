@@ -11,7 +11,7 @@ public class InfoPanel : MonoBehaviour
     [SerializeField] Transform learnPanel;
     [SerializeField] Transform placePanel;
 
-    private static List<Transform> panels = new List<Transform>();
+    public List<Transform> panels = new List<Transform>();
 
     Vector3 scale = Vector3.zero;
 

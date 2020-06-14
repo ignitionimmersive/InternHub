@@ -18,16 +18,17 @@ public class ShowInfo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        debug.text = "Not found";
+        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit))
         {
             GameObject open = hit.collider.gameObject;
-
-            if (open.CompareTag("Player"))
+            
+            if (open.CompareTag("SubPart"))
             {
+                //Debug.Log("HERE");
                 debug.text = "FOUND";
                 OpenPanel(open.GetComponent<InfoPanel>());
+                //Debug.Log("HERE");
             }
         }
         else
@@ -36,6 +37,7 @@ public class ShowInfo : MonoBehaviour
 
     private void OpenPanel(InfoPanel info)
     {
+        Debug.Log("HERE");
         foreach (InfoPanel panel in panels)
         {
             if (info == panel) panel.OpenPanel();
