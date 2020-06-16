@@ -7,7 +7,7 @@ using UnityEngine.XR.ARSubsystems;
 
 public class MechanicMode : MonoBehaviour
 {
-    public UIBehaviour script;
+    public UIBehaviour action;
     public TheParent theParent;
     public Text debug;
     //private bool theParentHasBeenSpawned = false;
@@ -25,7 +25,7 @@ public class MechanicMode : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!script.isBuildActive)
+        if (!action.isBuildActive)
             return;
 
         if (Input.touchCount > 0)
@@ -45,8 +45,6 @@ public class MechanicMode : MonoBehaviour
                     if (!theBluePrintHasBeenSpawned)
                     {
                         theBluePrint01 = (GameObject)GameObject.Instantiate(this.theBlueprint.gameObject, pose.position, Quaternion.identity);
-                        theBluePrint01.transform.Translate(0, 0.7f, 0);
-                        theBluePrint01.transform.Rotate(-90.0f, 0.0f, 0.0f, Space.Self);
                         theParent.gameObject.GetComponent<TheParent>().theBlueprint = theBluePrint01.GetComponent<TheBlueprint>();
                         this.theBluePrintHasBeenSpawned = true;
                         debug.text = "Blueprint spawned.";
@@ -66,7 +64,7 @@ public class MechanicMode : MonoBehaviour
                                 else if (hit.collider.gameObject.GetComponentInParent<TheParent>().CURRENT_STATE == TheParent.PARENT_STATE.ALL_CHILD_ON_BLUEPRINT)
                                 {
                                     hit.collider.gameObject.GetComponentInParent<TheParent>().AssembleAllChildren();
-                                    script.goBack.SetActive(true);
+                                    action.exitButton.SetActive(true);
                                 }
                             }
                             debug.text = "Activate Mechanic.";
@@ -76,7 +74,7 @@ public class MechanicMode : MonoBehaviour
             }
         }
 
-        if (script.GoBackToMain())
+        if (action.GoBackToMain())
         {
             Destroy(theBluePrint01);
             //theParent.gameObject.GetComponent<TheParent>().CURRENT_STATE = TheParent.PARENT_STATE.ALL_CHILD_ON_BODY;

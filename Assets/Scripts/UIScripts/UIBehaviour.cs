@@ -10,7 +10,7 @@ using UnityEngine.XR.ARSubsystems;
 public class UIBehaviour : MonoBehaviour
 {
     public Text debug;
-    public GameObject goBack;
+    public GameObject exitButton;
     public ARPlaneManager planeManager;
     public InfoPanel Panel;
   
@@ -28,12 +28,11 @@ public class UIBehaviour : MonoBehaviour
 
     private void Start()
     {
-        goBack.SetActive(false);
+        exitButton.SetActive(false);
     }
 
     void Update()
     {
-        VisualizePlanes();
         CheckSelection();
         CheckUIenabled();
     }
@@ -47,7 +46,7 @@ public class UIBehaviour : MonoBehaviour
                 panel.gameObject.SetActive(false);
                 debug.text = "In Mechanic Mode";
             }    
-            //goBack.SetActive(true);
+            //exitButton.SetActive(true);
         }
 
         if (!isBuildActive && !isLearningActive && !isPlaceModeActive && !isUseModeActive)
@@ -57,18 +56,7 @@ public class UIBehaviour : MonoBehaviour
                 panel.gameObject.SetActive(true);
                 debug.text = "In Main Menu";
             }
-            goBack.SetActive(false);
-        }
-    }
-
-    private void VisualizePlanes()
-    {
-        foreach (ARPlane plane in planeManager.trackables)
-        {
-            if (isBuildActive)
-                plane.gameObject.SetActive(true);
-            else 
-                plane.gameObject.SetActive(false);
+            exitButton.SetActive(false);
         }
     }
 
