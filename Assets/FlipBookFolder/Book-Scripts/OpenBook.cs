@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using UnityEngine.XR.ARFoundation;
-using UnityEngine.XR.ARCore;
+//using UnityEngine.XR.ARFoundation;
+//using UnityEngine.XR.ARCore;
 
 
 public class OpenBook : MonoBehaviour
@@ -44,8 +44,27 @@ public class OpenBook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            Vector3 worldTouchPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, 100f));
+            Vector3 direction = worldTouchPosition - Camera.main.transform.position;
+            RaycastHit hit;
+            Debug.DrawLine(Camera.main.transform.position, worldTouchPosition, Color.red);
+            if (Physics.Raycast(Camera.main.transform.position, direction, out hit))
+            {
+                //Debug.DrawLine(Camera.main.transform.position, worldTouchPosition, Color.red);
 
-        if ((isOpenClicked) || (isCloseClicked))
+                if (hit.collider.gameObject.name == "OpenBookButton" )
+                {
+                    if (hit.collider.gameObject.name == "OpenedBook")
+                        Debug.DrawLine(Camera.main.transform.position, worldTouchPosition, Color.blue);
+
+                }
+            }
+        }
+
+                if ((isOpenClicked) || (isCloseClicked))
         {
             transform.Rotate(rotationVector * Time.deltaTime);
             endTime = DateTime.Now;
