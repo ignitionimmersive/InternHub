@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-//using UnityEngine.XR.ARFoundation;
-//using UnityEngine.XR.ARCore;
+using UnityEngine.XR.ARFoundation;
+using UnityEngine.XR.ARCore;
 
 
 public class OpenBook : MonoBehaviour
@@ -50,53 +50,50 @@ public class OpenBook : MonoBehaviour
             Vector3 worldTouchPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, 100f));
             Vector3 direction = worldTouchPosition - Camera.main.transform.position;
             RaycastHit hit;
-            Debug.DrawLine(Camera.main.transform.position, worldTouchPosition, Color.red);
+
             if (Physics.Raycast(Camera.main.transform.position, direction, out hit))
             {
-                //Debug.DrawLine(Camera.main.transform.position, worldTouchPosition, Color.red);
-
-                if (hit.collider.gameObject.name == "OpenBookButton" )
+                if (hit.collider.gameObject.name == "OpenBookButton")
                 {
-                    if (hit.collider.gameObject.name == "OpenedBook")
-                        Debug.DrawLine(Camera.main.transform.position, worldTouchPosition, Color.blue);
 
+
+
+                    if ((isOpenClicked) || (isCloseClicked))
+                    {
+                        transform.Rotate(rotationVector * Time.deltaTime);
+                        endTime = DateTime.Now;
+
+                        if (isOpenClicked == true)
+                        {
+                            if ((endTime - startTime).TotalSeconds >= 1)
+                            {
+                                isOpenClicked = false;
+                                gameObject.SetActive(false);
+                                insideBackCover.SetActive(false);
+                                openedBook.SetActive(true);
+
+                                AppEvent.OpenBookFun();
+
+                                Vector3 newRotation = new Vector3(startRotation.x, 180, startRotation.y);
+                                transform.rotation = Quaternion.Euler(newRotation);
+                            }
+                        }
+                        else if (isCloseClicked == true)
+                        {
+                            if ((endTime - startTime).TotalSeconds >= 1)
+                            {
+                                isCloseClicked = false;
+
+
+                                Vector3 newRotation = new Vector3(startRotation.x, 0, startRotation.y);
+                                transform.rotation = Quaternion.Euler(newRotation);
+                            }
+                        }
+                    }
                 }
             }
         }
-
-                if ((isOpenClicked) || (isCloseClicked))
-        {
-            transform.Rotate(rotationVector * Time.deltaTime);
-            endTime = DateTime.Now;
-
-            if (isOpenClicked)
-            {
-                if ((endTime - startTime).TotalSeconds >= 1)
-                {
-                    isOpenClicked = false;
-                    gameObject.SetActive(false);
-                    insideBackCover.SetActive(false);
-                    openedBook.SetActive(true);
-
-                    AppEvent.OpenBookFun();
-
-                    Vector3 newRotation = new Vector3(startRotation.x, 180, startRotation.y);
-                    transform.rotation = Quaternion.Euler(newRotation);
-                }
-            }
-            else if (isCloseClicked)
-            {
-                if ((endTime - startTime).TotalSeconds >= 1)
-                {
-                    isCloseClicked = false;
-
-
-                    Vector3 newRotation = new Vector3(startRotation.x, 0, startRotation.y);
-                    transform.rotation = Quaternion.Euler(newRotation);
-                }
-            }
-        }
-    }   
+    }
     public void openButton_Click()
 
     {
