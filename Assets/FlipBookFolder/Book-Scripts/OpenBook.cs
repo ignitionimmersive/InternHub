@@ -50,7 +50,7 @@ public class OpenBook : MonoBehaviour
             transform.Rotate(rotationVector * Time.deltaTime);
             endTime = DateTime.Now;
 
-            if (isOpenClicked)
+            if (isOpenClicked == true)
             {
                 if ((endTime - startTime).TotalSeconds >= 1)
                 {
@@ -65,7 +65,7 @@ public class OpenBook : MonoBehaviour
                     transform.rotation = Quaternion.Euler(newRotation);
                 }
             }
-            else if (isCloseClicked)
+            else if (isCloseClicked == true)
             {
                 if ((endTime - startTime).TotalSeconds >= 1)
                 {
