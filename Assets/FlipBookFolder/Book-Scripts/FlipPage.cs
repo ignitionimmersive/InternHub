@@ -24,6 +24,11 @@ public class FlipPage : MonoBehaviour
     [SerializeField] TMP_Text Text1_2;
     [SerializeField] TMP_Text Text2_1;
     [SerializeField] TMP_Text Text2_2;
+    [SerializeField] Image img1;
+    [SerializeField] Image img2;
+    [SerializeField] Image img3;
+    [SerializeField] Image img4;
+
 
 
 
