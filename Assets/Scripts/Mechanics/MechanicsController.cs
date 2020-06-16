@@ -35,7 +35,7 @@ public class MechanicsController : MonoBehaviour
                             {
                                 this.theParentHasBeenSpawned = true;
                                 theParent01 = (GameObject)GameObject.Instantiate(this.theParent.gameObject, hit.point, Quaternion.identity);
-                                theParent01.transform.Translate(0, 2, 0);
+                                theParent01.transform.Translate(0, 20, 0);
                             }
                         }
                     }
@@ -47,8 +47,8 @@ public class MechanicsController : MonoBehaviour
                             if (touch.phase == TouchPhase.Ended)
                             {
                             theBluePrint01 = (GameObject)GameObject.Instantiate(this.theBlueprint.gameObject, hit.point, Quaternion.identity);
-                            theBluePrint01.transform.Translate(0, 7, 0);
-                            theBluePrint01.transform.Rotate(-90.0f, 0.0f, 0.0f, Space.Self);
+                            theBluePrint01.transform.Translate(0, 14, 0);
+                            theBluePrint01.transform.Rotate(0,  -90.0f, 90.0f, Space.Self);
                             theParent01.GetComponent<TheParent>().theBlueprint = theBluePrint01.GetComponent<TheBlueprint>();
                             this.theBluePrintHasBeenSpawned = true;
                             }

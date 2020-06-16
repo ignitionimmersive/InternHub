@@ -47,7 +47,7 @@ public class MoveToAPoint : MonoBehaviour
                 {
               
                     if (moveSpeed == 0) moveSpeed = Random.Range(0.4f, 0.75f);
-                    if (timeToStart == 0) timeToStart = Random.Range(0, 1f);
+                    if (timeToStart == 0) timeToStart = Random.Range(0, 3f);
 
                     StartCoroutine(MoveToPoint(moveSpeed, timeToStart));
 
