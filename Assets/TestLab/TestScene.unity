@@ -569,8 +569,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76f1fce119280bb45acacf7d84297aee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  script: {fileID: 0}
   theParent: {fileID: 7294045262552081452, guid: e6f064f25333c9d47ab9ce7930e31062,
     type: 3}
+  debug: {fileID: 0}
   theBlueprint: {fileID: 8091714241293905550, guid: cd7d2ef27fb43c84ebabf723239200a0,
     type: 3}
   arRaycastManager: {fileID: 7387671}
@@ -907,6 +909,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7958433813089458234, guid: 66341324f80ccbc48be630c229424ca8,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7958433813089458234, guid: 66341324f80ccbc48be630c229424ca8,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 7958433814434157509, guid: 66341324f80ccbc48be630c229424ca8,
         type: 3}
       propertyPath: m_Name

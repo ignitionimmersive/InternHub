@@ -50,14 +50,15 @@ public class OpenBook : MonoBehaviour
             Vector3 worldTouchPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, 100f));
             Vector3 direction = worldTouchPosition - Camera.main.transform.position;
             RaycastHit hit;
-
+            Debug.DrawLine(Camera.main.transform.position, worldTouchPosition, Color.red);
             if (Physics.Raycast(Camera.main.transform.position, direction, out hit))
             {
-                Debug.DrawLine(Camera.main.transform.position, worldTouchPosition, Color.red);
+                //Debug.DrawLine(Camera.main.transform.position, worldTouchPosition, Color.red);
 
-                if (hit.collider.gameObject == this.openButton)
+                if (hit.collider.gameObject.name == "OpenBookButton" )
                 {
-                    Debug.DrawLine(Camera.main.transform.position, worldTouchPosition, Color.white);
+                    if (hit.collider.gameObject.name == "OpenedBook")
+                        Debug.DrawLine(Camera.main.transform.position, worldTouchPosition, Color.blue);
 
                 }
             }
