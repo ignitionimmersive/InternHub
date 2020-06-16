@@ -44,40 +44,56 @@ public class OpenBook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if ((isOpenClicked) || (isCloseClicked))
+        if (Input.touchCount > 0)
         {
-            transform.Rotate(rotationVector * Time.deltaTime);
-            endTime = DateTime.Now;
+            Touch touch = Input.GetTouch(0);
+            Vector3 worldTouchPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, 100f));
+            Vector3 direction = worldTouchPosition - Camera.main.transform.position;
+            RaycastHit hit;
 
-            if (isOpenClicked == true)
+            if (Physics.Raycast(Camera.main.transform.position, direction, out hit))
             {
-                if ((endTime - startTime).TotalSeconds >= 1)
+                if (hit.collider.gameObject.name == "OpenBookButton")
                 {
-                    isOpenClicked = false;
-                    gameObject.SetActive(false);
-                    insideBackCover.SetActive(false);
-                    openedBook.SetActive(true);
-
-                    AppEvent.OpenBookFun();
-
-                    Vector3 newRotation = new Vector3(startRotation.x, 180, startRotation.y);
-                    transform.rotation = Quaternion.Euler(newRotation);
-                }
-            }
-            else if (isCloseClicked == true)
-            {
-                if ((endTime - startTime).TotalSeconds >= 1)
-                {
-                    isCloseClicked = false;
 
 
-                    Vector3 newRotation = new Vector3(startRotation.x, 0, startRotation.y);
-                    transform.rotation = Quaternion.Euler(newRotation);
+
+                    if ((isOpenClicked) || (isCloseClicked))
+                    {
+                        transform.Rotate(rotationVector * Time.deltaTime);
+                        endTime = DateTime.Now;
+
+                        if (isOpenClicked == true)
+                        {
+                            if ((endTime - startTime).TotalSeconds >= 1)
+                            {
+                                isOpenClicked = false;
+                                gameObject.SetActive(false);
+                                insideBackCover.SetActive(false);
+                                openedBook.SetActive(true);
+
+                                AppEvent.OpenBookFun();
+
+                                Vector3 newRotation = new Vector3(startRotation.x, 180, startRotation.y);
+                                transform.rotation = Quaternion.Euler(newRotation);
+                            }
+                        }
+                        else if (isCloseClicked == true)
+                        {
+                            if ((endTime - startTime).TotalSeconds >= 1)
+                            {
+                                isCloseClicked = false;
+
+
+                                Vector3 newRotation = new Vector3(startRotation.x, 0, startRotation.y);
+                                transform.rotation = Quaternion.Euler(newRotation);
+                            }
+                        }
+                    }
                 }
             }
         }
-    }   
+    }
     public void openButton_Click()
 
     {
