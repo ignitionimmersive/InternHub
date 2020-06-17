@@ -27,14 +27,9 @@ public class UsageMode : MonoBehaviour
     {
         float distance = Vector3.Distance(GameObject.FindWithTag("MainCamera").transform.position, this.gameObject.transform.position); 
 
-        if ((distance <= 2) && (distance >=1) )
+        if (distance <= 1)
         {
-            theVideoPlane.GetComponent<VideoPlayer>().SetDirectAudioVolume(0, 1 -(2- distance));
-        }
-
-        else if (distance <= 1)
-        {
-            theVideoPlane.GetComponent<VideoPlayer>().SetDirectAudioVolume(0, 1);
+            theVideoPlane.GetComponent<VideoPlayer>().SetDirectAudioVolume(0, 1 - distance);
         }
 
         else
