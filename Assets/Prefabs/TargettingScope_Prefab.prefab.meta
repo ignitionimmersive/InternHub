@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Prefabs/TargettingScope_Prefab.prefab.meta
 guid: 22e384f44d2a6e346b114e092f7660d9
 PrefabImporter:
+=======
+guid: f679c75e5e08a2649859fa391b253fe6
+folderAsset: yes
+DefaultImporter:
+>>>>>>> c9e7711529193a43d56901dc684d878d91263a1a:Assets/Art/Assets/Wrecked City/Building 02.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
