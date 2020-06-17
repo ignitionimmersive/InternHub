@@ -54,6 +54,9 @@ public class TheChild : MonoBehaviour
                     {
                         this.gameObject.AddComponent<Rigidbody>();
                     }
+
+                    this.gameObject.GetComponent<Rigidbody>().mass = 100;
+                    this.gameObject.GetComponent<Rigidbody>().angularDrag = 10;
                     this.CURRENTSTATE = CHILD_STATES.FALLING;
                     break;
                 }
