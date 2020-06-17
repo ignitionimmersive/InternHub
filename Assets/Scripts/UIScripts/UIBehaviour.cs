@@ -11,9 +11,10 @@ public class UIBehaviour : MonoBehaviour
 {
     public Text debug;
     public GameObject exitButton;
-    public ARPlaneManager planeManager;
+    public TheBlueprint blueprint;
+    public TheParent parent;
     public InfoPanel Panel;
-  
+
     [HideInInspector]
     public bool isBuildActive;
 
@@ -29,6 +30,7 @@ public class UIBehaviour : MonoBehaviour
     private void Start()
     {
         exitButton.SetActive(false);
+        blueprint.gameObject.SetActive(false);
     }
 
     void Update()
@@ -45,8 +47,8 @@ public class UIBehaviour : MonoBehaviour
             {
                 panel.gameObject.SetActive(false);
                 debug.text = "In Mechanic Mode";
-            }    
-            //exitButton.SetActive(true);
+            }
+            exitButton.SetActive(true);
         }
 
         if (!isBuildActive && !isLearningActive && !isPlaceModeActive && !isUseModeActive)
@@ -82,7 +84,8 @@ public class UIBehaviour : MonoBehaviour
     {
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
-            if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit))
+            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+            if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 GameObject open = hit.collider.gameObject;
 
@@ -90,8 +93,9 @@ public class UIBehaviour : MonoBehaviour
                 {
                     isBuildActive = true;
                     debug.text = "Mechanic Ready.";
+                    blueprint.gameObject.SetActive(true);
 
-                    // Tap on the indicator go back to the main hub.
+                    ActivateMechanicMode();
                     // if (GoBackToMain)
                     // Destroy(body)
                     // Destroy(blueprint)
@@ -114,6 +118,35 @@ public class UIBehaviour : MonoBehaviour
                     isPlaceModeActive = true;
                 }
             }
+        }
+    }
+
+    private void ActivateMechanicMode()
+    {
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                if (hit.collider.gameObject.GetComponent<TheChild>() != null)
+                {
+                    if (hit.collider.gameObject.GetComponentInParent<TheParent>().CURRENT_STATE == TheParent.PARENT_STATE.ALL_CHILD_ON_BODY)
+                    {
+                        hit.collider.gameObject.GetComponentInParent<TheParent>().DismantleAllChildren();
+                    }
+                    else if (hit.collider.gameObject.GetComponentInParent<TheParent>().CURRENT_STATE == TheParent.PARENT_STATE.ALL_CHILD_ON_BLUEPRINT)
+                    {
+                        hit.collider.gameObject.GetComponentInParent<TheParent>().AssembleAllChildren();
+                    }
+                }
+            }
+        }
+
+        if (GoBackToMain())
+        {
+            blueprint.gameObject.SetActive(false);
+            if (parent.gameObject.GetComponentInParent<TheParent>().CURRENT_STATE == TheParent.PARENT_STATE.ALL_CHILD_ON_BLUEPRINT)
+                parent.gameObject.GetComponentInParent<TheParent>().AssembleAllChildren();
         }
     }
 }

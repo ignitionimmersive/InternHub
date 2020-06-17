@@ -16,6 +16,7 @@ public class SpawningObject : MonoBehaviour
     private bool activeIndicator = false;
     public Pose indicatorPose;
 
+    private Vector3 screenCenter;
     private ARRaycastManager arRaycastManager;
     private static List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
@@ -35,7 +36,7 @@ public class SpawningObject : MonoBehaviour
 
     private void UpdateIndicatorPose()
     {
-        var screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
+        screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
         arRaycastManager.Raycast(screenCenter, hits, TrackableType.Planes);
 
         activeIndicator = hits.Count > 0;

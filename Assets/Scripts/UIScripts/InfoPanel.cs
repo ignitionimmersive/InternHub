@@ -13,7 +13,8 @@ public class InfoPanel : MonoBehaviour
 
     public List<Transform> panels = new List<Transform>();
 
-    Vector3 scale = Vector3.zero;
+    Vector3 defaultScale = Vector3.zero;
+    Vector3 desiredScale; 
 
     private void Start()
     {
@@ -21,17 +22,20 @@ public class InfoPanel : MonoBehaviour
         panels.Add(usagePanel);
         panels.Add(learnPanel);
         panels.Add(placePanel);
+
+        foreach (Transform panel in panels)
+            desiredScale = panel.transform.localScale;
     }
 
     void Update()
     {
         foreach (Transform panel in panels)
         {
-            panel.localScale = Vector3.Lerp(panel.localScale, scale, Time.deltaTime * speed);
+            panel.localScale = Vector3.Lerp(panel.localScale, defaultScale, Time.deltaTime * speed);
         }
     }
 
-    public void OpenPanel() => scale = Vector3.one;
+    public void OpenPanel() => defaultScale = desiredScale;
 
-    public void ClosePanel() => scale = Vector3.zero; 
+    public void ClosePanel() => defaultScale = Vector3.zero; 
 }
