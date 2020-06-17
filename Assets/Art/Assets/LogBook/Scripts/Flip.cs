@@ -24,6 +24,8 @@ public class Flip : MonoBehaviour
 
     private DateTime startTime;
     private DateTime endTime;
+
+    public GameObject thisthePlane;
     // Start is called before the first frame update
     void Start()
     {
@@ -53,38 +55,29 @@ public class Flip : MonoBehaviour
             if (Physics.Raycast(Camera.main.transform.position, direction, out hit))
             {
 
-
-                if (hit.collider.gameObject.name == "Page_01")
+                if (touch.phase == TouchPhase.Ended)
                 {
-                    if (touch.phase == TouchPhase.Began)
-                    {
-                        if ((nextClick) || (previousClick))
-                        {
-                            transform.Rotate(rotationVector * Time.deltaTime);
+                    if (hit.collider.gameObject.name == "PlaneNext")
+                {
+                        hit.collider.gameObject.GetComponent<Renderer>().material.color = Color.red;
+                    
+                         transform.Rotate(rotationVector * Time.deltaTime);
                             endTime = DateTime.Now;
+                        this.gameObject.transform.position = new Vector3(0,0,0);
 
-                            if (nextClick == true)
+
+                        if (nextButton)
+                        {
+                            if ((endTime - startTime).TotalSeconds >= 1)
                             {
-                                if ((endTime - startTime).TotalSeconds >= 1)
-                                {
-                                    nextClick = false;
+                                nextClick = false;
 
-                                    Vector3 newRotation = new Vector3(startRotation.x, startRotation.y, 180);
-                                    transform.rotation = Quaternion.Euler(newRotation);
-                                }
+                                Vector3 newRotation = new Vector3(0,0,180);
+                                transform.rotation = Quaternion.Euler(newRotation);
                             }
-                            else if (previousClick == true)
-                            {
-                                if ((endTime - startTime).TotalSeconds >= 1)
-                                {
-                                    previousClick = false;
 
-
-                                    Vector3 newRotation = new Vector3(startRotation.x, startRotation.y, 0);
-                                    transform.rotation = Quaternion.Euler(newRotation);
-                                }
-                            }
-                        }
+                        }    
+                        
 
 
                     }
@@ -93,15 +86,18 @@ public class Flip : MonoBehaviour
         }
     }
 
-        
+        public void nextPage()
+    {
+        Instantiate(GameObject.CreatePrimitive(PrimitiveType.Cube), this.gameObject.transform);
+    }
 
     
-    private void NextButton_Click()
+    public void NextButton_Click()
     {
         nextClick = true;
         startTime = DateTime.Now;
         nextButton.gameObject.SetActive(true);
-        rotationVector = new Vector3(0, 0, -180);
+        //rotationVector = new Vector3(0, 0, 180);
     }
     private void PrevButton_Click()
     {
