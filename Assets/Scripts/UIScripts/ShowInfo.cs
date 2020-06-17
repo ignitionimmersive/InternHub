@@ -22,13 +22,11 @@ public class ShowInfo : MonoBehaviour
         if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit))
         {
             GameObject open = hit.collider.gameObject;
-            
+
             if (open.CompareTag("SubPart"))
             {
-                //Debug.Log("HERE");
-                debug.text = "FOUND";
+                debug.text = open.name;
                 OpenPanel(open.GetComponent<InfoPanel>());
-                //Debug.Log("HERE");
             }
         }
         else
@@ -37,10 +35,13 @@ public class ShowInfo : MonoBehaviour
 
     private void OpenPanel(InfoPanel info)
     {
-        Debug.Log("HERE");
         foreach (InfoPanel panel in panels)
         {
-            if (info == panel) panel.OpenPanel();
+            if (info == panel)
+            {
+                panel.OpenPanel();
+                //Debug.Log(panel.transform.localScale.ToString());
+            }
             else panel.ClosePanel();
         }
     }
