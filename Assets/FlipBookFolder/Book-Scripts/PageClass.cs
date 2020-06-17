@@ -7,9 +7,13 @@ public class PageClass
     public string Title { get; set; }
     public string Text { get; set; }
     public List<string> Pages { get; set; }
+    
 
     public static List<PageClass> _pageList = null;
+    public static List<PageClass> _imageList = null;
+
     public static PageClass RandomPage;
+    public static PageClass RandomImage;
 
     public static int CurrentPage1 = 0;
     public static int CurrentPage2 = 1;
@@ -30,6 +34,35 @@ public class PageClass
         {
             wordCount++;
             if(wordCount > 45)
+            {
+                pge.Pages.Add(page);
+                page = "";
+                wordCount = 0;
+            }
+            page += string.Format(" {0} ", word);
+        }
+        pge.Pages.Add(page);
+
+        RandomPage = pge;
+        return pge;
+
+    }
+    public static PageClass GetRandomImage()
+    {
+        List<PageClass> imageList = PageClass._imageList;
+        int num = UnityEngine.Random.Range(0, imageList.Count);
+        PageClass pge = imageList[num];
+        pge.Pages = new List<string>();
+
+        string[] words = pge.Text.Split(' ');
+
+        string page = "";
+        int wordCount = 0;
+
+        foreach (string word in words)
+        {
+            wordCount++;
+            if (wordCount > 1)
             {
                 pge.Pages.Add(page);
                 page = "";
