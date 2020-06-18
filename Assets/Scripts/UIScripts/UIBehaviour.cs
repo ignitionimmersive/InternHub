@@ -10,10 +10,16 @@ using UnityEngine.XR.ARSubsystems;
 public class UIBehaviour : MonoBehaviour
 {
     public Text debug;
-    public GameObject exitButton;
+    public GameObject exitMechanic;
+    public GameObject exitPlace;
+    public GameObject exitLearn;
+    public GameObject exitUse;
     public TheBlueprint blueprint;
     public TheParent parent;
     public InfoPanel Panel;
+
+
+    public GameObject theLens;
 
     [HideInInspector]
     public bool isBuildActive;
@@ -29,7 +35,10 @@ public class UIBehaviour : MonoBehaviour
 
     private void Start()
     {
-        exitButton.SetActive(false);
+        exitMechanic.SetActive(false);
+        exitLearn.SetActive(false);
+        exitPlace.SetActive(false);
+        exitUse.SetActive(false);
         blueprint.gameObject.SetActive(false);
     }
 
@@ -37,6 +46,9 @@ public class UIBehaviour : MonoBehaviour
     {
         CheckSelection();
         CheckUIenabled();
+
+        if (isBuildActive)
+            ActivateMechanicMode();
     }
 
     private void CheckUIenabled()
@@ -46,9 +58,7 @@ public class UIBehaviour : MonoBehaviour
             foreach (Transform panel in Panel.panels)
             {
                 panel.gameObject.SetActive(false);
-                debug.text = "In Mechanic Mode";
             }
-            exitButton.SetActive(true);
         }
 
         if (!isBuildActive && !isLearningActive && !isPlaceModeActive && !isUseModeActive)
@@ -58,34 +68,19 @@ public class UIBehaviour : MonoBehaviour
                 panel.gameObject.SetActive(true);
                 debug.text = "In Main Menu";
             }
-            exitButton.SetActive(false);
         }
-    }
-
-    public bool GoBackToMain()
-    {
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-        {
-            if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit))
-            {
-                GameObject button = hit.collider.gameObject;
-
-                if (button.CompareTag("GoBack"))
-                {
-                    isBuildActive = isLearningActive = isPlaceModeActive = isUseModeActive = false;
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     private void CheckSelection()
     {
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        if (Input.touchCount > 0)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            Touch touch = Input.GetTouch(0);
+            Vector3 worldTouchPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, 100f));
+            Vector3 direction = worldTouchPosition - Camera.main.transform.position;
+            RaycastHit hit;
+
+            if (Physics.Raycast(Camera.main.transform.position, direction, out hit))
             {
                 GameObject open = hit.collider.gameObject;
 
@@ -94,28 +89,33 @@ public class UIBehaviour : MonoBehaviour
                     isBuildActive = true;
                     debug.text = "Mechanic Ready.";
                     blueprint.gameObject.SetActive(true);
+                    exitMechanic.SetActive(true);
 
-                    ActivateMechanicMode();
-                    // if (GoBackToMain)
-                    // Destroy(body)
-                    // Destroy(blueprint)
-                    // enableUI
+                    foreach (GameObject value in this.theLens.GetComponent<TheParent>().children)
+                    {
+                        value.gameObject.GetComponent<TheChild>().initialPosition = value.gameObject.transform.position;
+                        value.gameObject.GetComponent<TheChild>().initialRotation = value.gameObject.transform.rotation;
+                    }
+
                 }
 
                 else if (open.CompareTag("UsagePanel"))
                 {
                     // Usage mode.
                     isUseModeActive = true;
+                    exitUse.SetActive(true);
                 }
                 else if (open.CompareTag("LearnPanel"))
                 {
                     // Learn mode.
                     isLearningActive = true;
+                    exitLearn.SetActive(true);
                 }
                 else if (open.CompareTag("PlacePanel"))
                 {
                     // Place mode.
                     isPlaceModeActive = true;
+                    exitPlace.SetActive(true);
                 }
             }
         }
@@ -123,7 +123,7 @@ public class UIBehaviour : MonoBehaviour
 
     private void ActivateMechanicMode()
     {
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        if (Input.touchCount > 0 && Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Began)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
             if (Physics.Raycast(ray, out RaycastHit hit))
@@ -132,6 +132,7 @@ public class UIBehaviour : MonoBehaviour
                 {
                     if (hit.collider.gameObject.GetComponentInParent<TheParent>().CURRENT_STATE == TheParent.PARENT_STATE.ALL_CHILD_ON_BODY)
                     {
+                        //debug.text = "Dismantle";
                         hit.collider.gameObject.GetComponentInParent<TheParent>().DismantleAllChildren();
                     }
                     else if (hit.collider.gameObject.GetComponentInParent<TheParent>().CURRENT_STATE == TheParent.PARENT_STATE.ALL_CHILD_ON_BLUEPRINT)
@@ -139,15 +140,24 @@ public class UIBehaviour : MonoBehaviour
                         hit.collider.gameObject.GetComponentInParent<TheParent>().AssembleAllChildren();
                     }
                 }
-            }
-        }
 
-        if (GoBackToMain())
-        {
-            blueprint.gameObject.SetActive(false);
-            if (parent.gameObject.GetComponentInParent<TheParent>().CURRENT_STATE == TheParent.PARENT_STATE.ALL_CHILD_ON_BLUEPRINT)
-                parent.gameObject.GetComponentInParent<TheParent>().AssembleAllChildren();
+                if (hit.collider.gameObject.CompareTag("GoBack"))
+                {
+                    // Turn off blueprint.
+                    blueprint.gameObject.SetActive(false);
+
+                    // If exit while object is being dismantled, re-assemble object before go back to main menu.
+                    if (parent.gameObject.GetComponentInParent<TheParent>().CURRENT_STATE == TheParent.PARENT_STATE.ALL_CHILD_ON_BLUEPRINT)
+                        parent.gameObject.GetComponentInParent<TheParent>().AssembleAllChildren();
+
+                    // Turn off exit button.
+                    exitMechanic.SetActive(false);
+
+                    // Turn of Build mode.
+                    isBuildActive = false;
+                }
+            }
         }
     }
 }
-
+      
