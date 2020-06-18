@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MechanicsController : MonoBehaviour
 {
-
+    public UIBehaviour action;
     public TheParent theParent;
     private bool theParentHasBeenSpawned = false;
 
@@ -17,6 +17,9 @@ public class MechanicsController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!action.isBuildActive)
+            return;
+
         if (Input.touchCount > 0)
         { 
             Touch touch = Input.GetTouch(0);

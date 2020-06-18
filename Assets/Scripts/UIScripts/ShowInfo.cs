@@ -18,14 +18,14 @@ public class ShowInfo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        debug.text = "Not found";
+        //debug.text = "Not found";
         if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit))
         {
             GameObject open = hit.collider.gameObject;
 
             if (open.CompareTag("SubPart"))
             {
-                debug.text = open.name;
+                //debug.text = open.name;
                 OpenPanel(open.GetComponent<InfoPanel>());
             }
         }

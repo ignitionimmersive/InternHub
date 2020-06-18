@@ -9,6 +9,8 @@ public class ObjectPlacement : MonoBehaviour
     private Quaternion startRot;
     private float threshold = 0.05f;
     private bool isPlaced = false;
+
+    public UIBehaviour status;
     public Text debug;
 
     [SerializeField] Transform destination;
@@ -22,7 +24,7 @@ public class ObjectPlacement : MonoBehaviour
 
     void Update()
     {
-        if (isPlaced)
+        if (isPlaced || status.isPlaceModeActive)
             return;
 
         if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit))
