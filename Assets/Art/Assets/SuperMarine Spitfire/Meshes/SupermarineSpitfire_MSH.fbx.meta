@@ -1,0 +1,371 @@
+fileFormatVersion: 2
+guid: ef788104babf46144a759667a07737e7
+ModelImporter:
+  serializedVersion: 19300
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Belly_Painted_Metal
+    second: {fileID: 2100000, guid: e1c1b1ca25f27634f96a72fa22e76156, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Black_Glass_Trim
+    second: {fileID: 2100000, guid: 2d15957883be2004faf1a3901a5d6e5c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Black_Leather
+    second: {fileID: 2100000, guid: 4a199d654429c0448bca8183ac65fc83, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Black_Metal
+    second: {fileID: 2100000, guid: 37a048f30465e314c9c5a9f64d365bde, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Black_Plastic
+    second: {fileID: 2100000, guid: 0b4080a27ff2bc446959e90debbb04bd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Brown_Exhaust
+    second: {fileID: 2100000, guid: 6f3d2ec8df2ef0d4ca520cdbe93bd28a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Brown_Leather
+    second: {fileID: 2100000, guid: fb75fe184763f2145b7ac83e19cd85f8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Canopy_Slide
+    second: {fileID: 2100000, guid: 684be321157c42d469aa714c1ac50f09, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Canvas_Strap
+    second: {fileID: 2100000, guid: a60accd6063d89d49a533a9db5c8ae21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cockpit_Fuselage_Matt_Metal
+    second: {fileID: 2100000, guid: c81f79d7870d0904eaae1fb3b18d88fb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cockpit_Green
+    second: {fileID: 2100000, guid: e027d2c67610b8643920bc36db5ef4f8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cockpit_Silver
+    second: {fileID: 2100000, guid: d4dfc993740f0084da6dcf7eb6aa98fe, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Compass_Dial
+    second: {fileID: 2100000, guid: ad04e74a73b32a346bfcd8dff4f89f0b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Copper_Metal
+    second: {fileID: 2100000, guid: f3d98a22007a9cc4da449ae62d3dc596, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cowling_Painted_Metal
+    second: {fileID: 2100000, guid: 2670754e1fd05ac4aa244985f81d6315, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Dark
+    second: {fileID: 2100000, guid: 07a5dda895491ee43a1e0f240c6b2496, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Door_Handle1
+    second: {fileID: 2100000, guid: 021c427315aab9c4d9554fbd33ef5261, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Door_Locked
+    second: {fileID: 2100000, guid: 3649bf9cbeabfff4e9c4b95ddf6090be, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Door_NamePlate
+    second: {fileID: 2100000, guid: 659234dd428581548ad05523d3c79f46, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Door_Pull
+    second: {fileID: 2100000, guid: 716531deb1a570842b9424d077ada0f8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Exhaust_Metal
+    second: {fileID: 2100000, guid: bb2246454d2148143bfd82b026037138, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Fin_Painted_Metal
+    second: {fileID: 2100000, guid: dfa21fd456b311c4ca7ab4b38ea58e76, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Flare_Tops
+    second: {fileID: 2100000, guid: a7de1e17052817a49ba5488e7f59c02b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Fuel_Cover_Painted_Metal
+    second: {fileID: 2100000, guid: 536d899514c8a5243be1d606304f5d09, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Glass
+    second: {fileID: 2100000, guid: cc4147832fb35d9499937cd9716e6a9f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Green_Brown_Double
+    second: {fileID: 2100000, guid: 10853e453dd184c4a8da38a69e3a6cfd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Green_Exhaust
+    second: {fileID: 2100000, guid: 19dd0f5f23df8d74eae75e5ab0c81710, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Instrument_Panel
+    second: {fileID: 2100000, guid: 28619f94286510143956c5fa10bdc957, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Letter_Grey_Matt_Metal
+    second: {fileID: 2100000, guid: 06bb7b8928a047443b52e50524bc3321, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Main_Brown_Painted_Metal
+    second: {fileID: 2100000, guid: 7986e22296b5d5545a0962d6332bd4db, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Main_Fillets_Painted_Metal
+    second: {fileID: 2100000, guid: bcd43534d01637a49bd0f66f766fd0a0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Main_Green_Painted_Metal
+    second: {fileID: 2100000, guid: 657de4cf6ea02fa4bb0e9c74520b96c5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Main_Grey_Painted_Metal
+    second: {fileID: 2100000, guid: a654138b5b2e18740b1dd3d29339db68, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Main_Tyre
+    second: {fileID: 2100000, guid: 1f598c450f6bfad46a25687d8c95a263, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Mirror
+    second: {fileID: 2100000, guid: 7deed56e5844b4045926bfc92de5d211, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Port_Elevator_Matt_Fabric
+    second: {fileID: 2100000, guid: 0e8cdfcb827c58c41b1c0a4adb162877, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Port_Fillet_Matt_Metal
+    second: {fileID: 2100000, guid: 65a5e0e4d4fd803459205042b3dce32e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Port_Starb_Lamps
+    second: {fileID: 2100000, guid: 322b3fdbda738924fa79c2fa6c9941b1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Port_Tailplane_Painted_Metal
+    second: {fileID: 2100000, guid: eeccb6c2a76987348892c1ff327df708, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Prop_Blade
+    second: {fileID: 2100000, guid: 0ee1b149bc8619f4f8ffae061614d458, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Radiator_Grill
+    second: {fileID: 2100000, guid: 6f50e03875f27e547a3b1f37b658087a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rear_Fuselage_Painted_Metal
+    second: {fileID: 2100000, guid: 904c30095aa116840858b458f4c3df7a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Red_Metal
+    second: {fileID: 2100000, guid: 69f76078dd8a2d14e94f397a1181d50e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Remote_Contactor
+    second: {fileID: 2100000, guid: f59320df63360c742a8c5550938057f0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rotol_Badge
+    second: {fileID: 2100000, guid: 56ff6b5a288da5740b5aa8d8b3b86070, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rudder_Matt_Fabric
+    second: {fileID: 2100000, guid: 8cc8ecf07b3a267438201b3ddea526e0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Standard_Bare_Metal
+    second: {fileID: 2100000, guid: 0e98a1cdc9424e84a83aa278d08c8a05, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Starb_Elevator_Matt_Fabric
+    second: {fileID: 2100000, guid: a50ca0fab8e899144a04d1481f0193aa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Starb_Fillet_Matt_Metal
+    second: {fileID: 2100000, guid: 62af655e8808b6749b9291330d93242b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Starb_Tailplane_Painted_Metal
+    second: {fileID: 2100000, guid: efe5e0d932071e64ab6cfb34cf0e44c6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TWheel_Wheel_Hub
+    second: {fileID: 2100000, guid: 40d5a6728427e604481943d28735f817, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TWheel_Wheel_Tyre
+    second: {fileID: 2100000, guid: d52c8e716962bdf4d9f26937522b3aa1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: UC_Metal
+    second: {fileID: 2100000, guid: 40528f0234674ad4aa26fb59f73c9963, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wing_Painted_Metal
+    second: {fileID: 2100000, guid: 8d3e5e315a476544e9854c21429610e9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wood
+    second: {fileID: 2100000, guid: 11246bbe6584b7e418727449e7734f19, type: 2}
+  materials:
+    materialImportMode: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
