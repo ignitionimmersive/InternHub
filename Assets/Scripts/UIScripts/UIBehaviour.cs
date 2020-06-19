@@ -39,14 +39,18 @@ public class UIBehaviour : MonoBehaviour
 
     void Update()
     {
-        CheckSelection();
-        CheckUIenabled();
-
         if (isBuildActive)
             ActivateMechanicMode();
 
         if (isPlaceModeActive)
+        {
+            debug.text = exitPlace.activeSelf.ToString();
             placeMode.ActivatePlacement();
+        }
+            //placeMode.ActivatePlacement();
+
+        CheckSelection();
+        CheckUIenabled();
     }
 
     // The panels here are the buttons actually.
@@ -73,19 +77,16 @@ public class UIBehaviour : MonoBehaviour
     // If yes AND the camera is pointing at the button -> Active the modes.
     private void CheckSelection()
     {
-        if (Input.touchCount > 0)
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
         {
-            Touch touch = Input.GetTouch(0);
-            Vector3 worldTouchPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, 100f));
-            Vector3 direction = worldTouchPosition - Camera.main.transform.position;
-            RaycastHit hit;
-
-            if (Physics.Raycast(Camera.main.transform.position, direction, out hit))
+            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+            if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 GameObject open = hit.collider.gameObject;
-                
+                debug.text = open.name;
                 if (open.CompareTag("MechanicPanel"))
                 {
+                    debug.text = "Activate mechanic mode.";
                     isBuildActive = true;
                     blueprint.gameObject.SetActive(true);
                     exitMechanic.SetActive(true);
@@ -119,7 +120,7 @@ public class UIBehaviour : MonoBehaviour
 
                     // This thing refuses to be turned on!!!
                     exitPlace.SetActive(true);
-
+                    
                     // Spitfire and small-scaled scope are active, deactive the large-scale scope.
                     theLens.SetActive(false);
                     spitfire.SetActive(true);
@@ -131,11 +132,12 @@ public class UIBehaviour : MonoBehaviour
 
     private void ActivateMechanicMode()
     {
-        if (Input.touchCount > 0 && Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Began)
+        if (Input.touchCount > 0 && Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Ended)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(Input.touchCount - 1).position);
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
+                debug.text = hit.collider.gameObject.name;
                 if (hit.collider.gameObject.GetComponent<TheChild>() != null)
                 {
                     if (hit.collider.gameObject.GetComponentInParent<TheParent>().CURRENT_STATE == TheParent.PARENT_STATE.ALL_CHILD_ON_BODY)
@@ -151,6 +153,7 @@ public class UIBehaviour : MonoBehaviour
 
                 if (hit.collider.gameObject.CompareTag("GoBack"))
                 {
+                    debug.text = "EXIT";
                     // Turn off blueprint.
                     blueprint.gameObject.SetActive(false);
 
