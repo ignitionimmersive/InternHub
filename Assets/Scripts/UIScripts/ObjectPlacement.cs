@@ -10,7 +10,6 @@ public class ObjectPlacement : MonoBehaviour
     private float threshold = 0.05f;
     private bool isPlaced = false;
 
-    public UIBehaviour status;
     public Text debug;
 
     [SerializeField] Transform destination;
@@ -22,21 +21,22 @@ public class ObjectPlacement : MonoBehaviour
         startRot = scope.transform.rotation;
     }
 
-    void Update()
+    public void ActivatePlacement()
     {
-        if (isPlaced || status.isPlaceModeActive)
+        if (isPlaced)
             return;
 
+        debug.text = "ACTIVATED";
         if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit))
         {
             GameObject _scope = hit.collider.gameObject;
 
-            debug.text = Vector3.Distance(_scope.transform.position, destination.position).ToString();
+            //debug.text = Vector3.Distance(_scope.transform.position, destination.position).ToString();
             if (_scope.CompareTag("Player"))
             {
                 //Debug.Log("HERE");
                 _scope.transform.parent = Camera.main.transform;
-                //debug.text = "Attached";
+                debug.text = "Attached";
 
                 if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
                 {
@@ -45,6 +45,7 @@ public class ObjectPlacement : MonoBehaviour
                     if (Vector3.Distance(_scope.transform.position, destination.position) > threshold)
                     {
                         _scope.transform.position = startPos;
+                        _scope.transform.rotation = startRot;
                         debug.text = "Drop" + " " + Vector3.Distance(_scope.transform.position, destination.position).ToString();
                     }
                     else

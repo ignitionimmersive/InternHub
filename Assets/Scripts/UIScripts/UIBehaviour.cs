@@ -10,16 +10,20 @@ using UnityEngine.XR.ARSubsystems;
 public class UIBehaviour : MonoBehaviour
 {
     public Text debug;
-    public GameObject exitMechanic;
-    public GameObject exitPlace;
-    public GameObject exitLearn;
-    public GameObject exitUse;
-    public TheBlueprint blueprint;
-    public TheParent parent;
-    public InfoPanel Panel;
 
+    [SerializeField] GameObject exitMechanic;
+    [SerializeField] GameObject exitPlace;
+    [SerializeField] GameObject exitLearn;
+    [SerializeField] GameObject exitUse;
+    [SerializeField] GameObject spitfire;
+    [SerializeField] GameObject smallLens;
+    [SerializeField] GameObject workBench;
+    [SerializeField] GameObject theLens;
 
-    public GameObject theLens;
+    [SerializeField] ObjectPlacement placeMode;
+    [SerializeField] TheBlueprint blueprint;
+    [SerializeField] TheParent parent;
+    [SerializeField] InfoPanel Panel;
 
     [HideInInspector]
     public bool isBuildActive;
@@ -33,15 +37,6 @@ public class UIBehaviour : MonoBehaviour
     [HideInInspector]
     public bool isUseModeActive;
 
-    private void Start()
-    {
-        exitMechanic.SetActive(false);
-        exitLearn.SetActive(false);
-        exitPlace.SetActive(false);
-        exitUse.SetActive(false);
-        blueprint.gameObject.SetActive(false);
-    }
-
     void Update()
     {
         CheckSelection();
@@ -49,6 +44,9 @@ public class UIBehaviour : MonoBehaviour
 
         if (isBuildActive)
             ActivateMechanicMode();
+
+        if (isPlaceModeActive)
+            placeMode.ActivatePlacement();
     }
 
     private void CheckUIenabled()
@@ -66,7 +64,7 @@ public class UIBehaviour : MonoBehaviour
             foreach (Transform panel in Panel.panels)
             {
                 panel.gameObject.SetActive(true);
-                debug.text = "In Main Menu";
+                //debug.text = "In Main Menu";
             }
         }
     }
@@ -87,7 +85,6 @@ public class UIBehaviour : MonoBehaviour
                 if (open.CompareTag("MechanicPanel"))
                 {
                     isBuildActive = true;
-                    debug.text = "Mechanic Ready.";
                     blueprint.gameObject.SetActive(true);
                     exitMechanic.SetActive(true);
 
@@ -103,19 +100,25 @@ public class UIBehaviour : MonoBehaviour
                 {
                     // Usage mode.
                     isUseModeActive = true;
+                    workBench.GetComponent<Animator>().enabled = true;
+                    debug.text = "Usage Ready.";
                     exitUse.SetActive(true);
                 }
                 else if (open.CompareTag("LearnPanel"))
                 {
                     // Learn mode.
                     isLearningActive = true;
-                    exitLearn.SetActive(true);
+                    //exitLearn.SetActive(true);
                 }
                 else if (open.CompareTag("PlacePanel"))
                 {
                     // Place mode.
                     isPlaceModeActive = true;
                     exitPlace.SetActive(true);
+                    debug.text = "Place Ready." + " " + isPlaceModeActive;
+                    theLens.SetActive(false);
+                    spitfire.SetActive(true);
+                    smallLens.SetActive(true);
                 }
             }
         }
