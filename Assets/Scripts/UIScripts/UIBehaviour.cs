@@ -18,7 +18,12 @@ public class UIBehaviour : MonoBehaviour
     [SerializeField] GameObject spitfire;
     [SerializeField] GameObject smallLens;
     [SerializeField] GameObject workBench;
-    [SerializeField] GameObject theLens;
+    [SerializeField] GameObject theScope;
+
+    [SerializeField] GameObject theMapButtons;
+    [SerializeField] GameObject theMapHandle;
+
+
 
     [SerializeField] ObjectPlacement placeMode;
     [SerializeField] TheBlueprint blueprint;
@@ -41,6 +46,10 @@ public class UIBehaviour : MonoBehaviour
     {
         if (isBuildActive)
             ActivateMechanicMode();
+        if (isUseModeActive)
+        {
+            ActivateUsageMode();
+        }
 
         if (isPlaceModeActive)
         {
@@ -90,21 +99,31 @@ public class UIBehaviour : MonoBehaviour
                     blueprint.gameObject.SetActive(true);
                     exitMechanic.SetActive(true);
 
-                    foreach (GameObject value in this.theLens.GetComponent<TheParent>().children)
+                    foreach (GameObject value in this.theScope.GetComponent<TheParent>().children)
                     {
                         value.gameObject.GetComponent<TheChild>().initialPosition = value.gameObject.transform.position;
                         value.gameObject.GetComponent<TheChild>().initialRotation = value.gameObject.transform.rotation;
                     }
 
                 }
-
                 else if (open.CompareTag("UsagePanel"))
                 {
+                    if (isUseModeActive == false)
+                    {
+                        workBench.GetComponent<Animator>().SetInteger("MapController", 1);
+                    }
                     // Usage mode.
                     isUseModeActive = true;
-                    workBench.GetComponent<Animator>().enabled = true;
+                    
+                    //workBench.GetComponent<Animator>().enabled = true;
                     debug.text = "Usage Ready.";
-                    exitUse.SetActive(true);
+                    //exitUse.SetActive(true);
+
+                    theScope.SetActive(false);
+                    
+                    theMapButtons.SetActive(true);
+
+                    
                 }
                 else if (open.CompareTag("LearnPanel"))
                 {
@@ -118,7 +137,7 @@ public class UIBehaviour : MonoBehaviour
                     isPlaceModeActive = true;
 
                     // Spitfire and small-scaled scope are active, deactive the large-scale scope.
-                    theLens.SetActive(false);
+                    theScope.SetActive(false);
                     spitfire.SetActive(true);
                     smallLens.SetActive(true);
                 }
@@ -163,6 +182,23 @@ public class UIBehaviour : MonoBehaviour
                     // Turn of Build mode.
                     isBuildActive = false;
                 }
+            }
+        }
+    }
+
+    private void ActivateUsageMode()
+    {
+        if (Input.touchCount > 0 && Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Ended)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(Input.touchCount - 1).position);
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                if (hit.collider.gameObject == theMapHandle)
+                {
+                    workBench.GetComponent<Animator>().SetInteger("MapController", 1);
+                    theMapButtons.SetActive(true);
+                }
+                        
             }
         }
     }
