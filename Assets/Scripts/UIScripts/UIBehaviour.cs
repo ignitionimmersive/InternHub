@@ -49,6 +49,7 @@ public class UIBehaviour : MonoBehaviour
             placeMode.ActivatePlacement();
     }
 
+    // The panels here are the buttons actually.
     private void CheckUIenabled()
     {
         if (isBuildActive || isLearningActive || isPlaceModeActive || isUseModeActive)
@@ -64,11 +65,12 @@ public class UIBehaviour : MonoBehaviour
             foreach (Transform panel in Panel.panels)
             {
                 panel.gameObject.SetActive(true);
-                //debug.text = "In Main Menu";
             }
         }
     }
 
+    // Check if user tap on the screen.
+    // If yes AND the camera is pointing at the button -> Active the modes.
     private void CheckSelection()
     {
         if (Input.touchCount > 0)
@@ -81,7 +83,7 @@ public class UIBehaviour : MonoBehaviour
             if (Physics.Raycast(Camera.main.transform.position, direction, out hit))
             {
                 GameObject open = hit.collider.gameObject;
-
+                
                 if (open.CompareTag("MechanicPanel"))
                 {
                     isBuildActive = true;
@@ -108,14 +110,17 @@ public class UIBehaviour : MonoBehaviour
                 {
                     // Learn mode.
                     isLearningActive = true;
-                    //exitLearn.SetActive(true);
+                    exitLearn.SetActive(true);
                 }
                 else if (open.CompareTag("PlacePanel"))
                 {
                     // Place mode.
                     isPlaceModeActive = true;
+
+                    // This thing refuses to be turned on!!!
                     exitPlace.SetActive(true);
-                    debug.text = "Place Ready." + " " + isPlaceModeActive;
+
+                    // Spitfire and small-scaled scope are active, deactive the large-scale scope.
                     theLens.SetActive(false);
                     spitfire.SetActive(true);
                     smallLens.SetActive(true);

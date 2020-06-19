@@ -7,7 +7,7 @@ public class ObjectPlacement : MonoBehaviour
 {
     private Vector3 startPos;
     private Quaternion startRot;
-    private float threshold = 0.05f;
+    private float threshold = 0.2f;
     private bool isPlaced = false;
 
     public Text debug;
@@ -26,17 +26,14 @@ public class ObjectPlacement : MonoBehaviour
         if (isPlaced)
             return;
 
-        debug.text = "ACTIVATED";
-        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit))
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit))
         {
             GameObject _scope = hit.collider.gameObject;
-
-            //debug.text = Vector3.Distance(_scope.transform.position, destination.position).ToString();
+            
             if (_scope.CompareTag("Player"))
             {
-                //Debug.Log("HERE");
                 _scope.transform.parent = Camera.main.transform;
-                debug.text = "Attached";
+                //debug.text = "Attached";
 
                 if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
                 {
@@ -46,11 +43,11 @@ public class ObjectPlacement : MonoBehaviour
                     {
                         _scope.transform.position = startPos;
                         _scope.transform.rotation = startRot;
-                        debug.text = "Drop" + " " + Vector3.Distance(_scope.transform.position, destination.position).ToString();
+                        debug.text = "Drop";
                     }
                     else
                     {
-                        debug.text = "Correct" + " " + Vector3.Distance(_scope.transform.position, destination.position).ToString();
+                        debug.text = "Correct";
                         isPlaced = true;
                         // Trigger Animation - Plane Taking off.
                     }
