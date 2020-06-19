@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ObjectPlacement : MonoBehaviour
 {
+    [SerializeField] GameObject exitPlace;
     private Vector3 startPos;
     private Quaternion startRot;
     private float threshold = 0.2f;
@@ -19,12 +20,16 @@ public class ObjectPlacement : MonoBehaviour
     {
         startPos = scope.transform.position;
         startRot = scope.transform.rotation;
+        //exitPlace.SetActive(true);
     }
 
     public void ActivatePlacement()
     {
         if (isPlaced)
             return;
+
+        var button = exitPlace.transform.Find("ExitPlace");
+        button.gameObject.SetActive(true);
 
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit))
         {

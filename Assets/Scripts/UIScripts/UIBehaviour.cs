@@ -44,11 +44,10 @@ public class UIBehaviour : MonoBehaviour
 
         if (isPlaceModeActive)
         {
-            debug.text = exitPlace.activeSelf.ToString();
+            exitPlace.SetActive(true);
             placeMode.ActivatePlacement();
         }
-            //placeMode.ActivatePlacement();
-
+            
         CheckSelection();
         CheckUIenabled();
     }
@@ -118,9 +117,6 @@ public class UIBehaviour : MonoBehaviour
                     // Place mode.
                     isPlaceModeActive = true;
 
-                    // This thing refuses to be turned on!!!
-                    exitPlace.SetActive(true);
-                    
                     // Spitfire and small-scaled scope are active, deactive the large-scale scope.
                     theLens.SetActive(false);
                     spitfire.SetActive(true);
