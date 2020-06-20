@@ -19,6 +19,7 @@ public class UIBehaviour : MonoBehaviour
     [SerializeField] GameObject smallLens;
     [SerializeField] GameObject workBench;
     [SerializeField] GameObject theScope;
+    [SerializeField] GameObject theLens;
 
     [SerializeField] GameObject theMapButtons;
     [SerializeField] GameObject theMapHandle;
@@ -123,6 +124,8 @@ public class UIBehaviour : MonoBehaviour
                     
                     theMapButtons.SetActive(true);
 
+
+                    this.exitUse.SetActive(true);
                     
                 }
                 else if (open.CompareTag("LearnPanel"))
@@ -193,6 +196,22 @@ public class UIBehaviour : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(Input.touchCount - 1).position);
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
+                if (hit.collider.gameObject.CompareTag("GoBack"))
+                {
+                    workBench.GetComponent<Animator>().SetInteger("MapController", 0);
+                    isUseModeActive = false;
+
+                    //workBench.GetComponent<Animator>().enabled = false;
+                    
+                    theScope.SetActive(true); 
+
+                    theMapButtons.SetActive(false);
+
+                    theLens.SetActive(false);
+                    exitUse.SetActive(false);
+
+                }
+                
                 if (hit.collider.gameObject == theMapHandle)
                 {
                     workBench.GetComponent<Animator>().SetInteger("MapController", 1);
