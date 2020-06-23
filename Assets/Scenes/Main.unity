@@ -1482,7 +1482,7 @@ PrefabInstance:
     - target: {fileID: 6965629477449568864, guid: 460c99f12c2252f4783c53d19f313aeb,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6965629477449568864, guid: 460c99f12c2252f4783c53d19f313aeb,
         type: 3}
@@ -2138,6 +2138,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1210097158391237507, guid: fd915d643daa24e47bfffa946f5a0025,
         type: 3}
+      propertyPath: theAudios.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1210097158391237507, guid: fd915d643daa24e47bfffa946f5a0025,
+        type: 3}
       propertyPath: theVideos.Array.data[2]
       value: 
       objectReference: {fileID: 32900000, guid: 96252b0ca2fb1e8499cf7ec16fed2bd7,
@@ -2198,7 +2203,7 @@ PrefabInstance:
     - target: {fileID: 1210097158391237511, guid: fd915d643daa24e47bfffa946f5a0025,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1210097158391237511, guid: fd915d643daa24e47bfffa946f5a0025,
         type: 3}
