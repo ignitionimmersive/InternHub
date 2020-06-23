@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/FlipBookFolder/LogBookAnimator/LogBook.meta
+guid: 8b5bc3b0ff9533f46946ea8df3628651
+=======
 guid: 9c4661b4e4a467544837a496b1507cce
+>>>>>>> 0142ccf66bfb76215d7a0f35d6af19acf7b1ab1c:Assets/Art/Assets/SuperMarine Spitfire.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

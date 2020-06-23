@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/FlipBookFolder/LogBookAnimator/LogBook/Meshes.meta
+guid: 468b2625f7a6337499d8beec2179dca3
+=======
 guid: abe60105117b9dd4cac52b054cdc3d34
+>>>>>>> 0142ccf66bfb76215d7a0f35d6af19acf7b1ab1c:Assets/Art/Assets/SuperMarine Spitfire/Meshes.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

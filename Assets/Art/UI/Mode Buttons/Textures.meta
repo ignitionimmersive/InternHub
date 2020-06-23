@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/FlipBookFolder/LogBookAnimator.meta
+guid: d8edf465ca6889548925603ed41fd9b3
+=======
 guid: 5a997fc9bcbfeb34f93819de6a6810f0
+>>>>>>> 0142ccf66bfb76215d7a0f35d6af19acf7b1ab1c:Assets/Art/UI/Mode Buttons/Textures.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
