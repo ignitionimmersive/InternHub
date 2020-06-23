@@ -9,14 +9,16 @@ using UnityEngine.XR.ARSubsystems;
 
 public class UIBehaviour : MonoBehaviour
 {
+    // Debug Text.
     public Text debug;
 
+    // Exit buttons.
     [SerializeField] GameObject exitMechanic;
     [SerializeField] GameObject exitPlace;
     [SerializeField] GameObject exitLearn;
     [SerializeField] GameObject exitUse;
-    [SerializeField] GameObject spitfire;
-    [SerializeField] GameObject smallLens;
+
+    // Use mode objects.
     [SerializeField] GameObject workBench;
     [SerializeField] GameObject theScope;
     [SerializeField] GameObject theLens;
@@ -24,8 +26,7 @@ public class UIBehaviour : MonoBehaviour
     [SerializeField] GameObject theMapButtons;
     [SerializeField] GameObject theMapHandle;
 
-
-
+    // Other essential components.
     [SerializeField] ObjectPlacement placeMode;
     [SerializeField] TheBlueprint blueprint;
     [SerializeField] TheParent parent;
@@ -46,7 +47,10 @@ public class UIBehaviour : MonoBehaviour
     void Update()
     {
         if (isBuildActive)
+        {
             ActivateMechanicMode();
+        }
+
         if (isUseModeActive)
         {
             ActivateUsageMode();
@@ -54,8 +58,11 @@ public class UIBehaviour : MonoBehaviour
 
         if (isPlaceModeActive)
         {
-            exitPlace.SetActive(true);
             placeMode.ActivatePlacement();
+        }
+        else
+        {
+            theScope.SetActive(true);
         }
             
         CheckSelection();
@@ -92,10 +99,9 @@ public class UIBehaviour : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 GameObject open = hit.collider.gameObject;
-                debug.text = open.name;
+                
                 if (open.CompareTag("MechanicPanel"))
                 {
-                    debug.text = "Activate mechanic mode.";
                     isBuildActive = true;
                     blueprint.gameObject.SetActive(true);
                     exitMechanic.SetActive(true);
@@ -118,15 +124,12 @@ public class UIBehaviour : MonoBehaviour
                     
                     //workBench.GetComponent<Animator>().enabled = true;
                     debug.text = "Usage Ready.";
-                    //exitUse.SetActive(true);
+                    exitUse.SetActive(true);
 
                     theScope.SetActive(false);
                     
                     theMapButtons.SetActive(true);
-
-
-                    this.exitUse.SetActive(true);
-                    
+       
                 }
                 else if (open.CompareTag("LearnPanel"))
                 {
@@ -138,11 +141,10 @@ public class UIBehaviour : MonoBehaviour
                 {
                     // Place mode.
                     isPlaceModeActive = true;
+                    exitPlace.SetActive(true);
 
                     // Spitfire and small-scaled scope are active, deactive the large-scale scope.
                     theScope.SetActive(false);
-                    spitfire.SetActive(true);
-                    smallLens.SetActive(true);
                 }
             }
         }
@@ -155,7 +157,6 @@ public class UIBehaviour : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(Input.touchCount - 1).position);
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                debug.text = hit.collider.gameObject.name;
                 if (hit.collider.gameObject.GetComponent<TheChild>() != null)
                 {
                     if (hit.collider.gameObject.GetComponentInParent<TheParent>().CURRENT_STATE == TheParent.PARENT_STATE.ALL_CHILD_ON_BODY)
@@ -171,7 +172,6 @@ public class UIBehaviour : MonoBehaviour
 
                 if (hit.collider.gameObject.CompareTag("GoBack"))
                 {
-                    debug.text = "EXIT";
                     // Turn off blueprint.
                     blueprint.gameObject.SetActive(false);
 
