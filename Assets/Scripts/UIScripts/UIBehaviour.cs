@@ -20,7 +20,6 @@ public class UIBehaviour : MonoBehaviour
 
     // Use mode objects.
     [SerializeField] GameObject workBench;
-    [SerializeField] GameObject theScope;
     [SerializeField] GameObject theLens;
 
     [SerializeField] GameObject theMapButtons;
@@ -31,6 +30,8 @@ public class UIBehaviour : MonoBehaviour
     [SerializeField] TheBlueprint blueprint;
     [SerializeField] TheParent parent;
     [SerializeField] InfoPanel Panel;
+
+    public GameObject theScope;
 
     [HideInInspector]
     public bool isBuildActive;
@@ -60,11 +61,7 @@ public class UIBehaviour : MonoBehaviour
         {
             placeMode.ActivatePlacement();
         }
-        else
-        {
-            theScope.SetActive(true);
-        }
-            
+        
         CheckSelection();
         CheckUIenabled();
     }
@@ -152,6 +149,7 @@ public class UIBehaviour : MonoBehaviour
 
     private void ActivateMechanicMode()
     {
+        this.blueprint.gameObject.SetActive(true);
         if (Input.touchCount > 0 && Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Ended)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(Input.touchCount - 1).position);

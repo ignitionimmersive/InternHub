@@ -42,6 +42,7 @@ public class ObjectPlacement : MonoBehaviour
                     spitfire.gameObject.SetActive(false);
                     scope.SetActive(false);
                     exitPlace.SetActive(false);
+                    appState.theScope.SetActive(true);
                 }
             }
         }
@@ -71,10 +72,12 @@ public class ObjectPlacement : MonoBehaviour
                         _scope.transform.rotation = spitfire.rotation;
 
                         // Move the scope to its correct position.
-                        this.GetComponent<MoveToAPoint>();
-                        this.GetComponent<MoveToAPoint>().finalPosition = spitfire.position;
-                        this.GetComponent<MoveToAPoint>().moveSpeed = 1f;
-                        this.GetComponent<MoveToAPoint>().CURRENTSTATE = MoveToAPoint.MOVE_TO_A_POINT_STATE.MOVE;
+                        this.gameObject.AddComponent<MoveToAPoint>();
+                        this.gameObject.GetComponent<MoveToAPoint>();
+                        this.gameObject.GetComponent<MoveToAPoint>().finalPosition = spitfire.position;
+                        this.gameObject.GetComponent<MoveToAPoint>().moveSpeed = 1f;
+                        this.gameObject.GetComponent<MoveToAPoint>().timeToStart = 0.001f;
+                        this.gameObject.GetComponent<MoveToAPoint>().CURRENTSTATE = MoveToAPoint.MOVE_TO_A_POINT_STATE.MOVE;
 
                         // If it is in absolute position then plane will take off.
                         if (this.GetComponent<MoveToAPoint>().CURRENTSTATE == MoveToAPoint.MOVE_TO_A_POINT_STATE.FINAL_POSITION)
