@@ -7,19 +7,31 @@ public class AnimationScript : MonoBehaviour
     [SerializeField] GameObject flip;
     [SerializeField] GameObject revrseFlip;
     
-    public GameObject Page1;
-    public GameObject Page2;
+    public GameObject Page1_gameObject_1;
+    public GameObject Page1_gameObject_2;
+    public GameObject Page1_gameObject_3;
     
+
+
+    public GameObject Page2_gameObject_1;
+    public GameObject Page2_gameObject_2;
+    public GameObject Page2_gameObject_3;
+
+
+    public GameObject Page3_gameObject_1;
+    public GameObject Page3_gameObject_2;
+    public GameObject Page3_gameObject_3;
+
     private Vector3 scaleChange;
    
     public enum STATES
     {
-        CLOSE,
+        
         OPEN,
-        PAGE,PAGE_REVERSE,
-        PAGE1, PAGE1_REVERSE,
-        PAGE2, PAGE2_REVERSE,
-        PAGE3, PAGE3_REVERSE
+        PAGE1,PAGE1_REVERSE1,
+        PAGE2, PAGE2_REVERSE2,
+        PAGE3, PAGE3_REVERSE3,
+        PAGE4, PAGE4_REVERSE4
     };
 
     public STATES CURRENTSTATE;
@@ -84,11 +96,7 @@ public class AnimationScript : MonoBehaviour
                         switch (CURRENTSTATE)
                         {
 
-                        case STATES.CLOSE:
-                            {
-                                this.CURRENTSTATE = STATES.OPEN;
-                                break;
-                            }
+                        
                         case STATES.OPEN:
 
                                 {
@@ -100,7 +108,7 @@ public class AnimationScript : MonoBehaviour
 
                                         
 
-                                        this.CURRENTSTATE = STATES.PAGE;
+                                        this.CURRENTSTATE = STATES.PAGE1;
                                     }
                                    
 
@@ -108,7 +116,7 @@ public class AnimationScript : MonoBehaviour
                                 }
                         
                             
-                        case STATES.PAGE:
+                        case STATES.PAGE1:
                                 {
                                 
                                     if ((hit.collider.gameObject.name == "Flip"))
@@ -116,7 +124,7 @@ public class AnimationScript : MonoBehaviour
                                     
                                     anim.Play("Page Flip");
                                     
-                                    this.CURRENTSTATE = STATES.PAGE1;
+                                    this.CURRENTSTATE = STATES.PAGE2;
                                    
                                     }
                                 
@@ -131,23 +139,41 @@ public class AnimationScript : MonoBehaviour
                                  }
                             
                         
-                        case STATES.PAGE1:
+                        case STATES.PAGE2:
                             {
                                 if (hit.collider.gameObject.name == "ReverseFlip")
                                 {
                                     
                                     anim.Play("Page Flip Reverse");
-                                    this.CURRENTSTATE = STATES.PAGE;
+                                    this.CURRENTSTATE = STATES.PAGE1;
+
+                                }
+                                if (hit.collider.gameObject.name == "Flip")
+                                {
+                                    anim.Play("Page Flip 0");
+                                    
+                                    this.CURRENTSTATE = STATES.PAGE3;
+
+                                }
+
+                                break;
+                            }
+                        case STATES.PAGE3:
+                            {
+                                if (hit.collider.gameObject.name == "ReverseFlip")
+                                {
+
+                                    anim.Play("Page Flip Reverse 0");
+                                    this.CURRENTSTATE = STATES.PAGE2;
 
                                 }
                                 if (hit.collider.gameObject.name == "Flip")
                                 {
                                     anim.Play("Close");
-                                    
+
                                     this.CURRENTSTATE = STATES.OPEN;
 
                                 }
-
                                 break;
                             }
 
@@ -166,65 +192,311 @@ public class AnimationScript : MonoBehaviour
             }
             while(true)
             {
-                if(CURRENTSTATE == STATES.PAGE)
+                if(CURRENTSTATE == STATES.PAGE1)
                 {
-                Page1.SetActive(true);
-                if (Page1.transform.localScale.y < 2f && Page1.transform.localScale.y > -0.1f)
+                //Page 1 GameObjects Scaling ( 0 to 2 )
+
+                //GameObject 1
+                Page1_gameObject_1.SetActive(true);
+                if (Page1_gameObject_1.transform.localScale.y < 2f && Page1_gameObject_1.transform.localScale.y > -0.1f)
                     {
-                        Page1.gameObject.transform.localScale += scaleChange;
+                        Page1_gameObject_1.gameObject.transform.localScale += scaleChange;
                     }
-                Page2.SetActive(true);
-                if (Page2.transform.localScale.y > 0f && Page2.transform.localScale.y < 3f)
+
+                //GameObject 2
+                Page1_gameObject_2.SetActive(true);
+                if (Page1_gameObject_2.transform.localScale.y < 2f && Page1_gameObject_2.transform.localScale.y > -0.1f)
                 {
-                    Page2.gameObject.transform.localScale -= scaleChange;
+                    Page1_gameObject_2.gameObject.transform.localScale += scaleChange;
+                }
+                
+                //GameObject 3
+                Page1_gameObject_3.SetActive(true);
+                if (Page1_gameObject_3.transform.localScale.y < 2f && Page1_gameObject_3.transform.localScale.y > -0.1f)
+                {
+                    Page1_gameObject_3.gameObject.transform.localScale += scaleChange;
+                }
+
+                //Page 2 GameObjects Scalings To ( 2 to 0 )
+
+                //GameObject 1
+                Page2_gameObject_1.SetActive(true);
+                if (Page2_gameObject_1.transform.localScale.y > 0f && Page2_gameObject_1.transform.localScale.y < 2.1f)
+                {
+                    Page2_gameObject_1.gameObject.transform.localScale -= scaleChange;
 
                 }
-            }
-            if (CURRENTSTATE == STATES.PAGE_REVERSE)
-            {
-                
-                    Page1.SetActive(true);
-                    if (Page1.transform.localScale.y < 2f && Page1.transform.localScale.y > -0.1f)
-                    {
-                        Page1.gameObject.transform.localScale += scaleChange;
-                    }
-                   
-                    
-                
+
+                //GameObject 2
+                Page2_gameObject_2.SetActive(true);
+                if (Page2_gameObject_2.transform.localScale.y > 0f && Page2_gameObject_2.transform.localScale.y < 2.1f)
+                {
+                    Page2_gameObject_2.gameObject.transform.localScale -= scaleChange;
+
+                }
+
+                //GameObject 3
+                Page2_gameObject_3.SetActive(true);
+                if (Page2_gameObject_3.transform.localScale.y > 0f && Page2_gameObject_3.transform.localScale.y < 2.1f)
+                {
+                    Page2_gameObject_3.gameObject.transform.localScale -= scaleChange;
+
+                }
+
             }
 
-            if (CURRENTSTATE == STATES.PAGE1)
+            else if (CURRENTSTATE == STATES.PAGE1_REVERSE1)
+            {
+                // Page 1 GameObjects Scaling ( 0 to 2 ) if Page Reversed
+
+                //GameObject 1
+                Page1_gameObject_1.SetActive(true);
+                if (Page1_gameObject_1.transform.localScale.y < 2f && Page1_gameObject_1.transform.localScale.y > -0.1f)
                 {
-                Page1.SetActive(true);
-                if (Page1.transform.localScale.y > 0f && Page1.transform.localScale.y < 3f)
+                    Page1_gameObject_1.gameObject.transform.localScale += scaleChange;
+                }
+
+                //GameObject 2
+                Page1_gameObject_2.SetActive(true);
+                if (Page1_gameObject_2.transform.localScale.y < 2f && Page1_gameObject_2.transform.localScale.y > -0.1f)
+                {
+                    Page1_gameObject_2.gameObject.transform.localScale += scaleChange;
+                }
+
+                //GameObject 3
+                Page1_gameObject_3.SetActive(true);
+                if (Page1_gameObject_3.transform.localScale.y < 2f && Page1_gameObject_3.transform.localScale.y > -0.1f)
+                {
+                    Page1_gameObject_3.gameObject.transform.localScale += scaleChange;
+                }
+
+
+
+            }
+
+
+
+            else if (CURRENTSTATE == STATES.PAGE2)
+                {
+                // Page 1 GameObjects Scaling Back To 0 If The State Changes to Page2
+
+                //GameObject 1
+                Page1_gameObject_1.SetActive(true);
+                if (Page1_gameObject_1.transform.localScale.y > 0f && Page1_gameObject_1.transform.localScale.y < 3f)
                     {
-                        Page1.gameObject.transform.localScale -= scaleChange;
+                        Page1_gameObject_1.gameObject.transform.localScale -= scaleChange;
                         
                     }
-                Page2.SetActive(true);
-                if (Page2.transform.localScale.y < 2f && Page2.transform.localScale.y > -0.1f)
+
+                //GameObject 2
+                Page1_gameObject_2.SetActive(true);
+                if (Page1_gameObject_2.transform.localScale.y > 0f && Page1_gameObject_2.transform.localScale.y < 3f)
                 {
-                    Page2.gameObject.transform.localScale += scaleChange;
+                    Page1_gameObject_2.gameObject.transform.localScale -= scaleChange;
+
+                }
+
+                //GameObject 3
+                Page1_gameObject_3.SetActive(true);
+                if (Page1_gameObject_3.transform.localScale.y > 0f && Page1_gameObject_3.transform.localScale.y < 3f)
+                {
+                    Page1_gameObject_3.gameObject.transform.localScale -= scaleChange;
+
+                }
+
+                // Page 2 GameObjects Scaling ( 0 to 2 )
+
+                //GameObject 1
+                Page2_gameObject_1.SetActive(true);
+                if (Page2_gameObject_1.transform.localScale.y < 2f && Page2_gameObject_1.transform.localScale.y > -0.1f)
+                {
+                    Page2_gameObject_1.gameObject.transform.localScale += scaleChange;
+                }
+
+                //GameObject 1
+                Page2_gameObject_2.SetActive(true);
+                if (Page2_gameObject_2.transform.localScale.y < 2f && Page2_gameObject_2.transform.localScale.y > -0.1f)
+                {
+                    Page2_gameObject_2.gameObject.transform.localScale += scaleChange;
+                }
+
+                //GameObject 1
+                Page2_gameObject_3.SetActive(true);
+                if (Page2_gameObject_3.transform.localScale.y < 2f && Page2_gameObject_3.transform.localScale.y > -0.1f)
+                {
+                    Page2_gameObject_3.gameObject.transform.localScale += scaleChange;
+                }
+
+
+                // Page 3 GameObjects Scaling Back To 0 If The State Changes to Page2
+
+                //GameObject 1
+                Page3_gameObject_1.SetActive(true);
+                if (Page3_gameObject_1.transform.localScale.y > 0f && Page3_gameObject_1.transform.localScale.y < 3f)
+                {
+                    Page3_gameObject_1.gameObject.transform.localScale -= scaleChange;
+
+                }
+
+                //GameObject 2
+                Page3_gameObject_2.SetActive(true);
+                if (Page3_gameObject_2.transform.localScale.y > 0f && Page3_gameObject_2.transform.localScale.y < 3f)
+                {
+                    Page3_gameObject_2.gameObject.transform.localScale -= scaleChange;
+
+                }
+
+                //GameObject 3
+                Page3_gameObject_3.SetActive(true);
+                if (Page3_gameObject_3.transform.localScale.y > 0f && Page3_gameObject_3.transform.localScale.y < 3f)
+                {
+                    Page3_gameObject_3.gameObject.transform.localScale -= scaleChange;
+
                 }
 
             }
-            if (CURRENTSTATE == STATES.OPEN)
+
+
+            else if(CURRENTSTATE == STATES.PAGE3)
             {
-                Page1.SetActive(true);
-                if (Page1.transform.localScale.y > 0f && Page1.transform.localScale.y < 3f)
+                //Page 1 GameObjects Scaling ( 0 to 2 )
+
+                //GameObject 1
+                Page3_gameObject_1.SetActive(true);
+                if (Page3_gameObject_1.transform.localScale.y < 2f && Page3_gameObject_1.transform.localScale.y > -0.1f)
                 {
-                    Page1.gameObject.transform.localScale -= scaleChange;
+                    Page3_gameObject_1.gameObject.transform.localScale += scaleChange;
+                }
+
+                //GameObject 2
+                Page3_gameObject_2.SetActive(true);
+                if (Page3_gameObject_2.transform.localScale.y < 2f && Page3_gameObject_2.transform.localScale.y > -0.1f)
+                {
+                    Page3_gameObject_2.gameObject.transform.localScale += scaleChange;
+                }
+
+                //GameObject 3
+                Page3_gameObject_3.SetActive(true);
+                if (Page3_gameObject_3.transform.localScale.y < 2f && Page3_gameObject_3.transform.localScale.y > -0.1f)
+                {
+                    Page3_gameObject_3.gameObject.transform.localScale += scaleChange;
+                }
+
+                //Page 2 GameObjects Scalings To ( 2 to 0 )
+
+                //GameObject 1
+                Page2_gameObject_1.SetActive(true);
+                if (Page2_gameObject_1.transform.localScale.y > 0f && Page2_gameObject_1.transform.localScale.y < 2.1f)
+                {
+                    Page2_gameObject_1.gameObject.transform.localScale -= scaleChange;
 
                 }
-                Page2.SetActive(true);
-                if (Page2.transform.localScale.y > 0f && Page2.transform.localScale.y < 3f)
+
+                //GameObject 2
+                Page2_gameObject_2.SetActive(true);
+                if (Page2_gameObject_2.transform.localScale.y > 0f && Page2_gameObject_2.transform.localScale.y < 2.1f)
                 {
-                    Page2.gameObject.transform.localScale -= scaleChange;
+                    Page2_gameObject_2.gameObject.transform.localScale -= scaleChange;
 
                 }
+
+                //GameObject 3
+                Page2_gameObject_3.SetActive(true);
+                if (Page2_gameObject_3.transform.localScale.y > 0f && Page2_gameObject_3.transform.localScale.y < 2.1f)
+                {
+                    Page2_gameObject_3.gameObject.transform.localScale -= scaleChange;
+
+                }
+
+                
+
+
+
             }
 
-            break;
+            else if (CURRENTSTATE == STATES.OPEN)
+            {
+                //Reverting Back to Scale 0 if the Book is Closed.
+
+                //GameObject 1
+                Page1_gameObject_1.SetActive(true);
+                if (Page1_gameObject_1.transform.localScale.y > 0f && Page1_gameObject_1.transform.localScale.y < 3f)
+                {
+                    Page1_gameObject_1.gameObject.transform.localScale -= scaleChange;
+
+                }
+
+                //GameObject 2
+                Page1_gameObject_2.SetActive(true);
+                if (Page1_gameObject_2.transform.localScale.y > 0f && Page1_gameObject_2.transform.localScale.y < 3f)
+                {
+                    Page1_gameObject_2.gameObject.transform.localScale -= scaleChange;
+
+                }
+
+                //GameObject 3
+                Page1_gameObject_3.SetActive(true);
+                if (Page1_gameObject_3.transform.localScale.y > 0f && Page1_gameObject_3.transform.localScale.y < 3f)
+                {
+                    Page1_gameObject_3.gameObject.transform.localScale -= scaleChange;
+
+                }
+
+                //Page 2 GameObjects Scalings To ( 2 to 0 )
+
+                //GameObject 1
+                Page2_gameObject_1.SetActive(true);
+                if (Page2_gameObject_1.transform.localScale.y > 0f && Page2_gameObject_1.transform.localScale.y < 2.1f)
+                {
+                    Page2_gameObject_1.gameObject.transform.localScale -= scaleChange;
+
+                }
+
+                //GameObject 2
+                Page2_gameObject_2.SetActive(true);
+                if (Page2_gameObject_2.transform.localScale.y > 0f && Page2_gameObject_2.transform.localScale.y < 2.1f)
+                {
+                    Page2_gameObject_2.gameObject.transform.localScale -= scaleChange;
+
+                }
+
+                //GameObject 3
+                Page2_gameObject_3.SetActive(true);
+                if (Page2_gameObject_3.transform.localScale.y > 0f && Page2_gameObject_3.transform.localScale.y < 2.1f)
+                {
+                    Page2_gameObject_3.gameObject.transform.localScale -= scaleChange;
+
+                }
+
+            }
+
+            //Page 3 GameObjects Scalings To ( 2 to 0 )
+
+            //GameObject 1
+            Page3_gameObject_1.SetActive(true);
+            if (Page3_gameObject_1.transform.localScale.y > 0f && Page3_gameObject_1.transform.localScale.y < 2.1f)
+            {
+                Page3_gameObject_1.gameObject.transform.localScale -= scaleChange;
+
+            }
+
+            //GameObject 2
+            Page3_gameObject_2.SetActive(true);
+            if (Page3_gameObject_2.transform.localScale.y > 0f && Page3_gameObject_2.transform.localScale.y < 2.1f)
+            {
+                Page3_gameObject_2.gameObject.transform.localScale -= scaleChange;
+
+            }
+
+            //GameObject 3
+            Page3_gameObject_3.SetActive(true);
+            if (Page3_gameObject_3.transform.localScale.y > 0f && Page3_gameObject_3.transform.localScale.y < 2.1f)
+            {
+                Page3_gameObject_3.gameObject.transform.localScale -= scaleChange;
+
+            }
+
+            
             }
       
         
