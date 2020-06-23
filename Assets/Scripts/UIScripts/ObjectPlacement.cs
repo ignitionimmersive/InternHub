@@ -5,10 +5,12 @@ using UnityEngine.UI;
 
 public class ObjectPlacement : MonoBehaviour
 {
+    [SerializeField] GameObject exitPlace;
     private Vector3 startPos;
     private Quaternion startRot;
-    private float threshold = 0.05f;
+    private float threshold = 0.2f;
     private bool isPlaced = false;
+
     public Text debug;
 
     [SerializeField] Transform destination;
@@ -18,21 +20,23 @@ public class ObjectPlacement : MonoBehaviour
     {
         startPos = scope.transform.position;
         startRot = scope.transform.rotation;
+        //exitPlace.SetActive(true);
     }
 
-    void Update()
+    public void ActivatePlacement()
     {
         if (isPlaced)
             return;
 
-        if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit))
+        var button = exitPlace.transform.Find("ExitPlace");
+        button.gameObject.SetActive(true);
+
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit))
         {
             GameObject _scope = hit.collider.gameObject;
-
-            debug.text = Vector3.Distance(_scope.transform.position, destination.position).ToString();
+            
             if (_scope.CompareTag("Player"))
             {
-                //Debug.Log("HERE");
                 _scope.transform.parent = Camera.main.transform;
                 //debug.text = "Attached";
 
@@ -43,11 +47,12 @@ public class ObjectPlacement : MonoBehaviour
                     if (Vector3.Distance(_scope.transform.position, destination.position) > threshold)
                     {
                         _scope.transform.position = startPos;
-                        debug.text = "Drop" + " " + Vector3.Distance(_scope.transform.position, destination.position).ToString();
+                        _scope.transform.rotation = startRot;
+                        debug.text = "Drop";
                     }
                     else
                     {
-                        debug.text = "Correct" + " " + Vector3.Distance(_scope.transform.position, destination.position).ToString();
+                        debug.text = "Correct";
                         isPlaced = true;
                         // Trigger Animation - Plane Taking off.
                     }

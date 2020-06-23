@@ -15,8 +15,6 @@ public class UsageMode : MonoBehaviour
     private void Start()
     {
         theVideoPlane.gameObject.AddComponent<VideoPlayer>();
-        //theVideoPlane.GetComponent<VideoPlayer>().clip = this.theVideo;
-        //theVideoPlane.GetComponent<VideoPlayer>().Pause();
         theVideoPlane.GetComponent<VideoPlayer>().playOnAwake = true;
         theVideoPlane.GetComponent<VideoPlayer>().isLooping = false;
         AssignVideo(0);

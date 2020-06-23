@@ -55,11 +55,12 @@ public class TheChild : MonoBehaviour
                         this.gameObject.AddComponent<Rigidbody>();
                     }
 
-                    this.gameObject.GetComponent<Rigidbody>().mass = 1;
-                    this.gameObject.GetComponent<Rigidbody>().angularVelocity = new Vector3(0, -1, 0);
-                    this.gameObject.GetComponent<Rigidbody>().angularDrag = 1f;
-                    this.gameObject.GetComponent<Rigidbody>().freezeRotation = true;
-                   // this.gameObject.GetComponent<Rigidbody>().
+                    this.gameObject.GetComponent<Rigidbody>().mass = 100;
+                    this.gameObject.GetComponent<Rigidbody>().angularVelocity = new Vector3(1, 1, 0);
+                    this.gameObject.GetComponent<Rigidbody>().angularDrag = 100f;
+//                    this.gameObject.GetComponent<Rigidbody>().freezeRotation = true;
+                    
+                    // this.gameObject.GetComponent<Rigidbody>().
 
                     this.CURRENTSTATE = CHILD_STATES.FALLING;
                     break;
@@ -150,7 +151,7 @@ public class TheChild : MonoBehaviour
 
         IEnumerator StopFallingAndMoveToBluePrint()
         {
-            yield return new WaitForSeconds(3f);
+            yield return new WaitForSeconds(2f);
             this.CURRENTSTATE = CHILD_STATES.MOVE_TO_BLUEPRINT;
         }
 
