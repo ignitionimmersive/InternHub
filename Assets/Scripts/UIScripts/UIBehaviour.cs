@@ -9,21 +9,29 @@ using UnityEngine.XR.ARSubsystems;
 
 public class UIBehaviour : MonoBehaviour
 {
+    // Debug Text.
     public Text debug;
 
+    // Exit buttons.
     [SerializeField] GameObject exitMechanic;
     [SerializeField] GameObject exitPlace;
     [SerializeField] GameObject exitLearn;
     [SerializeField] GameObject exitUse;
-    [SerializeField] GameObject spitfire;
-    [SerializeField] GameObject smallLens;
+
+    // Use mode objects.
     [SerializeField] GameObject workBench;
     [SerializeField] GameObject theLens;
 
+    [SerializeField] GameObject theMapButtons;
+    [SerializeField] GameObject theMapHandle;
+
+    // Other essential components.
     [SerializeField] ObjectPlacement placeMode;
     [SerializeField] TheBlueprint blueprint;
     [SerializeField] TheParent parent;
     [SerializeField] InfoPanel Panel;
+
+    public GameObject theScope;
 
     [HideInInspector]
     public bool isBuildActive;
@@ -39,16 +47,26 @@ public class UIBehaviour : MonoBehaviour
 
     void Update()
     {
-        CheckSelection();
-        CheckUIenabled();
-
         if (isBuildActive)
+        {
             ActivateMechanicMode();
+        }
+
+        if (isUseModeActive)
+        {
+            ActivateUsageMode();
+        }
 
         if (isPlaceModeActive)
+        {
             placeMode.ActivatePlacement();
+        }
+        
+        CheckSelection();
+        CheckUIenabled();
     }
 
+    // The panels here are the buttons actually.
     private void CheckUIenabled()
     {
         if (isBuildActive || isLearningActive || isPlaceModeActive || isUseModeActive)
@@ -64,61 +82,66 @@ public class UIBehaviour : MonoBehaviour
             foreach (Transform panel in Panel.panels)
             {
                 panel.gameObject.SetActive(true);
-                //debug.text = "In Main Menu";
             }
         }
     }
 
+    // Check if user tap on the screen.
+    // If yes AND the camera is pointing at the button -> Active the modes.
     private void CheckSelection()
     {
-        if (Input.touchCount > 0)
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
         {
-            Touch touch = Input.GetTouch(0);
-            Vector3 worldTouchPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, 100f));
-            Vector3 direction = worldTouchPosition - Camera.main.transform.position;
-            RaycastHit hit;
-
-            if (Physics.Raycast(Camera.main.transform.position, direction, out hit))
+            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+            if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 GameObject open = hit.collider.gameObject;
-
+                
                 if (open.CompareTag("MechanicPanel"))
                 {
                     isBuildActive = true;
                     blueprint.gameObject.SetActive(true);
                     exitMechanic.SetActive(true);
 
-                    foreach (GameObject value in this.theLens.GetComponent<TheParent>().children)
+                    foreach (GameObject value in this.theScope.GetComponent<TheParent>().children)
                     {
                         value.gameObject.GetComponent<TheChild>().initialPosition = value.gameObject.transform.position;
                         value.gameObject.GetComponent<TheChild>().initialRotation = value.gameObject.transform.rotation;
                     }
 
                 }
-
                 else if (open.CompareTag("UsagePanel"))
                 {
+                    if (isUseModeActive == false)
+                    {
+                        workBench.GetComponent<Animator>().SetInteger("MapController", 1);
+                    }
                     // Usage mode.
                     isUseModeActive = true;
-                    workBench.GetComponent<Animator>().enabled = true;
+                    
+                    //workBench.GetComponent<Animator>().enabled = true;
                     debug.text = "Usage Ready.";
                     exitUse.SetActive(true);
+
+                    theScope.SetActive(false);
+                    
+                    theMapButtons.SetActive(true);
+       
                 }
                 else if (open.CompareTag("LearnPanel"))
                 {
                     // Learn mode.
                     isLearningActive = true;
-                    //exitLearn.SetActive(true);
+                    exitLearn.SetActive(true);
                 }
                 else if (open.CompareTag("PlacePanel"))
                 {
                     // Place mode.
                     isPlaceModeActive = true;
                     exitPlace.SetActive(true);
-                    debug.text = "Place Ready." + " " + isPlaceModeActive;
-                    theLens.SetActive(false);
-                    spitfire.SetActive(true);
-                    smallLens.SetActive(true);
+
+                    // Spitfire and small-scaled scope are active, deactive the large-scale scope.
+                    theScope.SetActive(false);
                 }
             }
         }
@@ -126,9 +149,10 @@ public class UIBehaviour : MonoBehaviour
 
     private void ActivateMechanicMode()
     {
-        if (Input.touchCount > 0 && Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Began)
+        this.blueprint.gameObject.SetActive(true);
+        if (Input.touchCount > 0 && Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Ended)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(Input.touchCount - 1).position);
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 if (hit.collider.gameObject.GetComponent<TheChild>() != null)
@@ -159,6 +183,39 @@ public class UIBehaviour : MonoBehaviour
                     // Turn of Build mode.
                     isBuildActive = false;
                 }
+            }
+        }
+    }
+
+    private void ActivateUsageMode()
+    {
+        if (Input.touchCount > 0 && Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Ended)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(Input.touchCount - 1).position);
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                if (hit.collider.gameObject.CompareTag("GoBack"))
+                {
+                    workBench.GetComponent<Animator>().SetInteger("MapController", 0);
+                    isUseModeActive = false;
+
+                    //workBench.GetComponent<Animator>().enabled = false;
+                    
+                    theScope.SetActive(true); 
+
+                    theMapButtons.SetActive(false);
+
+                    theLens.SetActive(false);
+                    exitUse.SetActive(false);
+
+                }
+                
+                if (hit.collider.gameObject == theMapHandle)
+                {
+                    workBench.GetComponent<Animator>().SetInteger("MapController", 1);
+                    theMapButtons.SetActive(true);
+                }
+                        
             }
         }
     }

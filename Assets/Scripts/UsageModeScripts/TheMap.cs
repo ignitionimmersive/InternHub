@@ -10,7 +10,9 @@ public class TheMap : MonoBehaviour
     public GameObject button05;
     public GameObject button06;
     public UsageMode UsageMode01;
+    public GameObject theLens;
 
+    [SerializeField] GameObject workBench;
     private void Update()
     {
         if (Input.touchCount > 0)
@@ -24,37 +26,52 @@ public class TheMap : MonoBehaviour
             {
                 if (hit.collider.gameObject == button01)
                 {
+                    theLens.SetActive(true);
                     UsageMode01.AssignVideo(0);
+                    workBench.GetComponent<Animator>().SetInteger("MapController", 0);
+                    this.gameObject.SetActive(false);
                 }
 
                 else if (hit.collider.gameObject == button02)
                 {
+                    theLens.SetActive(true);
                     UsageMode01.AssignVideo(1);
+                    workBench.GetComponent<Animator>().SetInteger("MapController", 0);
+                    this.gameObject.SetActive(false);
+                    //workBench.GetComponent<Animator>().enabled = false;
                 }
                 else if (hit.collider.gameObject == button03)
                 {
+                    theLens.SetActive(true);
                     UsageMode01.AssignVideo(2);
+                    workBench.GetComponent<Animator>().SetInteger("MapController", 0);
+                    this.gameObject.SetActive(false);
                 }
                 else if (hit.collider.gameObject == button04)
                 {
+                    theLens.SetActive(true);
                     UsageMode01.AssignVideo(3);
+                    workBench.GetComponent<Animator>().SetInteger("MapController", 0);
+                    this.gameObject.SetActive(false);
                 }
                 else if (hit.collider.gameObject == button05)
                 {
+                    theLens.SetActive(true);
                     UsageMode01.AssignVideo(4);
+                    workBench.GetComponent<Animator>().SetInteger("MapController", 0);
+                    this.gameObject.SetActive(false);
                 }
                 else if (hit.collider.gameObject == button06)
                 {
+                    theLens.SetActive(true);
                     UsageMode01.AssignVideo(5);
+                    workBench.GetComponent<Animator>().SetInteger("MapController", 0);
+                    this.gameObject.SetActive(false);
                 }
+
+                
             }
         }
     }
 }
 
-
-[System.Serializable]
-public class TheMapButton
-{
-    public GameObject theButton;
-}

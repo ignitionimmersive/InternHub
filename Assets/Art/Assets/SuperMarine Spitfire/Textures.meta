@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/FlipBookFolder/LogBookAnimator/LogBook/Textures.meta
+guid: ff30ab2b57e0f0d4f8ea3af8f6683351
+=======
 guid: a3d52dac1dd1a3641922ab7cf0888664
+>>>>>>> 0142ccf66bfb76215d7a0f35d6af19acf7b1ab1c:Assets/Art/Assets/SuperMarine Spitfire/Textures.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

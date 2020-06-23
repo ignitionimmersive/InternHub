@@ -6,7 +6,7 @@ using UnityEngine.Video;
 public class UsageMode : MonoBehaviour
 {
     public List<VideoClip> theVideos;
-    public VideoClip theVideo;
+    public List<AudioClip> theAudios;
 
 
     public GameObject theVideoPlane;
@@ -14,12 +14,14 @@ public class UsageMode : MonoBehaviour
 
     private void Start()
     {
+        theVideoPlane.gameObject.AddComponent<AudioSource>();
         theVideoPlane.gameObject.AddComponent<VideoPlayer>();
-        //theVideoPlane.GetComponent<VideoPlayer>().clip = this.theVideo;
-        //theVideoPlane.GetComponent<VideoPlayer>().Pause();
+        theVideoPlane.GetComponent<AudioSource>().playOnAwake = false;
         theVideoPlane.GetComponent<VideoPlayer>().playOnAwake = true;
         theVideoPlane.GetComponent<VideoPlayer>().isLooping = false;
+        theVideoPlane.GetComponent<AudioSource>().loop = false;
         AssignVideo(0);
+        
 
     }
 
@@ -30,19 +32,22 @@ public class UsageMode : MonoBehaviour
         if (distance <= 1)
         {
             theVideoPlane.GetComponent<VideoPlayer>().SetDirectAudioVolume(0, 1 - distance);
+            theVideoPlane.GetComponent<AudioSource>().volume = 1 - distance;
         }
 
         else
         {
             theVideoPlane.GetComponent<VideoPlayer>().SetDirectAudioVolume(0, 0);
+            theVideoPlane.GetComponent<AudioSource>().volume = 0;
         }
     }
 
     public void AssignVideo(int videoNumber)
     { 
         theVideoPlane.GetComponent<VideoPlayer>().clip = this.theVideos[videoNumber];
-        
+        theVideoPlane.GetComponent<AudioSource>().clip = this.theAudios[videoNumber];
         theVideoPlane.GetComponent<VideoPlayer>().Play();
+        theVideoPlane.GetComponent<AudioSource>().Play();
     }
 
 }
