@@ -6,14 +6,15 @@ using UnityEngine.UI;
 
 public class ObjectPlacement : MonoBehaviour
 {
-    [SerializeField] GameObject exitPlace;
     private Vector3 startPos;
     private Quaternion startRot;
     private float threshold = 0.2f;
+    private bool isPlaced;
 
     public UIBehaviour appState;
     public Text debug;
 
+    [SerializeField] GameObject exitPlace;
     [SerializeField] Transform spitfire;
     [SerializeField] GameObject scope;
 
@@ -39,8 +40,17 @@ public class ObjectPlacement : MonoBehaviour
                 if (hits.collider.gameObject.CompareTag("GoBack"))
                 {
                     appState.isPlaceModeActive = false;
+
+                    // Deactive spifire.
                     spitfire.gameObject.SetActive(false);
+                    spitfire.gameObject.GetComponent<Animator>().enabled = false;
+
+                    // Deactive small scope.
                     scope.SetActive(false);
+                    scope.transform.parent = spitfire;
+                    scope.transform.rotation = spitfire.rotation;
+                    this.gameObject.GetComponent<MoveToAPoint>().CURRENTSTATE = MoveToAPoint.MOVE_TO_A_POINT_STATE.INITIAL_POSITION;
+
                     exitPlace.SetActive(false);
                     appState.theScope.SetActive(true);
                 }
@@ -51,7 +61,7 @@ public class ObjectPlacement : MonoBehaviour
         {
             GameObject _scope = hit.collider.gameObject;
             
-            if (_scope.CompareTag("Player"))
+            if (_scope.CompareTag("Player") && !isPlaced)
             {
                 _scope.transform.parent = Camera.main.transform;
 
@@ -68,6 +78,7 @@ public class ObjectPlacement : MonoBehaviour
                     else
                     {
                         debug.text = "Correct";
+                        isPlaced = true;
                         _scope.transform.parent = spitfire;
                         _scope.transform.rotation = spitfire.rotation;
 

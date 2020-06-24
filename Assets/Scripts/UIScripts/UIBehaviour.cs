@@ -30,6 +30,7 @@ public class UIBehaviour : MonoBehaviour
     [SerializeField] TheBlueprint blueprint;
     [SerializeField] TheParent parent;
     [SerializeField] InfoPanel Panel;
+    [SerializeField] GameObject logBook;
 
     public GameObject theScope;
 
@@ -37,7 +38,7 @@ public class UIBehaviour : MonoBehaviour
     public bool isBuildActive;
 
     [HideInInspector]
-    public bool isLearningActive;
+    public bool isLearnActive;
 
     [HideInInspector]
     public bool isPlaceModeActive;
@@ -61,6 +62,12 @@ public class UIBehaviour : MonoBehaviour
         {
             placeMode.ActivatePlacement();
         }
+
+        if (isLearnActive)
+        {
+            theScope.SetActive(false);
+            logBook.SetActive(true);
+        }
         
         CheckSelection();
         CheckUIenabled();
@@ -69,7 +76,7 @@ public class UIBehaviour : MonoBehaviour
     // The panels here are the buttons actually.
     private void CheckUIenabled()
     {
-        if (isBuildActive || isLearningActive || isPlaceModeActive || isUseModeActive)
+        if (isBuildActive || isLearnActive || isPlaceModeActive || isUseModeActive)
         {
             foreach (Transform panel in Panel.panels)
             {
@@ -77,7 +84,7 @@ public class UIBehaviour : MonoBehaviour
             }
         }
 
-        if (!isBuildActive && !isLearningActive && !isPlaceModeActive && !isUseModeActive)
+        if (!isBuildActive && !isLearnActive && !isPlaceModeActive && !isUseModeActive)
         {
             foreach (Transform panel in Panel.panels)
             {
@@ -120,7 +127,7 @@ public class UIBehaviour : MonoBehaviour
                     isUseModeActive = true;
                     
                     //workBench.GetComponent<Animator>().enabled = true;
-                    debug.text = "Usage Ready.";
+       
                     exitUse.SetActive(true);
 
                     theScope.SetActive(false);
@@ -131,8 +138,11 @@ public class UIBehaviour : MonoBehaviour
                 else if (open.CompareTag("LearnPanel"))
                 {
                     // Learn mode.
-                    isLearningActive = true;
+                    isLearnActive = true;
+
+                    // Turning things on and off.
                     exitLearn.SetActive(true);
+                  
                 }
                 else if (open.CompareTag("PlacePanel"))
                 {
@@ -207,7 +217,7 @@ public class UIBehaviour : MonoBehaviour
 
                     theLens.SetActive(false);
                     exitUse.SetActive(false);
-
+                    logBook.SetActive(true);
                 }
                 
                 if (hit.collider.gameObject == theMapHandle)
