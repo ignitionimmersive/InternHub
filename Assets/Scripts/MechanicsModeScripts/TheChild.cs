@@ -110,11 +110,13 @@ public class TheChild : MonoBehaviour
                 break;
 
             case CHILD_STATES.ON_BLUEPRINT:
-                if (this.gameObject.GetComponent<Rigidbody>() != null)
                 {
-                    Destroy(this.gameObject.GetComponent<Rigidbody>());
-                }
 
+                    if (this.gameObject.GetComponent<Rigidbody>() != null)
+                    {
+                        Destroy(this.gameObject.GetComponent<Rigidbody>());
+                    }
+                }
                 break;
             case CHILD_STATES.MOVE_TO_INITIAL_ASSEMBLY:
                 {
