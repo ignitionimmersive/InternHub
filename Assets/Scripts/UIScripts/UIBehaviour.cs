@@ -25,6 +25,9 @@ public class UIBehaviour : MonoBehaviour
     [SerializeField] GameObject theMapButtons;
     [SerializeField] GameObject theMapHandle;
 
+    // RotateWorkbench Buttons
+    [SerializeField] GameObject RotateButtons;
+
     // Other essential components.
     [SerializeField] ObjectPlacement placeMode;
     [SerializeField] TheBlueprint blueprint;
@@ -69,6 +72,8 @@ public class UIBehaviour : MonoBehaviour
             logBook.SetActive(true);
         }
         
+
+
         CheckSelection();
         CheckUIenabled();
     }
