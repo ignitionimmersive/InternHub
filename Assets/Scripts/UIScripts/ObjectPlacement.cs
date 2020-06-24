@@ -9,82 +9,102 @@ public class ObjectPlacement : MonoBehaviour
     private Vector3 startPos;
     private Quaternion startRot;
     private float threshold = 0.2f;
-    private bool isPlaced;
+    private bool isAttached;
 
     public UIBehaviour appState;
     public Text debug;
 
-    [SerializeField] GameObject exitPlace;
     [SerializeField] Transform spitfire;
-    [SerializeField] GameObject scope;
 
     private void Start()
     {
-        startPos = scope.transform.position;
-        startRot = scope.transform.rotation;
+        startPos = this.transform.position;
+        startRot = this.transform.rotation;
+    }
+
+    private void Update()
+    {
+        //debug.text = Input.touchCount.ToString();
+
+        if (appState.isPlaceModeActive == false)
+        {
+            debug.text = "Not Working";
+            return;
+        }
+
+        if (isAttached)
+        {
+            PlacementProcessing();
+        }
+        else
+        {
+            ActivatePlacement();
+        }
     }
 
     public void ActivatePlacement()
     {
-        if (appState.isPlaceModeActive == false)
-            return;
-
         spitfire.gameObject.SetActive(true);
-        scope.SetActive(true);
-
-        if (Input.touchCount > 0 && Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Ended)
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(Input.touchCount - 1).position);
-            if (Physics.Raycast(ray, out RaycastHit hits))
-            {
-                if (hits.collider.gameObject.CompareTag("GoBack"))
-                {
-                    appState.isPlaceModeActive = false;
-
-                    // Deactive spifire.
-                    spitfire.gameObject.SetActive(false);
-                    spitfire.gameObject.GetComponent<Animator>().enabled = false;
-
-                    // Deactive small scope.
-                    scope.SetActive(false);
-                    scope.transform.parent = spitfire;
-                    scope.transform.rotation = spitfire.rotation;
-                    this.gameObject.GetComponent<MoveToAPoint>().CURRENTSTATE = MoveToAPoint.MOVE_TO_A_POINT_STATE.INITIAL_POSITION;
-
-                    exitPlace.SetActive(false);
-                    appState.theScope.SetActive(true);
-                }
-            }
-        }
 
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit))
         {
-            GameObject _scope = hit.collider.gameObject;
-            
-            if (_scope.CompareTag("Player") && !isPlaced)
+            if (hit.collider.gameObject.CompareTag("Player"))
             {
-                _scope.transform.parent = Camera.main.transform;
-
-                if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+                debug.text = "FOUND";
+                if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && !isAttached)
                 {
-                    _scope.transform.parent = null;
+                    this.transform.parent = Camera.main.transform;
+                    isAttached = true;
+                    //debug.text = "ATTACHED";
+                }
+            }
+        }
+    }
 
-                    if (Vector3.Distance(_scope.transform.position, spitfire.position) > threshold)
+    private void PlacementProcessing()
+    {
+        //debug.text = "Placing";
+        if (Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Began)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(Input.touchCount - 1).position);
+
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                if (hit.collider.gameObject.CompareTag("GoBack"))
+                {
+                    // Deactive spifire.
+                    spitfire.gameObject.GetComponent<Animator>().enabled = false;
+                    spitfire.gameObject.SetActive(false);
+
+                    // Deactive small scope.
+                    this.gameObject.GetComponent<MoveToAPoint>().CURRENTSTATE = MoveToAPoint.MOVE_TO_A_POINT_STATE.INITIAL_POSITION;
+                    this.gameObject.SetActive(false); ;
+
+                    // Make UI buttons persist.
+                    if (appState.arCamera.GetComponent<ShowInfo>() != null)
+                        Destroy(appState.arCamera.GetComponent<ShowInfo>());
+
+                    appState.isPlaceModeActive = false;
+                }
+                else
+                {
+                    debug.text = "Placed!";
+                    this.transform.parent = null;
+
+                    if (Vector3.Distance(this.transform.position, spitfire.position) > threshold)
                     {
-                        _scope.transform.position = startPos;
-                        _scope.transform.rotation = startRot;
+                        this.transform.position = startPos;
+                        this.transform.rotation = startRot;
                         debug.text = "Drop";
                     }
                     else
                     {
                         debug.text = "Correct";
-                        isPlaced = true;
-                        _scope.transform.parent = spitfire;
-                        _scope.transform.rotation = spitfire.rotation;
+                        this.transform.parent = spitfire;
+                        this.transform.rotation = spitfire.rotation;
 
                         // Move the scope to its correct position.
                         this.gameObject.AddComponent<MoveToAPoint>();
-                        this.gameObject.GetComponent<MoveToAPoint>();
                         this.gameObject.GetComponent<MoveToAPoint>().finalPosition = spitfire.position;
                         this.gameObject.GetComponent<MoveToAPoint>().moveSpeed = 1f;
                         this.gameObject.GetComponent<MoveToAPoint>().timeToStart = 0.001f;

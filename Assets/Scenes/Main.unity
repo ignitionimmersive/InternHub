@@ -726,11 +726,12 @@ MonoBehaviour:
   theLens: {fileID: 38487088}
   theMapButtons: {fileID: 1015914582}
   theMapHandle: {fileID: 1154990374}
-  placeMode: {fileID: 1056970806}
+  smallScope: {fileID: 1056970804}
   blueprint: {fileID: 8765616912472354653}
   parent: {fileID: 172455816}
   Panel: {fileID: 857098242}
   logBook: {fileID: 2107659342}
+  arCamera: {fileID: 643603839}
   theScope: {fileID: 172455815}
   isBuildActive: 0
   isLearnActive: 0
@@ -748,7 +749,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4af04d5a5a07b9c479cfa173ccc249e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: {fileID: 1901181824}
 --- !u!1 &674372249
 GameObject:
   m_ObjectHideFlags: 0
@@ -1534,9 +1534,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   appState: {fileID: 643603845}
   debug: {fileID: 1901181824}
-  exitPlace: {fileID: 1389346191}
   spitfire: {fileID: 1725312376}
-  scope: {fileID: 1056970804}
 --- !u!4 &1056970808 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6965629477449568864, guid: 460c99f12c2252f4783c53d19f313aeb,
@@ -2086,6 +2084,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1725312376}
+  - component: {fileID: 1725312377}
   m_Layer: 0
   m_Name: Spitfire
   m_TagString: Untagged
@@ -2108,6 +2107,25 @@ Transform:
   m_Father: {fileID: 1154574011}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1725312377
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725312375}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0e91361af1edfa047bf0683380c81883, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1740429059
 PrefabInstance:
   m_ObjectHideFlags: 0

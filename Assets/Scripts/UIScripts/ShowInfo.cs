@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class ShowInfo : MonoBehaviour
 {
-    public Text debug;
-
     private List<InfoPanel> panels = new List<InfoPanel>();
 
     void Start()
@@ -18,19 +16,19 @@ public class ShowInfo : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //debug.text = "Not found";
         if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hit))
         {
             GameObject open = hit.collider.gameObject;
 
             if (open.CompareTag("SubPart"))
             {
-                //debug.text = open.name;
                 OpenPanel(open.GetComponent<InfoPanel>());
             }
         }
         else
+        {
             CloseAll();
+        }
     }
 
     private void OpenPanel(InfoPanel info)
@@ -40,9 +38,11 @@ public class ShowInfo : MonoBehaviour
             if (info == panel)
             {
                 panel.OpenPanel();
-                //Debug.Log(panel.transform.localScale.ToString());
             }
-            else panel.ClosePanel();
+            else
+            {
+                panel.ClosePanel();
+            }
         }
     }
 
