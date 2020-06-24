@@ -10,7 +10,8 @@ public class AnimationScript : MonoBehaviour
     public GameObject Page1_gameObject_1;
     public GameObject Page1_gameObject_2;
     public GameObject Page1_gameObject_3;
-    
+    public GameObject Page1_gameObject_4;
+
 
 
     public GameObject Page2_gameObject_1;
@@ -205,17 +206,25 @@ public class AnimationScript : MonoBehaviour
 
                 //GameObject 2
                 Page1_gameObject_2.SetActive(true);
-                if (Page1_gameObject_2.transform.localScale.y < 1f && Page1_gameObject_2.transform.localScale.y > -0.1f)
+                if (Page1_gameObject_2.transform.localScale.y < 18f && Page1_gameObject_2.transform.localScale.y > -0.1f)
                 {
                     Page1_gameObject_2.gameObject.transform.localScale += scaleChange;
                 }
                 
                 //GameObject 3
                 Page1_gameObject_3.SetActive(true);
-                if (Page1_gameObject_3.transform.localScale.y < 2f && Page1_gameObject_3.transform.localScale.y > -0.1f)
+                if (Page1_gameObject_3.transform.localScale.y < 24.5f && Page1_gameObject_3.transform.localScale.y > -0.1f)
                 {
                     Page1_gameObject_3.gameObject.transform.localScale += scaleChange;
                 }
+                //GameObject 3
+                Page1_gameObject_3.SetActive(true);
+                if (Page1_gameObject_3.transform.localScale.y < 22f && Page1_gameObject_3.transform.localScale.y > -0.1f)
+                {
+                    Page1_gameObject_3.gameObject.transform.localScale += scaleChange;
+                }
+
+
 
                 //Page 2 GameObjects Scalings To ( 2 to 0 )
 
@@ -258,16 +267,22 @@ public class AnimationScript : MonoBehaviour
 
                 //GameObject 2
                 Page1_gameObject_2.SetActive(true);
-                if (Page1_gameObject_2.transform.localScale.y < 1f && Page1_gameObject_2.transform.localScale.y > -0.1f)
+                if (Page1_gameObject_2.transform.localScale.y < 18f && Page1_gameObject_2.transform.localScale.y > -0.1f)
                 {
                     Page1_gameObject_2.gameObject.transform.localScale += scaleChange;
                 }
 
                 //GameObject 3
                 Page1_gameObject_3.SetActive(true);
-                if (Page1_gameObject_3.transform.localScale.y < 2f && Page1_gameObject_3.transform.localScale.y > -0.1f)
+                if (Page1_gameObject_3.transform.localScale.y < 24.5f && Page1_gameObject_3.transform.localScale.y > -0.1f)
                 {
                     Page1_gameObject_3.gameObject.transform.localScale += scaleChange;
+                }
+                //GameObject 3
+                Page1_gameObject_4.SetActive(true);
+                if (Page1_gameObject_4.transform.localScale.y < 22f && Page1_gameObject_4.transform.localScale.y > -0.1f)
+                {
+                    Page1_gameObject_4.gameObject.transform.localScale += scaleChange;
                 }
 
 
@@ -282,7 +297,7 @@ public class AnimationScript : MonoBehaviour
 
                 //GameObject 1
                 Page1_gameObject_1.SetActive(true);
-                if (Page1_gameObject_1.transform.localScale.y > 0f && Page1_gameObject_1.transform.localScale.y < 3f)
+                if (Page1_gameObject_1.transform.localScale.y > 0f && Page1_gameObject_1.transform.localScale.y < 30f)
                     {
                         Page1_gameObject_1.gameObject.transform.localScale -= scaleChange;
                         
@@ -290,7 +305,7 @@ public class AnimationScript : MonoBehaviour
 
                 //GameObject 2
                 Page1_gameObject_2.SetActive(true);
-                if (Page1_gameObject_2.transform.localScale.y > 0f && Page1_gameObject_2.transform.localScale.y < 3f)
+                if (Page1_gameObject_2.transform.localScale.y > 0f && Page1_gameObject_2.transform.localScale.y < 30f)
                 {
                     Page1_gameObject_2.gameObject.transform.localScale -= scaleChange;
 
@@ -298,7 +313,7 @@ public class AnimationScript : MonoBehaviour
 
                 //GameObject 3
                 Page1_gameObject_3.SetActive(true);
-                if (Page1_gameObject_3.transform.localScale.y > 0f && Page1_gameObject_3.transform.localScale.y < 3f)
+                if (Page1_gameObject_3.transform.localScale.y > 0f && Page1_gameObject_3.transform.localScale.y < 30f)
                 {
                     Page1_gameObject_3.gameObject.transform.localScale -= scaleChange;
 
