@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 2699b3c2c891bd64fa23196bf35ef11b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - flip: {fileID: 2138524281653374321, guid: 67392a9b4eddcdb4f9c1b72d2dce3138, type: 3}
+  - revrseFlip: {fileID: 6776201120411394572, guid: 094ab9c9c77df854495649a49882302f,
+      type: 3}
+  - Page1_gameObject_1: {instanceID: 0}
+  - Page1_gameObject_2: {instanceID: 0}
+  - Page1_gameObject_3: {instanceID: 0}
+  - Page2_gameObject_1: {instanceID: 0}
+  - Page2_gameObject_2: {instanceID: 0}
+  - Page2_gameObject_3: {instanceID: 0}
+  - Page3: {instanceID: 0}
+  - Page3_2: {instanceID: 0}
+  - Page3_3: {instanceID: 0}
+  - anim: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
