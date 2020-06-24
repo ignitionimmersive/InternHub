@@ -6,7 +6,6 @@ using UnityEngine.UI;
 using System.Runtime.CompilerServices;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
-using Unity.UNetWeaver;
 
 public class UIBehaviour : MonoBehaviour
 {
@@ -39,7 +38,7 @@ public class UIBehaviour : MonoBehaviour
     public bool isBuildActive;
 
     [HideInInspector]
-    public bool isLearningActive;
+    public bool isLearnActive;
 
     [HideInInspector]
     public bool isPlaceModeActive;
@@ -63,6 +62,12 @@ public class UIBehaviour : MonoBehaviour
         {
             placeMode.ActivatePlacement();
         }
+
+        if (isLearnActive)
+        {
+            theScope.SetActive(false);
+            logBook.SetActive(true);
+        }
         
         CheckSelection();
         CheckUIenabled();
@@ -71,7 +76,7 @@ public class UIBehaviour : MonoBehaviour
     // The panels here are the buttons actually.
     private void CheckUIenabled()
     {
-        if (isBuildActive || isLearningActive || isPlaceModeActive || isUseModeActive)
+        if (isBuildActive || isLearnActive || isPlaceModeActive || isUseModeActive)
         {
             foreach (Transform panel in Panel.panels)
             {
@@ -79,7 +84,7 @@ public class UIBehaviour : MonoBehaviour
             }
         }
 
-        if (!isBuildActive && !isLearningActive && !isPlaceModeActive && !isUseModeActive)
+        if (!isBuildActive && !isLearnActive && !isPlaceModeActive && !isUseModeActive)
         {
             foreach (Transform panel in Panel.panels)
             {
@@ -133,12 +138,11 @@ public class UIBehaviour : MonoBehaviour
                 else if (open.CompareTag("LearnPanel"))
                 {
                     // Learn mode.
-                    isLearningActive = true;
+                    isLearnActive = true;
 
                     // Turning things on and off.
                     exitLearn.SetActive(true);
-                    theScope.SetActive(false);
-
+                  
                 }
                 else if (open.CompareTag("PlacePanel"))
                 {

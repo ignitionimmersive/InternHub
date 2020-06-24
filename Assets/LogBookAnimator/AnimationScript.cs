@@ -198,7 +198,7 @@ public class AnimationScript : MonoBehaviour
 
                 //GameObject 1
                 Page1_gameObject_1.SetActive(true);
-                if (Page1_gameObject_1.transform.localScale.y < 1f && Page1_gameObject_1.transform.localScale.y > -0.1f)
+                if (Page1_gameObject_1.transform.localScale.y < 0.01f && Page1_gameObject_1.transform.localScale.y > -0.1f)
                     {
                         Page1_gameObject_1.gameObject.transform.localScale += scaleChange;
                     }
@@ -251,7 +251,7 @@ public class AnimationScript : MonoBehaviour
 
                 //GameObject 1
                 Page1_gameObject_1.SetActive(true);
-                if (Page1_gameObject_1.transform.localScale.y < 1f && Page1_gameObject_1.transform.localScale.y > -0.1f)
+                if (Page1_gameObject_1.transform.localScale.y < 0.01f && Page1_gameObject_1.transform.localScale.y > -0.1f)
                 {
                     Page1_gameObject_1.gameObject.transform.localScale += scaleChange;
                 }
