@@ -6,7 +6,6 @@ using UnityEngine.UI;
 using System.Runtime.CompilerServices;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
-using Unity.UNetWeaver;
 
 public class UIBehaviour : MonoBehaviour
 {
