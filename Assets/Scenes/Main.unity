@@ -602,6 +602,7 @@ GameObject:
   - component: {fileID: 643603841}
   - component: {fileID: 643603845}
   - component: {fileID: 643603846}
+  - component: {fileID: 643603847}
   m_Layer: 0
   m_Name: AR Camera
   m_TagString: MainCamera
@@ -750,6 +751,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debug: {fileID: 1901181824}
+--- !u!114 &643603847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643603839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3807a1b21a8e03944be6d58b4c53ed93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &674372249
 GameObject:
   m_ObjectHideFlags: 0
@@ -2087,6 +2100,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1725312376}
+  - component: {fileID: 1725312377}
   m_Layer: 0
   m_Name: Spitfire
   m_TagString: Untagged
@@ -2109,6 +2123,25 @@ Transform:
   m_Father: {fileID: 1154574011}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1725312377
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725312375}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0e91361af1edfa047bf0683380c81883, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1740429059
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2986,6 +3019,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7409018010781706902}
     m_Modifications:
+    - target: {fileID: 340549129456510552, guid: 8a97fcd0ef78dde4da83caea59fdbc22,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 340549129456510552, guid: 8a97fcd0ef78dde4da83caea59fdbc22,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -7.31
+      objectReference: {fileID: 0}
     - target: {fileID: 2844786051033898374, guid: 8a97fcd0ef78dde4da83caea59fdbc22,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3064,7 +3107,17 @@ PrefabInstance:
     - target: {fileID: 8896758731779060698, guid: 8a97fcd0ef78dde4da83caea59fdbc22,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9047408936673727989, guid: 8a97fcd0ef78dde4da83caea59fdbc22,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -7.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 9047408936673727989, guid: 8a97fcd0ef78dde4da83caea59fdbc22,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.77
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8a97fcd0ef78dde4da83caea59fdbc22, type: 3}
