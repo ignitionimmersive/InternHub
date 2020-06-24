@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using System.Runtime.CompilerServices;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
+using Unity.UNetWeaver;
 
 public class UIBehaviour : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class UIBehaviour : MonoBehaviour
     [SerializeField] TheBlueprint blueprint;
     [SerializeField] TheParent parent;
     [SerializeField] InfoPanel Panel;
+    [SerializeField] GameObject logBook;
 
     public GameObject theScope;
 
@@ -120,7 +122,7 @@ public class UIBehaviour : MonoBehaviour
                     isUseModeActive = true;
                     
                     //workBench.GetComponent<Animator>().enabled = true;
-                    debug.text = "Usage Ready.";
+       
                     exitUse.SetActive(true);
 
                     theScope.SetActive(false);
@@ -132,7 +134,11 @@ public class UIBehaviour : MonoBehaviour
                 {
                     // Learn mode.
                     isLearningActive = true;
+
+                    // Turning things on and off.
                     exitLearn.SetActive(true);
+                    theScope.SetActive(false);
+
                 }
                 else if (open.CompareTag("PlacePanel"))
                 {
@@ -207,7 +213,7 @@ public class UIBehaviour : MonoBehaviour
 
                     theLens.SetActive(false);
                     exitUse.SetActive(false);
-
+                    logBook.SetActive(true);
                 }
                 
                 if (hit.collider.gameObject == theMapHandle)
