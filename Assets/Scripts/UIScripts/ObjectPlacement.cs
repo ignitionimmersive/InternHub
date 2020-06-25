@@ -11,10 +11,10 @@ public class ObjectPlacement : MonoBehaviour
     private float threshold = 0.2f;
     private bool isAttached;
 
-    public UIBehaviour appState;
+    public UIBehaviour gameController;
     public Text debug;
 
-    [SerializeField] Transform spitfire;
+    public Transform spitfire;
 
     private void Start()
     {
@@ -26,7 +26,7 @@ public class ObjectPlacement : MonoBehaviour
     {
         //debug.text = Input.touchCount.ToString();
 
-        if (appState.isPlaceModeActive == false)
+        if (gameController.isPlaceModeActive == false)
         {
             debug.text = "Not Working";
             return;
@@ -50,7 +50,7 @@ public class ObjectPlacement : MonoBehaviour
         {
             if (hit.collider.gameObject.CompareTag("Player"))
             {
-                debug.text = "FOUND";
+                //debug.text = "FOUND";
                 if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && !isAttached)
                 {
                     this.transform.parent = Camera.main.transform;
@@ -66,6 +66,7 @@ public class ObjectPlacement : MonoBehaviour
         //debug.text = "Placing";
         if (Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Began)
         {
+            /*
             Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(Input.touchCount - 1).position);
 
             if (Physics.Raycast(ray, out RaycastHit hit))
@@ -81,41 +82,48 @@ public class ObjectPlacement : MonoBehaviour
                     this.gameObject.SetActive(false); ;
 
                     // Make UI buttons persist.
-                    if (appState.arCamera.GetComponent<ShowInfo>() != null)
-                        Destroy(appState.arCamera.GetComponent<ShowInfo>());
+                    if (gameController.arCamera.GetComponent<ShowInfo>() != null)
+                        Destroy(gameController.arCamera.GetComponent<ShowInfo>());
 
-                    appState.isPlaceModeActive = false;
+                    gameController.isPlaceModeActive = false;
+                    gameController.theScope.SetActive(true);
+
+                    hit.collider.gameObject.SetActive(false);
                 }
                 else
+            */
+
+            this.transform.parent = null;
+
+            if (Vector3.Distance(this.transform.position, spitfire.position) > threshold)
+            {
+                this.transform.position = startPos;
+                this.transform.rotation = startRot;
+                debug.text = "Drop";
+                isAttached = false;
+            }
+            else
+            {
+                debug.text = "Correct";
+                this.transform.parent = spitfire;
+                this.transform.rotation = spitfire.rotation;
+
+                // Move the scope to its correct position.
+                this.gameObject.AddComponent<MoveToAPoint>();
+                this.gameObject.GetComponent<MoveToAPoint>().finalPosition = spitfire.position;
+                this.gameObject.GetComponent<MoveToAPoint>().moveSpeed = 1f;
+                this.gameObject.GetComponent<MoveToAPoint>().timeToStart = 0.001f;
+                this.gameObject.GetComponent<MoveToAPoint>().CURRENTSTATE = MoveToAPoint.MOVE_TO_A_POINT_STATE.MOVE;
+
+                // If it is in absolute position then plane will take off.
+                if (this.GetComponent<MoveToAPoint>().CURRENTSTATE == MoveToAPoint.MOVE_TO_A_POINT_STATE.FINAL_POSITION)
                 {
-                    debug.text = "Placed!";
-                    this.transform.parent = null;
-
-                    if (Vector3.Distance(this.transform.position, spitfire.position) > threshold)
-                    {
-                        this.transform.position = startPos;
-                        this.transform.rotation = startRot;
-                        debug.text = "Drop";
-                    }
-                    else
-                    {
-                        debug.text = "Correct";
-                        this.transform.parent = spitfire;
-                        this.transform.rotation = spitfire.rotation;
-
-                        // Move the scope to its correct position.
-                        this.gameObject.AddComponent<MoveToAPoint>();
-                        this.gameObject.GetComponent<MoveToAPoint>().finalPosition = spitfire.position;
-                        this.gameObject.GetComponent<MoveToAPoint>().moveSpeed = 1f;
-                        this.gameObject.GetComponent<MoveToAPoint>().timeToStart = 0.001f;
-                        this.gameObject.GetComponent<MoveToAPoint>().CURRENTSTATE = MoveToAPoint.MOVE_TO_A_POINT_STATE.MOVE;
-
-                        // If it is in absolute position then plane will take off.
-                        if (this.GetComponent<MoveToAPoint>().CURRENTSTATE == MoveToAPoint.MOVE_TO_A_POINT_STATE.FINAL_POSITION)
-                            spitfire.gameObject.GetComponent<Animator>().enabled = true;
-                    }
+                    spitfire.gameObject.GetComponent<Animator>().enabled = true;
+                    debug.text = "FLY";
                 }
+                //spitfire.gameObject.GetComponent<Animator>().enabled = true;
             }
         }
     }
 }
+
