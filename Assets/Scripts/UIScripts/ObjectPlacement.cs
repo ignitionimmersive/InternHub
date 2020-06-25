@@ -8,13 +8,24 @@ public class ObjectPlacement : MonoBehaviour
 {
     private Vector3 startPos;
     private Quaternion startRot;
+
     private float threshold = 0.2f;
-    private bool isAttached;
+
+    private bool _isAttached;
+
+    private Vector3 placeScale = new Vector3(0.2f, 0.2f, 0.2f);
 
     public UIBehaviour gameController;
+
     public Text debug;
 
     public Transform spitfire;
+
+    public bool isAttached
+    {
+        get { return _isAttached;  }
+        set { }
+    }
 
     private void Start()
     {
@@ -22,85 +33,31 @@ public class ObjectPlacement : MonoBehaviour
         startRot = this.transform.rotation;
     }
 
-    private void Update()
-    {
-        //debug.text = Input.touchCount.ToString();
-
-        if (gameController.isPlaceModeActive == false)
-        {
-            debug.text = "Not Working";
-            return;
-        }
-
-        if (isAttached)
-        {
-            PlacementProcessing();
-        }
-        else
-        {
-            ActivatePlacement();
-        }
-    }
-
     public void ActivatePlacement()
     {
-        spitfire.gameObject.SetActive(true);
-
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit))
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
-            if (hit.collider.gameObject.CompareTag("Player"))
-            {
-                //debug.text = "FOUND";
-                if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began && !isAttached)
-                {
-                    this.transform.parent = Camera.main.transform;
-                    isAttached = true;
-                    //debug.text = "ATTACHED";
-                }
-            }
+            this.transform.parent = Camera.main.transform;
+            this.transform.localScale = placeScale;
+
+            _isAttached = true;
         }
     }
 
-    private void PlacementProcessing()
+    public void PlacementProcessing()
     {
         //debug.text = "Placing";
         if (Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Began)
         {
-            /*
-            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(Input.touchCount - 1).position);
-
-            if (Physics.Raycast(ray, out RaycastHit hit))
-            {
-                if (hit.collider.gameObject.CompareTag("GoBack"))
-                {
-                    // Deactive spifire.
-                    spitfire.gameObject.GetComponent<Animator>().enabled = false;
-                    spitfire.gameObject.SetActive(false);
-
-                    // Deactive small scope.
-                    this.gameObject.GetComponent<MoveToAPoint>().CURRENTSTATE = MoveToAPoint.MOVE_TO_A_POINT_STATE.INITIAL_POSITION;
-                    this.gameObject.SetActive(false); ;
-
-                    // Make UI buttons persist.
-                    if (gameController.arCamera.GetComponent<ShowInfo>() != null)
-                        Destroy(gameController.arCamera.GetComponent<ShowInfo>());
-
-                    gameController.isPlaceModeActive = false;
-                    gameController.theScope.SetActive(true);
-
-                    hit.collider.gameObject.SetActive(false);
-                }
-                else
-            */
-
             this.transform.parent = null;
+            _isAttached = false;
 
             if (Vector3.Distance(this.transform.position, spitfire.position) > threshold)
             {
                 this.transform.position = startPos;
                 this.transform.rotation = startRot;
                 debug.text = "Drop";
-                isAttached = false;
+                //isAttached = false;
             }
             else
             {
@@ -116,14 +73,8 @@ public class ObjectPlacement : MonoBehaviour
                 this.gameObject.GetComponent<MoveToAPoint>().CURRENTSTATE = MoveToAPoint.MOVE_TO_A_POINT_STATE.MOVE;
 
                 // If it is in absolute position then plane will take off.
-                if (this.GetComponent<MoveToAPoint>().CURRENTSTATE == MoveToAPoint.MOVE_TO_A_POINT_STATE.FINAL_POSITION)
-                {
-                    spitfire.gameObject.GetComponent<Animator>().enabled = true;
-                    debug.text = "FLY";
-                }
-                //spitfire.gameObject.GetComponent<Animator>().enabled = true;
+                spitfire.gameObject.GetComponent<Animator>().enabled = true;
             }
         }
     }
 }
-

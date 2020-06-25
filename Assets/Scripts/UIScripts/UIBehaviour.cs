@@ -11,7 +11,7 @@ public class UIBehaviour : MonoBehaviour
 {
     // Debug Text.
     public Text debug;
-
+   
     // Exit buttons.
     [SerializeField] GameObject exitMechanic;
     [SerializeField] GameObject exitPlace;
@@ -29,7 +29,6 @@ public class UIBehaviour : MonoBehaviour
     [SerializeField] GameObject RotateButtons;
 
     // Other essential components.
-    [SerializeField] GameObject smallScope;
     [SerializeField] TheBlueprint blueprint;
     [SerializeField] TheParent parent;
     [SerializeField] InfoPanel Panel;
@@ -67,6 +66,15 @@ public class UIBehaviour : MonoBehaviour
         if (isPlaceModeActive)
         {
             CheckExitPlace();
+
+            if (placeMode.isAttached)
+            {
+                placeMode.PlacementProcessing();
+            }
+            else
+            {
+                placeMode.ActivatePlacement();
+            }
         }
         
         if (isLearnActive)
@@ -76,8 +84,6 @@ public class UIBehaviour : MonoBehaviour
             CheckExitLearn();
         }
         
-
-
         CheckSelection();
         CheckUIenabled();
     }
@@ -164,8 +170,8 @@ public class UIBehaviour : MonoBehaviour
                     RotateButtons.SetActive(false);
 
                     // Spitfire and small-scaled scope are active, deactive the large-scale scope.
-                    theScope.SetActive(false);
-                    smallScope.SetActive(true);
+                    theScope.transform.Translate(-0.2f, 0f, 0f, Space.Self);
+                    placeMode.spitfire.gameObject.SetActive(true);
                 }
             }
         }
@@ -225,10 +231,7 @@ public class UIBehaviour : MonoBehaviour
                 if (hit.collider.gameObject.CompareTag("GoBack"))
                 {
                     workBench.GetComponent<Animator>().SetInteger("MapController", 0);
-                    isUseModeActive = false;
-
-                    //workBench.GetComponent<Animator>().enabled = false;
-                    
+                   
                     theScope.SetActive(true); 
 
                     theMapButtons.SetActive(false);
@@ -238,6 +241,8 @@ public class UIBehaviour : MonoBehaviour
 
                     theLens.SetActive(false);
                     exitUse.SetActive(false);
+
+                    isUseModeActive = false;
                 }
                 
                 if (hit.collider.gameObject == theMapHandle)
@@ -260,7 +265,6 @@ public class UIBehaviour : MonoBehaviour
                 if (hit.collider.gameObject.CompareTag("GoBack"))
                 {
                     logBook.GetComponent<AnimationScript>().CURRENTSTATE = AnimationScript.STATES.OPEN;
-                    isLearnActive = false;
 
                     theScope.SetActive(true);
 
@@ -268,6 +272,15 @@ public class UIBehaviour : MonoBehaviour
                         Destroy(arCamera.GetComponent<ShowInfo>());
 
                     logBook.SetActive(false);
+                    exitLearn.SetActive(false);
+
+                    GameObject[] buildings = GameObject.FindGameObjectsWithTag("Building");
+                    foreach (GameObject building in buildings)
+                    {
+                        building.SetActive(false);
+                    }
+
+                    isLearnActive = false;
                 }
             }
         }
@@ -275,7 +288,7 @@ public class UIBehaviour : MonoBehaviour
 
     private void CheckExitPlace()
     {
-        if (Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Began)
+        if (Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Ended)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(Input.touchCount - 1).position);
 
@@ -283,22 +296,18 @@ public class UIBehaviour : MonoBehaviour
             {
                 if (hit.collider.gameObject.CompareTag("GoBack"))
                 {
+                    debug.text = "WANT EXIT";
                     // Deactive spifire.
                     placeMode.spitfire.gameObject.GetComponent<Animator>().enabled = false;
                     placeMode.spitfire.gameObject.SetActive(false);
-
-                    // Deactive small scope.
-                    this.gameObject.GetComponent<MoveToAPoint>().CURRENTSTATE = MoveToAPoint.MOVE_TO_A_POINT_STATE.INITIAL_POSITION;
-                    this.gameObject.SetActive(false); ;
 
                     // Make UI buttons persist.
                     if (arCamera.GetComponent<ShowInfo>() != null)
                         Destroy(arCamera.GetComponent<ShowInfo>());
 
-                    isPlaceModeActive = false;
-                    theScope.SetActive(true);
-
                     exitPlace.SetActive(false);
+                    
+                    isPlaceModeActive = false;
                 }
             }
         }
