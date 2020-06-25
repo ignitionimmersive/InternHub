@@ -534,9 +534,9 @@ public class AnimationScript : MonoBehaviour
 
 
 
-                break;
+                
             }
-
+            break;
         }
     }
 }
