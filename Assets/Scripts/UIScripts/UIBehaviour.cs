@@ -25,12 +25,17 @@ public class UIBehaviour : MonoBehaviour
     [SerializeField] GameObject theMapButtons;
     [SerializeField] GameObject theMapHandle;
 
+    // RotateWorkbench Buttons
+    [SerializeField] GameObject RotateButtons;
+
     // Other essential components.
-    [SerializeField] ObjectPlacement placeMode;
+    [SerializeField] GameObject smallScope;
     [SerializeField] TheBlueprint blueprint;
     [SerializeField] TheParent parent;
     [SerializeField] InfoPanel Panel;
     [SerializeField] GameObject logBook;
+
+    public GameObject arCamera;
 
     public GameObject theScope;
 
@@ -58,17 +63,21 @@ public class UIBehaviour : MonoBehaviour
             ActivateUsageMode();
         }
 
+        /*
         if (isPlaceModeActive)
         {
             placeMode.ActivatePlacement();
         }
-
+        */
         if (isLearnActive)
         {
             theScope.SetActive(false);
             logBook.SetActive(true);
+            CheckExitLearn();
         }
         
+
+
         CheckSelection();
         CheckUIenabled();
     }
@@ -89,6 +98,14 @@ public class UIBehaviour : MonoBehaviour
             foreach (Transform panel in Panel.panels)
             {
                 panel.gameObject.SetActive(true);
+            }
+
+            theScope.SetActive(true);
+
+            GameObject[] exitButons = GameObject.FindGameObjectsWithTag("GoBack");
+            foreach (GameObject button in exitButons)
+            {
+                button.SetActive(false);
             }
         }
     }
@@ -152,6 +169,7 @@ public class UIBehaviour : MonoBehaviour
 
                     // Spitfire and small-scaled scope are active, deactive the large-scale scope.
                     theScope.SetActive(false);
+                    smallScope.SetActive(true);
                 }
             }
         }
@@ -187,8 +205,9 @@ public class UIBehaviour : MonoBehaviour
                     if (parent.gameObject.GetComponentInParent<TheParent>().CURRENT_STATE == TheParent.PARENT_STATE.ALL_CHILD_ON_BLUEPRINT)
                         parent.gameObject.GetComponentInParent<TheParent>().AssembleAllChildren();
 
-                    // Turn off exit button.
-                    exitMechanic.SetActive(false);
+                    // Change button dynamic.
+                    if (arCamera.GetComponent<ShowInfo>() != null)
+                        Destroy(arCamera.GetComponent<ShowInfo>());
 
                     // Turn of Build mode.
                     isBuildActive = false;
@@ -215,9 +234,10 @@ public class UIBehaviour : MonoBehaviour
 
                     theMapButtons.SetActive(false);
 
+                    if (arCamera.GetComponent<ShowInfo>() != null)
+                        Destroy(arCamera.GetComponent<ShowInfo>());
+
                     theLens.SetActive(false);
-                    exitUse.SetActive(false);
-                    logBook.SetActive(true);
                 }
                 
                 if (hit.collider.gameObject == theMapHandle)
@@ -226,6 +246,29 @@ public class UIBehaviour : MonoBehaviour
                     theMapButtons.SetActive(true);
                 }
                         
+            }
+        }
+    }
+
+    private void CheckExitLearn()
+    {
+        if (Input.touchCount > 0 && Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Ended)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(Input.touchCount - 1).position);
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                if (hit.collider.gameObject.CompareTag("GoBack"))
+                {
+                    logBook.GetComponent<AnimationScript>().CURRENTSTATE = AnimationScript.STATES.OPEN;
+                    isLearnActive = false;
+
+                    theScope.SetActive(true);
+
+                    if (arCamera.GetComponent<ShowInfo>() != null)
+                        Destroy(arCamera.GetComponent<ShowInfo>());
+
+                    logBook.SetActive(false);
+                }
             }
         }
     }
