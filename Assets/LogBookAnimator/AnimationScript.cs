@@ -14,7 +14,7 @@ public class AnimationScript : MonoBehaviour
     public GameObject Page1_gameObject_3;
     public GameObject Page1_gameObject_4;
 
-
+    public GameObject PopUpText;
 
     public GameObject Page2_gameObject_1;
     public GameObject Page2_gameObject_2;
@@ -29,7 +29,7 @@ public class AnimationScript : MonoBehaviour
    
     public enum STATES
     {
-        
+      
         OPEN,
         PAGE1,PAGE1_REVERSE1,
         PAGE2, PAGE2_REVERSE2,
@@ -99,16 +99,18 @@ public class AnimationScript : MonoBehaviour
                     if (touch.phase == TouchPhase.Ended)
                     {
                     Debug.DrawLine(Camera.main.gameObject.transform.position, hit.collider.gameObject.transform.position, Color.red);
+
                         switch (CURRENTSTATE)
                         {
-
+                       
 
                             case STATES.OPEN:
 
                                 {
+                                 
                                     if (hit.collider.gameObject.name == "Flip")
                                     {
-
+                                        PopUpText.SetActive(false);
                                         anim.Play("Open");
                                         this.CURRENTSTATE = STATES.PAGE1;
                                     }
@@ -171,12 +173,14 @@ public class AnimationScript : MonoBehaviour
                                     }
                                     if (hit.collider.gameObject.name == "Flip")
                                     {
-                                        anim.Play("Close");
-
+                                    
+                                    anim.Play("Close");
+                                       
                                         this.CURRENTSTATE = STATES.OPEN;
-
+                                        
                                     }
-                                    break;
+                                        
+                                break;
                                 }
                         
 
@@ -225,6 +229,7 @@ public class AnimationScript : MonoBehaviour
                     {
                         Page1_gameObject_4.gameObject.transform.localScale += scaleChange;
                     }
+                    
 
 
 
@@ -321,12 +326,12 @@ public class AnimationScript : MonoBehaviour
 
                     }
                 //GameObject 4
-                Page1_gameObject_4.SetActive(true);
-                    if (Page1_gameObject_4.transform.localScale.y > 0f && Page1_gameObject_4.transform.localScale.y < 2f)
+                Page1_gameObject_4.SetActive(false);
+                if (Page1_gameObject_4.transform.localScale.y > 0f && Page1_gameObject_4.transform.localScale.y < 2f)
                     {
                         Page1_gameObject_4.gameObject.transform.localScale -= scaleChange;
-
-                    }
+                       // Page1_gameObject_4.SetActive(false);
+                }
 
                 // Page 2 GameObjects Scaling ( 0 to 2 )
 
@@ -440,11 +445,12 @@ public class AnimationScript : MonoBehaviour
 
                 else if (CURRENTSTATE == STATES.OPEN)
                 {
-                    //Reverting Back to Scale 0 if the Book is Closed.
+                    PopUpText.SetActive(true);
+                //Reverting Back to Scale 0 if the Book is Closed.
 
-                    //GameObject 1
+                //GameObject 1
                     Page1_gameObject_1.SetActive(true);
-                    if (Page1_gameObject_1.transform.localScale.y > 0f && Page1_gameObject_1.transform.localScale.y < 3f)
+                    if (Page1_gameObject_1.transform.localScale.y > 0f && Page1_gameObject_1.transform.localScale.y < 2f)
                     {
                         Page1_gameObject_1.gameObject.transform.localScale -= scaleChange;
 
@@ -452,7 +458,7 @@ public class AnimationScript : MonoBehaviour
 
                     //GameObject 2
                     Page1_gameObject_2.SetActive(true);
-                    if (Page1_gameObject_2.transform.localScale.y > 0f && Page1_gameObject_2.transform.localScale.y < 3f)
+                    if (Page1_gameObject_2.transform.localScale.y > 0f && Page1_gameObject_2.transform.localScale.y < 2f)
                     {
                         Page1_gameObject_2.gameObject.transform.localScale -= scaleChange;
 
@@ -460,14 +466,14 @@ public class AnimationScript : MonoBehaviour
 
                     //GameObject 3
                     Page1_gameObject_3.SetActive(true);
-                    if (Page1_gameObject_3.transform.localScale.y > 0f && Page1_gameObject_3.transform.localScale.y < 3f)
+                    if (Page1_gameObject_3.transform.localScale.y > 0f && Page1_gameObject_3.transform.localScale.y < 2f)
                     {
                         Page1_gameObject_3.gameObject.transform.localScale -= scaleChange;
 
                     }
                 //GameObject 3
                 Page1_gameObject_4.SetActive(true);
-                if (Page1_gameObject_4.transform.localScale.y > 0f && Page1_gameObject_4.transform.localScale.y < 3f)
+                if (Page1_gameObject_4.transform.localScale.y > 0.1f && Page1_gameObject_4.transform.localScale.y < 2f)
                 {
                     Page1_gameObject_4.gameObject.transform.localScale -= scaleChange;
 
