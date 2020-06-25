@@ -765,11 +765,12 @@ MonoBehaviour:
   theMapButtons: {fileID: 1015914582}
   theMapHandle: {fileID: 1154990374}
   RotateButtons: {fileID: 1457110475}
-  placeMode: {fileID: 1056970806}
+  smallScope: {fileID: 0}
   blueprint: {fileID: 8765616912472354653}
   parent: {fileID: 172455816}
   Panel: {fileID: 857098242}
   logBook: {fileID: 2107659342}
+  arCamera: {fileID: 0}
   theScope: {fileID: 172455815}
   isBuildActive: 0
   isLearnActive: 0
@@ -787,7 +788,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4af04d5a5a07b9c479cfa173ccc249e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: {fileID: 1901181824}
 --- !u!114 &643603847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1826,9 +1826,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   appState: {fileID: 643603845}
   debug: {fileID: 1901181824}
-  exitPlace: {fileID: 1389346191}
   spitfire: {fileID: 1725312376}
-  scope: {fileID: 1056970804}
 --- !u!4 &1056970808 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6965629477449568864, guid: 460c99f12c2252f4783c53d19f313aeb,
