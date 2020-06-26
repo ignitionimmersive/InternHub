@@ -6,20 +6,20 @@ using UnityEngine.UI;
 
 public class ObjectPlacement : MonoBehaviour
 {
-    private Vector3 startPos;
-    private Quaternion startRot;
-
     private float threshold = 0.2f;
 
     private bool _isAttached;
 
-    private Vector3 placeScale = new Vector3(0.2f, 0.2f, 0.2f);
-
-    public UIBehaviour gameController;
+    private Vector3 placeScale = new Vector3(0.01f, 0.01f, 0.01f);
 
     public Text debug;
 
     public Transform spitfire;
+
+    public Transform mainContent;
+
+    [HideInInspector]
+    public bool readyToExit;
 
     public bool isAttached
     {
@@ -27,54 +27,51 @@ public class ObjectPlacement : MonoBehaviour
         set { }
     }
 
-    private void Start()
-    {
-        startPos = this.transform.position;
-        startRot = this.transform.rotation;
-    }
-
     public void ActivatePlacement()
     {
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        foreach (GameObject value in this.GetComponent<TheParent>().children)
         {
-            this.transform.parent = Camera.main.transform;
-            this.transform.localScale = placeScale;
-
-            _isAttached = true;
+            value.gameObject.GetComponent<TheChild>().initialPosition = value.gameObject.transform.position;
+            value.gameObject.GetComponent<TheChild>().initialRotation = value.gameObject.transform.rotation;
         }
+
+        this.transform.parent = Camera.main.transform;
+        this.transform.localScale = placeScale;
+
+        _isAttached = true;
     }
 
     public void PlacementProcessing()
     {
-        //debug.text = "Placing";
-        if (Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Began)
+        if (Vector3.Distance(this.transform.position, spitfire.position) > threshold)
         {
-            this.transform.parent = null;
+            foreach (GameObject value in this.GetComponent<TheParent>().children)
+            {
+                value.transform.position = value.GetComponent<TheChild>().initialPosition;
+                value.transform.rotation = value.GetComponent<TheChild>().initialRotation;
+            }
+            
+            debug.text = this.transform.position.ToString();
+
             _isAttached = false;
+        }
+        else
+        {
+            debug.text = "Correct";
+            this.transform.parent = spitfire;
+            this.transform.rotation = spitfire.rotation;
 
-            if (Vector3.Distance(this.transform.position, spitfire.position) > threshold)
-            {
-                this.transform.position = startPos;
-                this.transform.rotation = startRot;
-                debug.text = "Drop";
-                //isAttached = false;
-            }
-            else
-            {
-                debug.text = "Correct";
-                this.transform.parent = spitfire;
-                this.transform.rotation = spitfire.rotation;
+            // Move the scope to its correct position.
+            this.gameObject.AddComponent<MoveToAPoint>();
+            this.gameObject.GetComponent<MoveToAPoint>().finalPosition = spitfire.position;
+            this.gameObject.GetComponent<MoveToAPoint>().moveSpeed = 1f;
+            this.gameObject.GetComponent<MoveToAPoint>().timeToStart = 0.001f;
+            this.gameObject.GetComponent<MoveToAPoint>().CURRENTSTATE = MoveToAPoint.MOVE_TO_A_POINT_STATE.MOVE;
 
-                // Move the scope to its correct position.
-                this.gameObject.AddComponent<MoveToAPoint>();
-                this.gameObject.GetComponent<MoveToAPoint>().finalPosition = spitfire.position;
-                this.gameObject.GetComponent<MoveToAPoint>().moveSpeed = 1f;
-                this.gameObject.GetComponent<MoveToAPoint>().timeToStart = 0.001f;
-                this.gameObject.GetComponent<MoveToAPoint>().CURRENTSTATE = MoveToAPoint.MOVE_TO_A_POINT_STATE.MOVE;
+            // If it is in absolute position then plane will take off.
+            spitfire.gameObject.GetComponent<Animator>().enabled = true;
 
-                // If it is in absolute position then plane will take off.
-                spitfire.gameObject.GetComponent<Animator>().enabled = true;
-            }
+            readyToExit = true;
         }
     }
 }

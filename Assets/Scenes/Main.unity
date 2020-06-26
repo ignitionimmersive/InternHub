@@ -418,9 +418,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f3048d30c04322498841eed370ca27f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameController: {fileID: 643603845}
   debug: {fileID: 1901181824}
   spitfire: {fileID: 1725312376}
+  mainContent: {fileID: 1154574011}
 --- !u!1 &290925406 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 679742783559374943, guid: ecb89ffdd75e9264cb578e6bd2965031,
@@ -787,6 +787,7 @@ MonoBehaviour:
   placeMode: {fileID: 172455817}
   arCamera: {fileID: 643603839}
   theScope: {fileID: 172455815}
+  mainContent: {fileID: 1154574011}
   isBuildActive: 0
   isLearnActive: 0
   isPlaceModeActive: 0
@@ -1167,7 +1168,7 @@ Transform:
   m_Children:
   - {fileID: 1016216583}
   m_Father: {fileID: 1154574011}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 10.139001, z: 0}
 --- !u!1 &848218151
 GameObject:
@@ -1838,12 +1839,12 @@ Transform:
   - {fileID: 7409018010781706902}
   - {fileID: 5538061526379850845}
   - {fileID: 1725312376}
-  - {fileID: 38487089}
   - {fileID: 1690690755}
-  - {fileID: 2107659345}
+  - {fileID: 38487089}
   - {fileID: 1496117666}
-  - {fileID: 1219218754}
+  - {fileID: 2107659345}
   - {fileID: 763359819}
+  - {fileID: 1219218754}
   - {fileID: 2076438782}
   - {fileID: 2020881481}
   - {fileID: 1016864191}
@@ -2314,7 +2315,7 @@ Transform:
   m_Children:
   - {fileID: 519434986}
   m_Father: {fileID: 1154574011}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: -24.692001, z: 0}
 --- !u!1 &1546758799
 GameObject:
@@ -2415,7 +2416,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 0.5000001}
   m_Children: []
   m_Father: {fileID: 1154574011}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
 --- !u!64 &1690690756
 MeshCollider:

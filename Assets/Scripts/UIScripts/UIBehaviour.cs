@@ -39,6 +39,8 @@ public class UIBehaviour : MonoBehaviour
 
     public GameObject theScope;
 
+    public Transform mainContent;
+
     [HideInInspector]
     public bool isBuildActive;
 
@@ -65,21 +67,12 @@ public class UIBehaviour : MonoBehaviour
 
         if (isPlaceModeActive)
         {
-            CheckExitPlace();
-
-            if (placeMode.isAttached)
-            {
-                placeMode.PlacementProcessing();
-            }
-            else
-            {
-                placeMode.ActivatePlacement();
-            }
+            ActivatePlaceMode();
         }
         
         if (isLearnActive)
         {
-            theScope.SetActive(false);
+            //theScope.SetActive(false);
             logBook.SetActive(true);
             CheckExitLearn();
         }
@@ -160,6 +153,7 @@ public class UIBehaviour : MonoBehaviour
 
                     // Turning things on and off.
                     exitLearn.SetActive(true);
+                    theScope.SetActive(false);
                   
                 }
                 else if (open.CompareTag("PlacePanel"))
@@ -169,8 +163,14 @@ public class UIBehaviour : MonoBehaviour
                     exitPlace.SetActive(true);
                     RotateButtons.SetActive(false);
 
+                    foreach (GameObject value in this.theScope.GetComponent<TheParent>().children)
+                    {
+                        value.gameObject.GetComponent<TheChild>().initialPosition = value.gameObject.transform.position;
+                        value.gameObject.GetComponent<TheChild>().initialRotation = value.gameObject.transform.rotation;
+                    }
+
                     // Spitfire and small-scaled scope are active, deactive the large-scale scope.
-                    theScope.transform.Translate(-0.2f, 0f, 0f, Space.Self);
+                    theScope.transform.Translate(-0.3f, 0f, 0f, Space.Self);
                     placeMode.spitfire.gameObject.SetActive(true);
                 }
             }
@@ -211,8 +211,10 @@ public class UIBehaviour : MonoBehaviour
                     exitMechanic.SetActive(false);
 
                     // Change button dynamic.
-                    if (arCamera.GetComponent<ShowInfo>() != null)
-                        Destroy(arCamera.GetComponent<ShowInfo>());
+                    if (theScope.GetComponentInChildren<InfoPanel>() != null)
+                    {
+                        Destroy(theScope.GetComponentInChildren<InfoPanel>());
+                    }
 
                     // Turn of Build mode.
                     isBuildActive = false;
@@ -236,8 +238,10 @@ public class UIBehaviour : MonoBehaviour
 
                     theMapButtons.SetActive(false);
 
-                    if (arCamera.GetComponent<ShowInfo>() != null)
-                        Destroy(arCamera.GetComponent<ShowInfo>());
+                    if (theScope.GetComponentInChildren<InfoPanel>() != null)
+                    {
+                        Destroy(theScope.GetComponentInChildren<InfoPanel>());
+                    }
 
                     theLens.SetActive(false);
                     exitUse.SetActive(false);
@@ -268,8 +272,10 @@ public class UIBehaviour : MonoBehaviour
 
                     theScope.SetActive(true);
 
-                    if (arCamera.GetComponent<ShowInfo>() != null)
-                        Destroy(arCamera.GetComponent<ShowInfo>());
+                    if (theScope.GetComponentInChildren<InfoPanel>() != null)
+                    {
+                        Destroy(theScope.GetComponentInChildren<InfoPanel>());
+                    }
 
                     logBook.SetActive(false);
                     exitLearn.SetActive(false);
@@ -286,9 +292,44 @@ public class UIBehaviour : MonoBehaviour
         }
     }
 
-    private void CheckExitPlace()
+    private void ExitPlace()
     {
-        if (Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Ended)
+        theScope.transform.parent = mainContent;
+        theScope.transform.localScale = Vector3.one;
+
+        foreach (GameObject value in this.theScope.GetComponent<TheParent>().children)
+        {
+            value.transform.position = value.GetComponent<TheChild>().initialPosition;
+            value.transform.rotation = value.GetComponent<TheChild>().initialRotation;
+        }
+
+        if (placeMode.readyToExit)
+        {
+            theScope.transform.Translate(0.3f, 0f, 0f, Space.Self);
+        }
+
+        // Deactive spifire.
+        placeMode.spitfire.gameObject.GetComponent<Animator>().enabled = false;
+        placeMode.spitfire.gameObject.SetActive(false);
+
+        theScope.SetActive(true);
+
+        // Make UI buttons persist.
+        if (theScope.GetComponentInChildren<InfoPanel>() != null)
+        {
+            theScope.GetComponentInChildren<InfoPanel>().OpenPanel();
+            Destroy(theScope.GetComponentInChildren<InfoPanel>());
+        }
+          
+        exitPlace.SetActive(false);
+        //debug.text = theScope.activeSelf.ToString() + " " + theScope.transform.position.ToString();
+
+        isPlaceModeActive = false;
+    }
+
+    private void ActivatePlaceMode()
+    {
+        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(Input.touchCount - 1).position);
 
@@ -296,18 +337,18 @@ public class UIBehaviour : MonoBehaviour
             {
                 if (hit.collider.gameObject.CompareTag("GoBack"))
                 {
-                    debug.text = "WANT EXIT";
-                    // Deactive spifire.
-                    placeMode.spitfire.gameObject.GetComponent<Animator>().enabled = false;
-                    placeMode.spitfire.gameObject.SetActive(false);
-
-                    // Make UI buttons persist.
-                    if (arCamera.GetComponent<ShowInfo>() != null)
-                        Destroy(arCamera.GetComponent<ShowInfo>());
-
-                    exitPlace.SetActive(false);
-                    
-                    isPlaceModeActive = false;
+                    ExitPlace();
+                }
+                else
+                {
+                    if (placeMode.isAttached)
+                    {
+                        placeMode.PlacementProcessing();
+                    }
+                    else
+                    {
+                        placeMode.ActivatePlacement();
+                    }
                 }
             }
         }
