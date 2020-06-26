@@ -15,6 +15,7 @@ TagManager:
   - FlipPages
   - TheARPlane
   - GoBack
+  - Building
   layers:
   - Default
   - TransparentFX

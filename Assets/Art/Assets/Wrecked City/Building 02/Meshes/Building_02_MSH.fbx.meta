@@ -3,7 +3,52 @@ guid: 2c3b0e63702abf74ca099b89210df221
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ConcBroken_MAT
+    second: {fileID: 2100000, guid: 4019d069c4b16a545b0af6b0850b4f01, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ConcDirty_MAT
+    second: {fileID: 2100000, guid: c6465c6dcf1f04644b4854d37f0f6bff, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ConcMix_MAT
+    second: {fileID: 2100000, guid: f9d9baf8abf6bfc4eba7613a1563ebec, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ConcOldDk_MAT
+    second: {fileID: 2100000, guid: ca3d3423eaa94d248ae09a08c9023821, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DarkMetal_MAT
+    second: {fileID: 2100000, guid: f2f1da22ac77e66448711d1103be8230, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Debris_MAT
+    second: {fileID: 2100000, guid: 8f513459ebc59914bb25d86991eebd47, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Glass_MAT
+    second: {fileID: 2100000, guid: b944e101410d1664aa42eccf7914184a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RustedMetal_MAT
+    second: {fileID: 2100000, guid: eb080fc499782be4aa6054824ab2db16, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WoodBeams_MAT
+    second: {fileID: 2100000, guid: 5a73946e7da29bc4cb2d490c8137ec99, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
