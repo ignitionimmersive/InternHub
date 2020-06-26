@@ -470,7 +470,7 @@ public class AnimationScript : MonoBehaviour
 
                 else if (CURRENTSTATE == STATES.OPEN)
                 {
-                    //PopUpText.SetActive(true);
+                    PopUpText.SetActive(true);
                     //Reverting Back to Scale 0 if the Book is Closed.
 
                     //GameObject 1
