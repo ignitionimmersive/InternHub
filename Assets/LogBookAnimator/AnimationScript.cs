@@ -9,6 +9,9 @@ public class AnimationScript : MonoBehaviour
 
     public GameObject Flip;
     public GameObject ReverseFlip;
+    public AudioSource Audio;
+    public AudioSource OpenClose;
+
     public GameObject Page1_gameObject_1;
     public GameObject Page1_gameObject_2;
     public GameObject Page1_gameObject_3;
@@ -45,10 +48,11 @@ public class AnimationScript : MonoBehaviour
     void Start()
     {
 
-
+      
         anim.GetComponent<Animator>();
         scaleChange = new Vector3(0.1f, 0.1f, 0.1f);
-
+        Audio.Stop();
+        OpenClose.Stop();
     }
     // Update is called once per frame
     void Update()
@@ -113,8 +117,10 @@ public class AnimationScript : MonoBehaviour
                                  
                                     if (hit.collider.gameObject.name == "Flip")
                                     {
+                                        
                                         PopUpText.SetActive(false);
                                         anim.Play("Open");
+                                        
                                         this.CURRENTSTATE = STATES.PAGE1;
                                     }
 
@@ -127,12 +133,12 @@ public class AnimationScript : MonoBehaviour
 
                         case STATES.PAGE1:
                             {
-
+                                
                                 if ((hit.collider.gameObject.name == "Flip"))
                                 {
-
+                                    
                                     anim.Play("Page Flip");
-
+                                    Audio.Play();
                                     this.CURRENTSTATE = STATES.PAGE2;
 
                                 }
@@ -140,6 +146,7 @@ public class AnimationScript : MonoBehaviour
 
                                 if (hit.collider.gameObject.name == "ReverseFlip")
                                 {
+                                    OpenClose.Play();
                                     anim.Play("Close");
                                     this.CURRENTSTATE = STATES.OPEN;
                                 }
@@ -152,7 +159,7 @@ public class AnimationScript : MonoBehaviour
                             {
                                 if (hit.collider.gameObject.name == "ReverseFlip")
                                 {
-
+                                    Audio.Play();
                                     anim.Play("Page Flip Reverse");
                                     this.CURRENTSTATE = STATES.PAGE1;
 
@@ -160,7 +167,7 @@ public class AnimationScript : MonoBehaviour
                                 if (hit.collider.gameObject.name == "Flip")
                                 {
                                     anim.Play("Page Flip 0");
-
+                                    Audio.Play();
                                     this.CURRENTSTATE = STATES.PAGE3;
 
                                 }
@@ -171,15 +178,16 @@ public class AnimationScript : MonoBehaviour
                             {
                                 if (hit.collider.gameObject.name == "ReverseFlip")
                                 {
-
+                                    
+                                    Audio.Play();
                                     anim.Play("Page Flip Reverse 0");
                                     this.CURRENTSTATE = STATES.PAGE2;
 
                                 }
                                 if (hit.collider.gameObject.name == "Flip")
                                 {
+                                    OpenClose.Play();
                                     anim.Play("Close");
-
                                     this.CURRENTSTATE = STATES.OPEN;
 
                                 }
