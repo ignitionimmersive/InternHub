@@ -6,8 +6,7 @@ using UnityEngine;
 
 public class AnimationScript : MonoBehaviour
 {
-    string ClipName;
-    AnimatorClipInfo[] currentAnim;
+    
 
     public GameObject Flip;
     public GameObject ReverseFlip;
@@ -53,7 +52,7 @@ public class AnimationScript : MonoBehaviour
     void Start()
     {
 
-        ClipName = currentAnim[0].clip.name;
+        
         anim.GetComponent<Animator>();
         scaleChange = new Vector3(0.1f, 0.1f, 0.1f);
 
