@@ -31,7 +31,7 @@ public class UIBehaviour : MonoBehaviour
     // Other essential components.
     [SerializeField] TheBlueprint blueprint;
     [SerializeField] TheParent parent;
-    [SerializeField] InfoPanel Panel;
+    [SerializeField] GameObject Panel;
     [SerializeField] GameObject logBook;
     [SerializeField] ObjectPlacement placeMode;
 
@@ -86,18 +86,12 @@ public class UIBehaviour : MonoBehaviour
     {
         if (isBuildActive || isLearnActive || isPlaceModeActive || isUseModeActive)
         {
-            foreach (Transform panel in Panel.panels)
-            {
-                panel.gameObject.SetActive(false);
-            }
+            Panel.SetActive(false);
         }
 
         if (!isBuildActive && !isLearnActive && !isPlaceModeActive && !isUseModeActive)
         {
-            foreach (Transform panel in Panel.panels)
-            {
-                panel.gameObject.SetActive(true);
-            }
+            Panel.SetActive(true);
         }
     }
 
