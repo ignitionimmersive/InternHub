@@ -24,7 +24,7 @@ public class CameraDetectScript : MonoBehaviour
                     {
                         if (hit.distance <= 0.5)
                         {
-                            hit.collider.gameObject.transform.Rotate(0, 30 * Time.deltaTime, 0);
+                            //hit.collider.gameObject.transform.Rotate(0, 30 * Time.deltaTime, 0);
                         }
                     }
 
@@ -37,6 +37,7 @@ public class CameraDetectScript : MonoBehaviour
                     }
                 }
             }
+
             
            
 
