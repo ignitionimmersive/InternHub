@@ -11,7 +11,7 @@ public class AnimationScript : MonoBehaviour
     public GameObject ReverseFlip;
     public AudioSource Audio;
     public AudioSource OpenClose;
-    public AudioSource ReverseAudio;
+    
 
     public GameObject Page1_gameObject_1;
     public GameObject Page1_gameObject_2;
@@ -34,7 +34,7 @@ public class AnimationScript : MonoBehaviour
 
     public enum STATES
     {
-        ClosedBook,
+       
         OPEN,
         PAGE1, PAGE1_REVERSE1,
         PAGE2, PAGE2_REVERSE2,
@@ -54,7 +54,7 @@ public class AnimationScript : MonoBehaviour
         scaleChange = new Vector3(0.1f, 0.1f, 0.1f);
         Audio.Stop();
         OpenClose.Stop();
-        ReverseAudio.Play();
+        
     }
     // Update is called once per frame
     void Update()
@@ -80,21 +80,14 @@ public class AnimationScript : MonoBehaviour
 
                         switch (CURRENTSTATE)
                         {
-                        case STATES.ClosedBook:
-                            {
-                                if(CURRENTSTATE != STATES.OPEN)
-                                {
-                                    ReverseAudio.Stop();
-                                    this.CURRENTSTATE = STATES.OPEN;
-                                }
-                                break;
-                            }
+                        
                        
 
                         case STATES.OPEN:
 
                             {
                                 OpenClose.Stop();
+                                
                                 
                                  
                                     if (hit.collider.gameObject.name == "Flip")
