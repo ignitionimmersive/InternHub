@@ -146,7 +146,7 @@ public class AnimationScript : MonoBehaviour
 
                                 if (hit.collider.gameObject.name == "ReverseFlip")
                                 {
-                                    OpenClose.Play();
+                                   // OpenClose.Play();
                                     anim.Play("Close");
                                     this.CURRENTSTATE = STATES.OPEN;
                                 }
@@ -186,7 +186,7 @@ public class AnimationScript : MonoBehaviour
                                 }
                                 if (hit.collider.gameObject.name == "Flip")
                                 {
-                                    OpenClose.Play();
+                                   // OpenClose.Play();
                                     anim.Play("Close");
                                     this.CURRENTSTATE = STATES.OPEN;
 
