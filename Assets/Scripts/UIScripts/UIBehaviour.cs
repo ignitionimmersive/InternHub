@@ -119,11 +119,7 @@ public class UIBehaviour : MonoBehaviour
                     exitMechanic.SetActive(true);
                     RotateButtons.SetActive(false);
 
-                    foreach (GameObject value in this.theScope.GetComponent<TheParent>().children)
-                    {
-                        value.gameObject.GetComponent<TheChild>().initialPosition = value.gameObject.transform.position;
-                        value.gameObject.GetComponent<TheChild>().initialRotation = value.gameObject.transform.rotation;
-                    }
+                    
 
                 }
                 else if (open.CompareTag("UsagePanel"))
@@ -189,6 +185,11 @@ public class UIBehaviour : MonoBehaviour
                 {
                     if (hit.collider.gameObject.GetComponentInParent<TheParent>().CURRENT_STATE == TheParent.PARENT_STATE.ALL_CHILD_ON_BODY)
                     {
+                        foreach (GameObject value in this.theScope.GetComponent<TheParent>().children)
+                        {
+                            value.gameObject.GetComponent<TheChild>().initialPosition = value.gameObject.transform.position;
+                            value.gameObject.GetComponent<TheChild>().initialRotation = value.gameObject.transform.rotation;
+                        }
                         //debug.text = "Dismantle";
                         hit.collider.gameObject.GetComponentInParent<TheParent>().DismantleAllChildren();
                     }
