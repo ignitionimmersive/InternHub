@@ -52,15 +52,15 @@ public class AnimationScript : MonoBehaviour
       
         anim.GetComponent<Animator>();
         scaleChange = new Vector3(0.1f, 0.1f, 0.1f);
+
         Audio.Stop();
         OpenClose.Stop();
-        
+
     }
     // Update is called once per frame
     void Update()
     {
 
-       
 
         if (Input.touchCount > 0)
         {
@@ -87,6 +87,7 @@ public class AnimationScript : MonoBehaviour
 
                             {
                                 OpenClose.Stop();
+                                Audio.Stop();
                                 
                                 
                                  
@@ -108,6 +109,7 @@ public class AnimationScript : MonoBehaviour
 
                         case STATES.PAGE1:
                             {
+                                Audio.Stop();
                                 
                                 if ((hit.collider.gameObject.name == "Flip"))
                                 {
