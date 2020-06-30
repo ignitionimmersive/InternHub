@@ -11,7 +11,10 @@ public class UIBehaviour : MonoBehaviour
 {
     // Debug Text.
     public Text debug;
-   
+
+    // mode buttons
+    [SerializeField] GameObject modeButtons;
+
     // Exit buttons.
     [SerializeField] GameObject exitMechanic;
     [SerializeField] GameObject exitPlace;
@@ -29,16 +32,21 @@ public class UIBehaviour : MonoBehaviour
     [SerializeField] GameObject RotateButtons;
 
     // Other essential components.
+    [SerializeField] GameObject smallScope;
+    [SerializeField] GameObject spitFire;
     [SerializeField] TheBlueprint blueprint;
     [SerializeField] TheParent parent;
     [SerializeField] GameObject Panel;
     [SerializeField] GameObject logBook;
+    //[SerializeField] ObjectPlacement placeMode;
+
+
+    Vector3 smallScopeLocation;
+    public GameObject arCamera;
 
     public GameObject theScope;
 
-    public GameObject spitfire;
-
-    public GameObject smallScope;
+    public Transform mainContent;
 
     [HideInInspector]
     public bool isBuildActive;
@@ -52,7 +60,7 @@ public class UIBehaviour : MonoBehaviour
     [HideInInspector]
     public bool isUseModeActive;
 
-    void Update()
+    void FixedUpdate()
     {
         if (isBuildActive)
         {
@@ -68,14 +76,14 @@ public class UIBehaviour : MonoBehaviour
         {
             ActivatePlaceMode();
         }
-        
+
         if (isLearnActive)
         {
             //theScope.SetActive(false);
             logBook.SetActive(true);
             CheckExitLearn();
         }
-        
+
         CheckSelection();
         CheckUIenabled();
     }
@@ -86,13 +94,11 @@ public class UIBehaviour : MonoBehaviour
         if (isBuildActive || isLearnActive || isPlaceModeActive || isUseModeActive)
         {
             Panel.SetActive(false);
-            RotateButtons.SetActive(false);
         }
 
         if (!isBuildActive && !isLearnActive && !isPlaceModeActive && !isUseModeActive)
         {
             Panel.SetActive(true);
-            RotateButtons.SetActive(true);
         }
     }
 
@@ -106,24 +112,22 @@ public class UIBehaviour : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 GameObject open = hit.collider.gameObject;
-                
+
                 if (open.CompareTag("MechanicPanel"))
                 {
                     isBuildActive = true;
-
                     blueprint.gameObject.SetActive(true);
                     exitMechanic.SetActive(true);
-
-                    if (theScope.GetComponent<TheParent>() == null)
-                    {
-                        theScope.AddComponent<TheParent>();
-                    }
+                    RotateButtons.SetActive(false);
+                    theScope.SetActive(true);
 
                     foreach (GameObject value in this.theScope.GetComponent<TheParent>().children)
                     {
                         value.gameObject.GetComponent<TheChild>().initialPosition = value.gameObject.transform.position;
                         value.gameObject.GetComponent<TheChild>().initialRotation = value.gameObject.transform.rotation;
                     }
+
+
 
                 }
                 else if (open.CompareTag("UsagePanel"))
@@ -134,46 +138,47 @@ public class UIBehaviour : MonoBehaviour
                     }
                     // Usage mode.
                     isUseModeActive = true;
-                    
+                    RotateButtons.SetActive(false);
+
                     //workBench.GetComponent<Animator>().enabled = true;
-       
+
                     exitUse.SetActive(true);
 
                     theScope.SetActive(false);
-                    
+
                     theMapButtons.SetActive(true);
-       
+
                 }
                 else if (open.CompareTag("LearnPanel"))
                 {
                     // Learn mode.
                     isLearnActive = true;
+                    RotateButtons.SetActive(false);
 
                     // Turning things on and off.
                     exitLearn.SetActive(true);
                     theScope.SetActive(false);
-                  
+
                 }
                 else if (open.CompareTag("PlacePanel"))
                 {
                     // Place mode.
                     isPlaceModeActive = true;
                     exitPlace.SetActive(true);
+                    RotateButtons.SetActive(false);
+                    smallScope.SetActive(true);
+                    spitFire.SetActive(true);
 
-                    // Spitfire and small-scaled scope are active, deactive the large-scale scope.
+                    smallScopeLocation = smallScope.gameObject.transform.position;
                     theScope.SetActive(false);
 
-                    smallScope.SetActive(true);
+                    //smallScope.gameObject.transform.position = new Vector3(-0.40f, 1.042f, -0.106f);
 
-                    foreach (GameObject value in this.smallScope.GetComponent<TheParent>().children)
-                    {
-                        value.gameObject.GetComponent<TheChild>().initialPosition = value.gameObject.transform.position;
-                        value.gameObject.GetComponent<TheChild>().initialRotation = value.gameObject.transform.rotation;
-                    }
+                    // Spitfire and small-scaled scope are active, deactive the large-scale scope.
+                    //theScope.transform.Translate(-0.3f, 0f, 0f, Space.Self);
+                    //placeMode.spitfire.gameObject.SetActive(true);
 
-                    debug.text = smallScope.transform.position.ToString();
-
-                    spitfire.gameObject.SetActive(true);
+                    modeButtons.SetActive(false);
                 }
             }
         }
@@ -181,6 +186,7 @@ public class UIBehaviour : MonoBehaviour
 
     private void ActivateMechanicMode()
     {
+
         //this.blueprint.gameObject.SetActive(true);
         if (Input.touchCount > 0 && Input.GetTouch(Input.touchCount - 1).phase == TouchPhase.Ended)
         {
@@ -191,6 +197,7 @@ public class UIBehaviour : MonoBehaviour
                 {
                     if (hit.collider.gameObject.GetComponentInParent<TheParent>().CURRENT_STATE == TheParent.PARENT_STATE.ALL_CHILD_ON_BODY)
                     {
+
                         //debug.text = "Dismantle";
                         hit.collider.gameObject.GetComponentInParent<TheParent>().DismantleAllChildren();
                     }
@@ -206,14 +213,14 @@ public class UIBehaviour : MonoBehaviour
                     blueprint.gameObject.SetActive(false);
 
                     // If exit while object is being dismantled, re-assemble object before go back to main menu.
-                    if (parent.gameObject.GetComponentInParent<TheParent>().CURRENT_STATE == TheParent.PARENT_STATE.ALL_CHILD_ON_BLUEPRINT
-                        || parent.gameObject.GetComponentInParent<TheParent>().CURRENT_STATE == TheParent.PARENT_STATE.DISMANTLED)
-                    {
+                    if (parent.gameObject.GetComponentInParent<TheParent>().CURRENT_STATE == TheParent.PARENT_STATE.ALL_CHILD_ON_BLUEPRINT)
                         parent.gameObject.GetComponentInParent<TheParent>().AssembleAllChildren();
-                    }
-        
+
                     // Turn off exit button.
                     exitMechanic.SetActive(false);
+
+                    // Change button dynamic.
+                  
 
                     // Turn of Build mode.
                     isBuildActive = false;
@@ -232,21 +239,24 @@ public class UIBehaviour : MonoBehaviour
                 if (hit.collider.gameObject.CompareTag("GoBack"))
                 {
                     workBench.GetComponent<Animator>().SetInteger("MapController", 0);
-                   
-                    theScope.SetActive(true); 
+
+                    theScope.SetActive(true);
+
                     theMapButtons.SetActive(false);
+
+                  
                     theLens.SetActive(false);
                     exitUse.SetActive(false);
 
                     isUseModeActive = false;
                 }
-                
+
                 if (hit.collider.gameObject == theMapHandle)
                 {
                     workBench.GetComponent<Animator>().SetInteger("MapController", 1);
                     theMapButtons.SetActive(true);
                 }
-                        
+
             }
         }
     }
@@ -263,6 +273,8 @@ public class UIBehaviour : MonoBehaviour
                     logBook.GetComponent<AnimationScript>().CURRENTSTATE = AnimationScript.STATES.OPEN;
 
                     theScope.SetActive(true);
+
+                   
 
                     logBook.SetActive(false);
                     exitLearn.SetActive(false);
@@ -281,27 +293,29 @@ public class UIBehaviour : MonoBehaviour
 
     private void ExitPlace()
     {
+        
         // Deactive spifire.
-        spitfire.GetComponent<Animator>().enabled = false;
-        spitfire.transform.Rotate(0f, -180f, 0f);
-        spitfire.SetActive(false);
+        //placeMode.spitfire.gameObject.GetComponent<Animator>().enabled = false;
+        //placeMode.spitfire.gameObject.SetActive(false);
 
-        theScope.SetActive(true);
+        //theScope.SetActive(true);
 
-        smallScope.transform.parent = Camera.main.transform;
+        // Make UI buttons persist.
 
-        foreach (GameObject value in this.smallScope.GetComponent<TheParent>().children)
-        {
-            value.transform.position = value.GetComponent<TheChild>().initialPosition;
-            value.transform.rotation = value.gameObject.GetComponent<TheChild>().initialRotation;
-        }
-
-        debug.text = smallScope.transform.position.ToString();
         smallScope.SetActive(false);
 
-        exitPlace.SetActive(false);
+        modeButtons.SetActive(true);
+        spitFire.GetComponent<Animator>().enabled = (false);
+        spitFire.SetActive(false);
+
+        Panel.gameObject.SetActive(true);
+
+        //debug.text = theScope.activeSelf.ToString() + " " + theScope.transform.position.ToString();
 
         isPlaceModeActive = false;
+
+        exitPlace.SetActive(false);
+        smallScope.gameObject.transform.position = smallScopeLocation;
     }
 
     private void ActivatePlaceMode()
@@ -314,25 +328,11 @@ public class UIBehaviour : MonoBehaviour
             {
                 if (hit.collider.gameObject.CompareTag("GoBack"))
                 {
+                    Debug.Log("Exit Place");
                     ExitPlace();
                 }
-                else if (hit.collider.gameObject.CompareTag("Spitfire"))
-                {
-                    smallScope.transform.parent = spitfire.transform;
-                    smallScope.transform.rotation = spitfire.transform.rotation;
-
-                    // Move the scope to its correct position.
-                    smallScope.gameObject.AddComponent<MoveToAPoint>();
-                    smallScope.gameObject.GetComponent<MoveToAPoint>().finalPosition = spitfire.transform.position;
-                    smallScope.gameObject.GetComponent<MoveToAPoint>().moveSpeed = 0.01f;
-                    smallScope.gameObject.GetComponent<MoveToAPoint>().timeToStart = 0.001f;
-                    smallScope.gameObject.GetComponent<MoveToAPoint>().CURRENTSTATE = MoveToAPoint.MOVE_TO_A_POINT_STATE.MOVE;
-
-                    // If it is in absolute position then plane will take off.
-                    spitfire.gameObject.GetComponent<Animator>().enabled = true;
-                }
+                
             }
         }
     }
 }
-      

@@ -6,7 +6,7 @@ using UnityEngine;
 public class DragAndDrop : MonoBehaviour
 {
     private Touch touch;
-    [Range(0.0001f, 0.02f)] public float speedModifier;
+    [Range(0.0001f, 0.02f)] public float speedModifier = 0.0004f;
     private void Start()
     {
         speedModifier = 0.01f;
