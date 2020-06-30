@@ -112,19 +112,18 @@ public class AnimationScript : MonoBehaviour
                         case STATES.OPEN:
 
                             {
-                                if (hit.collider.gameObject.name == "Flip")
-                                {
+                                OpenClose.Stop();
                                  
                                     if (hit.collider.gameObject.name == "Flip")
                                     {
                                         
                                         PopUpText.SetActive(false);
                                         anim.Play("Open");
-                                        
-                                        this.CURRENTSTATE = STATES.PAGE1;
+                                        OpenClose.Play();
+                                    this.CURRENTSTATE = STATES.PAGE1;
                                     }
 
-                                }
+                                
 
 
                                 break;
@@ -146,8 +145,9 @@ public class AnimationScript : MonoBehaviour
 
                                 if (hit.collider.gameObject.name == "ReverseFlip")
                                 {
-                                   // OpenClose.Play();
+                                   
                                     anim.Play("Close");
+                                    
                                     this.CURRENTSTATE = STATES.OPEN;
                                 }
 
@@ -184,10 +184,11 @@ public class AnimationScript : MonoBehaviour
                                     this.CURRENTSTATE = STATES.PAGE2;
 
                                 }
+                                OpenClose.Stop();
                                 if (hit.collider.gameObject.name == "Flip")
                                 {
-                                   // OpenClose.Play();
                                     anim.Play("Close");
+                                    OpenClose.Play();
                                     this.CURRENTSTATE = STATES.OPEN;
 
                                 }
