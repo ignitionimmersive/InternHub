@@ -21,7 +21,7 @@ public class TheChild : MonoBehaviour
     [HideInInspector]
     public Vector3 initialPosition;
 
-    [HideInInspector]
+    //[HideInInspector]
     public Quaternion initialRotation;
 
     public CHILD_STATES CURRENTSTATE;
@@ -29,8 +29,8 @@ public class TheChild : MonoBehaviour
 
     private void Start()
     {
-        this.initialPosition = this.GetComponent<Transform>().position;
-        this.initialRotation = this.GetComponent<Transform>().rotation;
+        this.initialPosition = this.gameObject.GetComponent<Transform>().position;
+        this.initialRotation = this.gameObject.GetComponent<Transform>().rotation;
     }
 
     private void Update()
@@ -39,7 +39,7 @@ public class TheChild : MonoBehaviour
         {
             case CHILD_STATES.INITIAL_ASSEMBLY:
                 {
-
+                    this.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
                     if (this.gameObject.GetComponent<Rigidbody>() != null)
                     {
                         Destroy(this.gameObject.GetComponent<Rigidbody>());
@@ -72,6 +72,10 @@ public class TheChild : MonoBehaviour
                 }
             case CHILD_STATES.MOVE_TO_BLUEPRINT:
                 {
+                    if (this.gameObject.GetComponent<Rigidbody>() != null)
+                    {
+                        Destroy(this.gameObject.GetComponent<Rigidbody>());
+                    }
                     if (this.gameObject.GetComponent<MoveToAPoint>() == null)
                     {
                         this.gameObject.AddComponent<MoveToAPoint>();
@@ -88,17 +92,17 @@ public class TheChild : MonoBehaviour
 
 
                     this.CURRENTSTATE = CHILD_STATES.MOVING_TO_BLUEPRINT;
-                    if (this.gameObject.GetComponent<Rigidbody>() != null)
-                    {
-                        Destroy(this.gameObject.GetComponent<Rigidbody>());
-                    }
+                    
                     break;
                 }
             
             case CHILD_STATES.MOVING_TO_BLUEPRINT:
                 {
-                    
 
+                    if (this.gameObject.GetComponent<Rigidbody>() != null)
+                    {
+                        Destroy(this.gameObject.GetComponent<Rigidbody>());
+                    }
                     if (this.gameObject.GetComponent<MoveToAPoint>().CURRENTSTATE == MoveToAPoint.MOVE_TO_A_POINT_STATE.FINAL_POSITION)
                     {
                         Destroy(this.gameObject.GetComponent<MoveToAPoint>());
@@ -137,7 +141,7 @@ public class TheChild : MonoBehaviour
                 }
                 break;
             case CHILD_STATES.MOVING_TO_INITIAL_ASSEMBLY:
-
+                //this.gameObject.transform.rotation = Quaternion.identity;
                 if (this.gameObject.GetComponent<Rigidbody>() != null)
                 {
                     Destroy(this.gameObject.GetComponent<Rigidbody>());

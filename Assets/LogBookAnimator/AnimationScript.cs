@@ -11,6 +11,7 @@ public class AnimationScript : MonoBehaviour
     public GameObject ReverseFlip;
     public AudioSource Audio;
     public AudioSource OpenClose;
+    
 
     public GameObject Page1_gameObject_1;
     public GameObject Page1_gameObject_2;
@@ -33,7 +34,7 @@ public class AnimationScript : MonoBehaviour
 
     public enum STATES
     {
-      
+       
         OPEN,
         PAGE1, PAGE1_REVERSE1,
         PAGE2, PAGE2_REVERSE2,
@@ -51,43 +52,15 @@ public class AnimationScript : MonoBehaviour
       
         anim.GetComponent<Animator>();
         scaleChange = new Vector3(0.1f, 0.1f, 0.1f);
+
         Audio.Stop();
         OpenClose.Stop();
+
     }
     // Update is called once per frame
     void Update()
     {
 
-        //  switch (CURRENTSTATE)
-        //{
-        //      case STATES.OPEN:
-        //          {
-        //              if (Input.GetMouseButtonDown(0))
-        //              {
-        //                  
-        //                 anim.Play("Open");
-        //                 this.CURRENTSTATE = STATES.PAGE;
-        //             }
-        //             break;
-        //         }
-        //     case STATES.PAGE:
-        //         {
-        //            if (Input.GetMouseButtonDown(1))
-        //             {
-        //                 
-        //                 anim.Play("Page Flip");
-        //
-        //                 this.CURRENTSTATE = STATES.PAGE1;
-        //             }
-        //             break;
-        //        }
-
-
-
-
-
-
-        // }
 
         if (Input.touchCount > 0)
         {
@@ -107,12 +80,16 @@ public class AnimationScript : MonoBehaviour
 
                         switch (CURRENTSTATE)
                         {
+                        
                        
 
                         case STATES.OPEN:
 
                             {
                                 OpenClose.Stop();
+                                Audio.Stop();
+                                
+                                
                                  
                                     if (hit.collider.gameObject.name == "Flip")
                                     {
@@ -132,6 +109,7 @@ public class AnimationScript : MonoBehaviour
 
                         case STATES.PAGE1:
                             {
+                                Audio.Stop();
                                 
                                 if ((hit.collider.gameObject.name == "Flip"))
                                 {
