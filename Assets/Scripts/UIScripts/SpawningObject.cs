@@ -14,7 +14,7 @@ public class SpawningObject : MonoBehaviour
 
     private bool objectPlaced = false;
     private bool activeIndicator = false;
-    public Pose indicatorPose;
+    private Pose indicatorPose;
 
     private Vector3 screenCenter;
     private ARRaycastManager arRaycastManager;

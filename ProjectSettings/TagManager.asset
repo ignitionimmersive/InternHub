@@ -16,6 +16,7 @@ TagManager:
   - TheARPlane
   - GoBack
   - Building
+  - Spitfire
   layers:
   - Default
   - TransparentFX
