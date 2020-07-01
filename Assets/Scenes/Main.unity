@@ -464,18 +464,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 124101512}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &172455817
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8827191906107006542}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f3048d30c04322498841eed370ca27f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &230806316 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2668677978264119951, guid: 639bf2560c13fa249ac06d0c0ea18e59,
@@ -932,6 +920,7 @@ GameObject:
   - component: {fileID: 643603841}
   - component: {fileID: 643603845}
   - component: {fileID: 643603846}
+  - component: {fileID: 643603848}
   - component: {fileID: 643603847}
   m_Layer: 0
   m_Name: AR Camera
@@ -1103,6 +1092,7 @@ MonoBehaviour:
   exitPlace: {fileID: 1016864190}
   exitLearn: {fileID: 1911530298}
   exitUse: {fileID: 1690690754}
+  BuildModeController: {fileID: 643603848}
   BigScope: {fileID: 7685008288530685211}
   Blueprint: {fileID: 230806316}
   SmallScope: {fileID: 1233260995}
@@ -1111,6 +1101,20 @@ MonoBehaviour:
   MapCollider: {fileID: 1154990377}
   Logbook: {fileID: 2107659342}
   LogbookBuildings: {fileID: 1788517659}
+--- !u!114 &643603848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643603839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b70b088f30f1aa4499d0a14fdd217d97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  theParent: {fileID: 7685008288530685211}
+  theBluePrint: {fileID: 230806316}
 --- !u!1 &674372249
 GameObject:
   m_ObjectHideFlags: 0
@@ -5455,6 +5459,7 @@ MonoBehaviour:
   ReverseFlip: {fileID: 1546758799}
   Audio: {fileID: 1267468709}
   OpenClose: {fileID: 1891844248}
+  ReverseAudio: {fileID: 0}
   Page1_gameObject_1: {fileID: 1326287032}
   Page1_gameObject_2: {fileID: 1496117665}
   Page1_gameObject_3: {fileID: 763359818}
@@ -7359,7 +7364,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5538061526379850845}
   - component: {fileID: 7685008288530685211}
-  - component: {fileID: 172455817}
   m_Layer: 0
   m_Name: BigScope
   m_TagString: SubPart

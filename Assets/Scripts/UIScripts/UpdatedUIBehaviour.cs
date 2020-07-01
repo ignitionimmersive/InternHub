@@ -19,6 +19,7 @@ public class UpdatedUIBehaviour : MonoBehaviour
     [SerializeField] GameObject exitUse;
 
     // BuildMode 
+    [SerializeField] MechanicsController BuildModeController;
     [SerializeField] TheParent BigScope;
     [SerializeField] TheBlueprint Blueprint;
 
@@ -51,8 +52,10 @@ public class UpdatedUIBehaviour : MonoBehaviour
         {
             case ActiveMode.MAIN:
                 {
+                    
                     BigScope.gameObject.SetActive(true);
                     Blueprint.gameObject.SetActive(false);
+                    BuildModeController.enabled = (false);
 
                     SmallScope.SetActive(false);
                     Spitfire.SetActive(false);
@@ -74,6 +77,9 @@ public class UpdatedUIBehaviour : MonoBehaviour
                 {
                     BigScope.gameObject.SetActive(true);
                     Blueprint.gameObject.SetActive(true);
+                    BuildModeController.enabled = true;
+
+
                     modeButtons.SetActive(false);
                     exitBuild.SetActive(true);
                     exitLearn.SetActive(false);
@@ -139,10 +145,23 @@ public class UpdatedUIBehaviour : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 GameObject open = hit.collider.gameObject;
-            
 
-               
-                 if (open.CompareTag("MechanicPanel"))
+
+                if (open.CompareTag("GoBack"))
+                {
+                    //if (activeMode == ActiveMode.BUILD)
+                    
+                        
+                    
+
+                     if (activeMode == ActiveMode.LEARN)
+                    {
+                        ExitLearn();
+                    }
+                    ExitMechanics();
+                    StatesSet(ActiveMode.MAIN);
+                }
+                else if (open.CompareTag("MechanicPanel"))
                 {
                     StatesSet(ActiveMode.BUILD);
                 }
@@ -158,16 +177,12 @@ public class UpdatedUIBehaviour : MonoBehaviour
                 {
                     StatesSet(ActiveMode.PLACE);
                 }
-                 else if (open.CompareTag("GoBack"))
-                {
-                    ExitLearn();
-                    StatesSet(ActiveMode.MAIN);
-                }
+                
                 
 
             }
         }
-                }
+    }
 
     void ExitLearn()
     {
@@ -179,6 +194,14 @@ public class UpdatedUIBehaviour : MonoBehaviour
         {
             Debug.Log("CloseBuildings");
             building.SetActive(false);
+        }
+    }
+
+    void ExitMechanics()
+    {
+        if (BigScope.CURRENT_STATE != TheParent.PARENT_STATE.ALL_CHILD_ON_BODY)
+        { 
+            BigScope.gameObject.GetComponent<TheParent>().AssembleAllChildren();
         }
     }
     #endregion

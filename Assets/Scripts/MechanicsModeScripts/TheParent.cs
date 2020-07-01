@@ -75,44 +75,5 @@ public class TheParent : MonoBehaviour
         }
     }
 
-    public void CheckParentState()
-    {
-
-        int ALL_CHILD_ON_BODY_count = 0;
-        int DISMANTLED_count = 0;
-        int ALL_CHILD_ON_BLUEPRINT_count = 0;
-
-        foreach (GameObject child in children)
-        {
-            if (child.gameObject.GetComponent<TheChild>().CURRENTSTATE == TheChild.CHILD_STATES.INITIAL_ASSEMBLY)
-            {
-                ALL_CHILD_ON_BODY_count++;
-            }
-            else if (child.gameObject.GetComponent<TheChild>().CURRENTSTATE == TheChild.CHILD_STATES.ON_BLUEPRINT)
-            {
-                ALL_CHILD_ON_BLUEPRINT_count++;
-            }
-            else
-            {
-                DISMANTLED_count++;
-            }
-
-        }
-
-        if (this.children.Count == ALL_CHILD_ON_BODY_count)
-        {
-            this.CURRENT_STATE = PARENT_STATE.ALL_CHILD_ON_BODY;
-        }
-
-        else if (this.children.Count == ALL_CHILD_ON_BLUEPRINT_count)
-        {
-            this.CURRENT_STATE = PARENT_STATE.ALL_CHILD_ON_BLUEPRINT;
-        }
-        else
-        {
-            this.CURRENT_STATE = PARENT_STATE.DISMANTLED;
-        }
-
-    }
 }
 

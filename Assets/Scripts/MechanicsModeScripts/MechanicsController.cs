@@ -1,24 +1,17 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MechanicsController : MonoBehaviour
 {
-    public UIBehaviour action;
+
     public TheParent theParent;
-    private bool theParentHasBeenSpawned = false;
 
-    public TheBlueprint theBlueprint;
-    private bool theBluePrintHasBeenSpawned = false;
+    public TheBlueprint theBluePrint;
 
-    private GameObject theParent01;
-    private GameObject theBluePrint01;
-
-    // Update is called once per frame
     void Update()
     {
-        if (!action.isBuildActive)
-            return;
 
         if (Input.touchCount > 0)
         { 
@@ -29,69 +22,22 @@ public class MechanicsController : MonoBehaviour
 
             if (Physics.Raycast(Camera.main.transform.position, direction, out hit))
             {
-
-                    if (theParentHasBeenSpawned == false)
+                if (hit.collider.gameObject.GetComponent<TheChild>() != null)
+                {
+                    if (hit.collider.gameObject.GetComponent<TheChild>().CURRENTSTATE == TheChild.CHILD_STATES.ON_BLUEPRINT)
                     {
-                        if (hit.collider.gameObject.name == "Plane")
-                        {
-                            if (touch.phase == TouchPhase.Ended)
-                            {
-                                this.theParentHasBeenSpawned = true;
-                                theParent01 = (GameObject)GameObject.Instantiate(this.theParent.gameObject, hit.point, Quaternion.identity);
-                                theParent01.transform.Translate(0, 20, 0);
-                            }
-                        }
+                        theParent.AssembleAllChildren();
                     }
-
-                    else if ((theBluePrintHasBeenSpawned == false) && (theParentHasBeenSpawned = true))
+                    else if (theParent.CURRENT_STATE == TheParent.PARENT_STATE.ALL_CHILD_ON_BODY)
                     {
-                        if (hit.collider.gameObject.name == "Plane")
-                        {
-                            if (touch.phase == TouchPhase.Ended)
-                            {
-                            theBluePrint01 = (GameObject)GameObject.Instantiate(this.theBlueprint.gameObject, hit.point, Quaternion.identity);
-                            theBluePrint01.transform.Translate(0, 14, 0);
-                            theBluePrint01.transform.Rotate(0,  -90.0f, 90.0f, Space.Self);
-                            theParent01.GetComponent<TheParent>().theBlueprint = theBluePrint01.GetComponent<TheBlueprint>();
-                            this.theBluePrintHasBeenSpawned = true;
-                            }
-                        }
-
+                        theParent.DismantleAllChildren();
                     }
-
-
-                    else if ((theBluePrintHasBeenSpawned == true) && (theParentHasBeenSpawned) == true)
-                    {
-                        Debug.DrawLine(Camera.main.transform.position, worldTouchPosition, Color.red);
-
-                        if (hit.collider.gameObject.GetComponent<TheChild>() != null)
-                        {
-
-                            if (hit.collider.gameObject.GetComponentInParent<TheParent>().CURRENT_STATE == TheParent.PARENT_STATE.ALL_CHILD_ON_BODY)
-                            {
-                                Debug.DrawLine(Camera.main.transform.position, worldTouchPosition, Color.white);
-
-                                if (touch.phase == TouchPhase.Ended)
-                                {
-                                    hit.collider.gameObject.GetComponentInParent<TheParent>().DismantleAllChildren();
-                                }
-                            }
-
-                            else if (hit.collider.gameObject.GetComponentInParent<TheParent>().CURRENT_STATE == TheParent.PARENT_STATE.ALL_CHILD_ON_BLUEPRINT)
-                            {
-                                Debug.DrawLine(Camera.main.transform.position, worldTouchPosition, Color.white);
-                                if (touch.phase == TouchPhase.Ended)
-                                {
-                                    hit.collider.gameObject.GetComponentInParent<TheParent>().AssembleAllChildren();
-                                }
-                            }
-
-
-                        }
-                    }
-                
+                }
+ 
             }
 
         }
     }
+
+
 }

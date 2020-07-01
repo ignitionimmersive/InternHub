@@ -30,14 +30,14 @@ public class TheChild : MonoBehaviour
     TheParent parent;
     Rigidbody rigidB;
 
-    private void Start()
+    private void Awake()
     {
         this.initialPosition = this.gameObject.GetComponent<Transform>().position;
         this.initialRotation = this.gameObject.GetComponent<Transform>().rotation;
         
-        movePoint = this.gameObject.GetComponent<MoveToAPoint>();
-        parent = this.gameObject.GetComponentInParent<TheParent>();
-        rigidB = this.gameObject.GetComponent<Rigidbody>();
+        //movePoint = this.gameObject.GetComponent<MoveToAPoint>();
+        //parent = this.gameObject.GetComponentInParent<TheParent>();
+       //rigidB = this.gameObject.GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -46,6 +46,7 @@ public class TheChild : MonoBehaviour
         {
             case CHILD_STATES.INITIAL_ASSEMBLY:
                 {
+                    this.GetComponentInParent<TheParent>().CURRENT_STATE = TheParent.PARENT_STATE.ALL_CHILD_ON_BODY;
                     this.gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
                     if (this.gameObject.GetComponent<Rigidbody>() != null)
                     {
@@ -92,13 +93,13 @@ public class TheChild : MonoBehaviour
 
                     int indexInParentBody = this.gameObject.GetComponentInParent<TheParent>().children.IndexOf(this.gameObject);
 
-                    //this.gameObject.GetComponent<MoveToAPoint>().finalPosition = this.gameObject.GetComponentInParent<TheParent>().theBlueprint.blueprintPlaceholders[indexInParentBody].transform.position;
-                    //this.gameObject.GetComponent<MoveToAPoint>().finalRotation = this.gameObject.GetComponentInParent<TheParent>().theBlueprint.blueprintPlaceholders[indexInParentBody].transform.rotation;
-                    movePoint.finalPosition =  parent.theBlueprint.blueprintPlaceholders[indexInParentBody].transform.position;
-                    movePoint.finalRotation =  parent.theBlueprint.blueprintPlaceholders[indexInParentBody].transform.rotation;
+                    this.gameObject.GetComponent<MoveToAPoint>().finalPosition = this.gameObject.GetComponentInParent<TheParent>().theBlueprint.blueprintPlaceholders[indexInParentBody].transform.position;
+                    this.gameObject.GetComponent<MoveToAPoint>().finalRotation = this.gameObject.GetComponentInParent<TheParent>().theBlueprint.blueprintPlaceholders[indexInParentBody].transform.rotation;
+                    //movePoint.finalPosition =  parent.theBlueprint.blueprintPlaceholders[indexInParentBody].transform.position;
+                    //movePoint.finalRotation =  parent.theBlueprint.blueprintPlaceholders[indexInParentBody].transform.rotation;
 
-                    //this.gameObject.GetComponent<MoveToAPoint>().CURRENTSTATE = MoveToAPoint.MOVE_TO_A_POINT_STATE.MOVE;
-                    movePoint.CURRENTSTATE = MoveToAPoint.MOVE_TO_A_POINT_STATE.MOVE;
+                    this.gameObject.GetComponent<MoveToAPoint>().CURRENTSTATE = MoveToAPoint.MOVE_TO_A_POINT_STATE.MOVE;
+                    //movePoint.CURRENTSTATE = MoveToAPoint.MOVE_TO_A_POINT_STATE.MOVE;
 
                     this.CURRENTSTATE = CHILD_STATES.MOVING_TO_BLUEPRINT;
                     
@@ -157,9 +158,11 @@ public class TheChild : MonoBehaviour
                 }
                 if (this.gameObject.GetComponent<MoveToAPoint>().CURRENTSTATE == MoveToAPoint.MOVE_TO_A_POINT_STATE.FINAL_POSITION)
                 {
+                    //this.GetComponentInParent<TheParent>().CheckParentState();
                     Destroy(this.gameObject.GetComponent<MoveToAPoint>());
                     this.CURRENTSTATE = CHILD_STATES.INITIAL_ASSEMBLY;
                     this.GetComponentInParent<TheParent>().child_on_body_count++;
+                    this.GetComponentInParent<TheParent>().CURRENT_STATE = TheParent.PARENT_STATE.ALL_CHILD_ON_BODY;
                 }
                 break;
         }
