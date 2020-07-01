@@ -55,12 +55,14 @@ public class AnimationScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         anim.GetComponent<Animator>();
         scaleChange = new Vector3(0.1f, 0.1f, 0.1f);
     }
     // Update is called once per frame
     void Update()
     {
+        
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
