@@ -6,16 +6,16 @@ using UnityEngine;
 
 public class AnimationScript : MonoBehaviour
 {
-    
+
 
     public GameObject Flip;
     public GameObject ReverseFlip;
     public AudioSource Audio;
     public AudioSource OpenClose;
-    
-    
-  
-    
+    public AudioSource ReverseAudio;
+
+
+
 
     public GameObject Page1_gameObject_1;
     public GameObject Page1_gameObject_2;
@@ -38,7 +38,7 @@ public class AnimationScript : MonoBehaviour
 
     public enum STATES
     {
-       
+
         OPEN,
         PAGE1,
         PAGE2,
@@ -53,7 +53,7 @@ public class AnimationScript : MonoBehaviour
     void Start()
     {
         anim.GetComponent<Animator>();
-        scaleChange = new Vector3(0.1f, 0.1f, 0.1f);       
+        scaleChange = new Vector3(0.1f, 0.1f, 0.1f);
     }
     // Update is called once per frame
     void Update()
@@ -130,7 +130,7 @@ public class AnimationScript : MonoBehaviour
                                     PlayAnim("Page Flip Reverse 0", STATES.PAGE2);
 
                                 }
-                                
+
                                 if (hit.collider.gameObject.name == "Flip")
                                 {
                                     OpenClose.Play();
@@ -140,11 +140,21 @@ public class AnimationScript : MonoBehaviour
                                 }
                                 break;
                             }
+
+
+
+
+
+
                     }
+
                 }
+
+
+
             }
+
         }
-           
         while (true)
         {
             if (CURRENTSTATE == STATES.PAGE1)
@@ -282,7 +292,7 @@ public class AnimationScript : MonoBehaviour
 
             else if (CURRENTSTATE == STATES.OPEN)
             {
-                    PopUpText.SetActive(true);
+                PopUpText.SetActive(true);
                 //Reverting Back to Scale 0 if the Book is Closed.
 
                 //Page 1 Gameobjects
@@ -336,7 +346,7 @@ public class AnimationScript : MonoBehaviour
                 ScaleDown(Page3_3);
 
             }
-                break;
+            break;
         }
     }
 
@@ -362,6 +372,12 @@ public class AnimationScript : MonoBehaviour
         Audio.Play();
         anim.Play(animName);
         this.CURRENTSTATE = state;
+    }
+
+  
+    void StopAudioNow()
+    {
+        ReverseAudio.Stop();
     }
 }
 
