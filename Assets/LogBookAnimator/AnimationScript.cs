@@ -40,10 +40,10 @@ public class AnimationScript : MonoBehaviour
     {
        
         OPEN,
-        PAGE1, PAGE1_REVERSE1,
-        PAGE2, PAGE2_REVERSE2,
-        PAGE3, PAGE3_REVERSE3,
-        PAGE4, PAGE4_REVERSE4
+        PAGE1,
+        PAGE2,
+        PAGE3,
+        PAGE4
     };
 
     public STATES CURRENTSTATE;
@@ -52,32 +52,18 @@ public class AnimationScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
-        
         anim.GetComponent<Animator>();
-        scaleChange = new Vector3(0.1f, 0.1f, 0.1f);
-
-        Audio.Stop();
-        OpenClose.Stop();
-       
-       
-
+        scaleChange = new Vector3(0.1f, 0.1f, 0.1f);       
     }
     // Update is called once per frame
     void Update()
     {
-        
-        
-        
-
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
             Vector3 worldTouchPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, 100f));
             Vector3 direction = worldTouchPosition - Camera.main.transform.position;
             RaycastHit hit;
-
-
 
             if (Physics.Raycast(Camera.main.transform.position, direction, out hit))
             {
@@ -86,54 +72,34 @@ public class AnimationScript : MonoBehaviour
                 {
                     Debug.DrawLine(Camera.main.gameObject.transform.position, hit.collider.gameObject.transform.position, Color.red);
 
-                        switch (CURRENTSTATE)
-                        {
-                        
-                       
-
+                    switch (CURRENTSTATE)
+                    {
                         case STATES.OPEN:
 
                             {
-                                OpenClose.Stop();
-                                Audio.Stop();
-                                
-                                
-                                 
-                                    if (hit.collider.gameObject.name == "Flip")
-                                    {
-                                        
-                                        PopUpText.SetActive(false);
-                                        anim.Play("Open");
-                                        OpenClose.Play();
+                                if (hit.collider.gameObject.name == "Flip")
+                                {
+
+                                    PopUpText.SetActive(false);
+                                    OpenClose.Play();
+                                    anim.Play("Open");
                                     this.CURRENTSTATE = STATES.PAGE1;
-                                    }
-
-                                
-
-
+                                }
                                 break;
                             }
 
 
                         case STATES.PAGE1:
                             {
-                                Audio.Stop();
-                                
                                 if ((hit.collider.gameObject.name == "Flip"))
                                 {
-                                    
-                                    anim.Play("Page Flip");
-                                    Audio.Play();
-                                    this.CURRENTSTATE = STATES.PAGE2;
-
+                                    PlayAnim("Page Flip", STATES.PAGE2);
                                 }
-
 
                                 if (hit.collider.gameObject.name == "ReverseFlip")
                                 {
-                                   
+                                    OpenClose.Play();
                                     anim.Play("Close");
-                                    
                                     this.CURRENTSTATE = STATES.OPEN;
                                 }
 
@@ -145,36 +111,30 @@ public class AnimationScript : MonoBehaviour
                             {
                                 if (hit.collider.gameObject.name == "ReverseFlip")
                                 {
-                                    //Audio.Play();
-                                    //anim.Play("Page Flip Reverse");
-                                    //this.CURRENTSTATE = STATES.PAGE1;
                                     PlayAnim("Page Flip Reverse", STATES.PAGE1);
                                 }
+
                                 if (hit.collider.gameObject.name == "Flip")
                                 {
-                                    anim.Play("Page Flip 0");
-                                    Audio.Play();
-                                    this.CURRENTSTATE = STATES.PAGE3;
-
+                                    PlayAnim("Page Flip 0", STATES.PAGE3);
                                 }
 
                                 break;
                             }
+
                         case STATES.PAGE3:
                             {
                                 if (hit.collider.gameObject.name == "ReverseFlip")
                                 {
-                                    
-                                    Audio.Play();
-                                    anim.Play("Page Flip Reverse 0");
-                                    this.CURRENTSTATE = STATES.PAGE2;
+
+                                    PlayAnim("Page Flip Reverse 0", STATES.PAGE2);
 
                                 }
-                                OpenClose.Stop();
+                                
                                 if (hit.collider.gameObject.name == "Flip")
                                 {
-                                    anim.Play("Close");
                                     OpenClose.Play();
+                                    anim.Play("Close");
                                     this.CURRENTSTATE = STATES.OPEN;
 
                                 }
@@ -203,107 +163,39 @@ public class AnimationScript : MonoBehaviour
 
                 //GameObject 1
                 Page1_gameObject_1.SetActive(true);
-                //if (Page1_gameObject_1.transform.localScale.y < 1f && Page1_gameObject_1.transform.localScale.y > -0.1f)
-                //{
-                //    Page1_gameObject_1.gameObject.transform.localScale += scaleChange;
-                //}
                 ScaleUp(Page1_gameObject_1);
 
                 //GameObject 2
                 Page1_gameObject_2.SetActive(true);
-                if (Page1_gameObject_2.transform.localScale.y < 1f && Page1_gameObject_2.transform.localScale.y > -0.1f)
-                {
-                    Page1_gameObject_2.gameObject.transform.localScale += scaleChange;
-                }
+                ScaleUp(Page1_gameObject_2);
 
                 //GameObject 3
                 Page1_gameObject_3.SetActive(true);
-                if (Page1_gameObject_3.transform.localScale.y < 1f && Page1_gameObject_3.transform.localScale.y > -0.1f)
-                {
-                    Page1_gameObject_3.gameObject.transform.localScale += scaleChange;
-                }
+                ScaleUp(Page1_gameObject_3);
+
                 //GameObject 4
                 Page1_gameObject_4.SetActive(true);
-                if (Page1_gameObject_4.transform.localScale.y < 1f && Page1_gameObject_4.transform.localScale.y > -0.1f)
-                {
-                    Page1_gameObject_4.gameObject.transform.localScale += scaleChange;
-                }
-
-
+                ScaleUp(Page1_gameObject_4);
 
                 //Page 2 GameObjects Scalings To ( 2 to 0 )
 
                 //GameObject 1
                 Page2_gameObject_1.SetActive(true);
-                if (Page2_gameObject_1.transform.localScale.y > 0.1f && Page2_gameObject_1.transform.localScale.y < 2.1f)
-                {
-                    Page2_gameObject_1.gameObject.transform.localScale -= scaleChange;
-
-                }
+                ScaleDown(Page2_gameObject_1);
 
                 //GameObject 2
                 Page2_gameObject_2.SetActive(true);
-                if (Page2_gameObject_2.transform.localScale.y > 0.1f && Page2_gameObject_2.transform.localScale.y < 2.1f)
-                {
-                    Page2_gameObject_2.gameObject.transform.localScale -= scaleChange;
-
-                }
+                ScaleDown(Page2_gameObject_2);
 
                 //GameObject 3
                 Page2_gameObject_3.SetActive(true);
-                if (Page2_gameObject_3.transform.localScale.y > 0.1f && Page2_gameObject_3.transform.localScale.y < 2.1f)
-                {
-                    Page2_gameObject_3.gameObject.transform.localScale -= scaleChange;
+                ScaleDown(Page2_gameObject_3);
 
-
-                }
-                //GameObject 3
-                Page2_gameObject_4.SetActive(true);
-                if (Page2_gameObject_4.transform.localScale.y > 0.1f && Page2_gameObject_4.transform.localScale.y < 2.1f)
-                {
-                    Page2_gameObject_4.gameObject.transform.localScale -= scaleChange;
-
-
-                }
-
-            }
-
-            else if (CURRENTSTATE == STATES.PAGE1_REVERSE1)
-            {
-                // Page 1 GameObjects Scaling ( 0 to 2 ) if Page Reversed
-
-                //GameObject 1
-                Page1_gameObject_1.SetActive(true);
-                if (Page1_gameObject_1.transform.localScale.y < 1f && Page1_gameObject_1.transform.localScale.y > -0.1f)
-                {
-                    Page1_gameObject_1.gameObject.transform.localScale += scaleChange;
-                }
-
-                //GameObject 2
-                Page1_gameObject_2.SetActive(true);
-                if (Page1_gameObject_2.transform.localScale.y < 1f && Page1_gameObject_2.transform.localScale.y > -0.1f)
-                {
-                    Page1_gameObject_2.gameObject.transform.localScale += scaleChange;
-                }
-
-                //GameObject 3
-                Page1_gameObject_3.SetActive(true);
-                if (Page1_gameObject_3.transform.localScale.y < 1f && Page1_gameObject_3.transform.localScale.y > -0.1f)
-                {
-                    Page1_gameObject_3.gameObject.transform.localScale += scaleChange;
-                }
                 //GameObject 4
-                Page1_gameObject_4.SetActive(true);
-                if (Page1_gameObject_4.transform.localScale.y < 1f && Page1_gameObject_4.transform.localScale.y > -0.1f)
-                {
-                    Page1_gameObject_4.gameObject.transform.localScale += scaleChange;
-                }
-
-
+                Page2_gameObject_4.SetActive(true);
+                ScaleDown(Page2_gameObject_4);
 
             }
-
-
 
             else if (CURRENTSTATE == STATES.PAGE2)
             {
@@ -311,263 +203,151 @@ public class AnimationScript : MonoBehaviour
 
                 //GameObject 1
                 Page1_gameObject_1.SetActive(true);
-                if (Page1_gameObject_1.transform.localScale.y > 0.1f && Page1_gameObject_1.transform.localScale.y < 2f)
-                {
-                    Page1_gameObject_1.gameObject.transform.localScale -= scaleChange;
-
-                }
+                ScaleDown(Page1_gameObject_1);
 
                 //GameObject 2
                 Page1_gameObject_2.SetActive(true);
-                if (Page1_gameObject_2.transform.localScale.y > 0.1f && Page1_gameObject_2.transform.localScale.y < 2f)
-                {
-                    Page1_gameObject_2.gameObject.transform.localScale -= scaleChange;
-
-                }
+                ScaleDown(Page1_gameObject_2);
 
                 //GameObject 3
                 Page1_gameObject_3.SetActive(true);
-                if (Page1_gameObject_3.transform.localScale.y > 0.1f && Page1_gameObject_3.transform.localScale.y < 2f)
-                {
-                    Page1_gameObject_3.gameObject.transform.localScale -= scaleChange;
+                ScaleDown(Page1_gameObject_3);
 
-                }
                 //GameObject 4
                 Page1_gameObject_4.SetActive(true);
-                if (Page1_gameObject_4.transform.localScale.y > 0.1f && Page1_gameObject_4.transform.localScale.y < 2f)
-                {
-                    Page1_gameObject_4.gameObject.transform.localScale -= scaleChange;
-                    // Page1_gameObject_4.SetActive(false);
+                ScaleDown(Page1_gameObject_4);
 
-                }
                 // Page 2 GameObjects Scaling ( 0 to 2 )
 
                 //GameObject 1
                 Page2_gameObject_1.SetActive(true);
-                if (Page2_gameObject_1.transform.localScale.y < 1f && Page2_gameObject_1.transform.localScale.y > -0.1f)
-                    {
-                    Page2_gameObject_1.gameObject.transform.localScale += scaleChange;
-                    }
+                ScaleUp(Page2_gameObject_1);
 
-                    //GameObject 2
-                    Page2_gameObject_2.SetActive(true);
-                    if (Page2_gameObject_2.transform.localScale.y < 1f && Page2_gameObject_2.transform.localScale.y > -0.1f)
-                    {
-                        Page2_gameObject_2.gameObject.transform.localScale += scaleChange;
-                    }
+                //GameObject 2
+                Page2_gameObject_2.SetActive(true);
+                ScaleUp(Page2_gameObject_2);
 
-                    //GameObject 3
-                    Page2_gameObject_3.SetActive(true);
-                    if (Page2_gameObject_3.transform.localScale.y < 1f && Page2_gameObject_3.transform.localScale.y > -0.1f)
-                    {
-                        Page2_gameObject_3.gameObject.transform.localScale += scaleChange;
-                    }
+                //GameObject 3
+                Page2_gameObject_3.SetActive(true);
+                ScaleUp(Page2_gameObject_3);
                 //GameObject 3
                 Page2_gameObject_4.SetActive(true);
-                    if (Page2_gameObject_4.transform.localScale.y < 1f && Page2_gameObject_4.transform.localScale.y > -0.1f)
-                        {
-                        Page2_gameObject_4.gameObject.transform.localScale += scaleChange;
-                    }
+                ScaleUp(Page2_gameObject_4);
 
                 //Page 3 GameObjects Scalings To ( 2 to 0 )
 
                 //GameObject 1
                 Page3.SetActive(true);
-                    if (Page3.transform.localScale.y > 0.1f && Page3.transform.localScale.y < 2.1f)
-                    {
-                        Page3.gameObject.transform.localScale -= scaleChange;
+                ScaleDown(Page3);
 
-                    }
+                //GameObject 2
+                Page3_2.SetActive(true);
+                ScaleDown(Page3_2);
 
-                    //GameObject 2
-                    Page3_2.SetActive(true);
-                    if (Page3_2.transform.localScale.y > 0f && Page3_2.transform.localScale.y < 2.1f)
-                    {
-                        Page3_2.gameObject.transform.localScale -= scaleChange;
+                //GameObject 3
+                Page3_3.SetActive(true);
+                ScaleDown(Page3_3);
 
-                    }
-
-                    //GameObject 3
-                    Page3_3.SetActive(true);
-                    if (Page3_3.transform.localScale.y > 0f && Page3_3.transform.localScale.y < 2.1f)
-                    {
-                        Page3_3.gameObject.transform.localScale -= scaleChange;
-
-                    }
+            }
 
 
-                }
+            else if (CURRENTSTATE == STATES.PAGE3)
+            {
 
 
-                else if (CURRENTSTATE == STATES.PAGE3)
-                {
+                //Page 2 GameObjects Scalings To ( 2 to 0 )
 
+                //GameObject 1
+                Page2_gameObject_1.SetActive(true);
+                ScaleDown(Page2_gameObject_1);
 
-                    //Page 2 GameObjects Scalings To ( 2 to 0 )
+                //GameObject 2
+                Page2_gameObject_2.SetActive(true);
+                ScaleDown(Page2_gameObject_2);
 
-                    //GameObject 1
-                    Page2_gameObject_1.SetActive(true);
-                //if (Page2_gameObject_1.transform.localScale.y > 0.1f && Page2_gameObject_1.transform.localScale.y < 2.1f)
-                //{
-                //    Page2_gameObject_1.gameObject.transform.localScale -= scaleChange;
-
-                //}
-                    ScaleDown(Page2_gameObject_1);
-
-                    //GameObject 2
-                    Page2_gameObject_2.SetActive(true);
-                    if (Page2_gameObject_2.transform.localScale.y > 0.1f && Page2_gameObject_2.transform.localScale.y < 2.1f)
-                    {
-                        Page2_gameObject_2.gameObject.transform.localScale -= scaleChange;
-
-                    }
-
-                    //GameObject 3
-                    Page2_gameObject_3.SetActive(true);
-                    if (Page2_gameObject_3.transform.localScale.y > 0.1f && Page2_gameObject_3.transform.localScale.y < 2.1f)
-                    {
-                        Page2_gameObject_3.gameObject.transform.localScale -= scaleChange;
-
-                    }
+                //GameObject 3
+                Page2_gameObject_3.SetActive(true);
+                ScaleDown(Page2_gameObject_3);
 
                 //GameObject 4
                 Page2_gameObject_4.SetActive(true);
-                if (Page2_gameObject_4.transform.localScale.y > 0.1f && Page2_gameObject_4.transform.localScale.y < 2.1f)
-                {
-                    Page2_gameObject_4.gameObject.transform.localScale -= scaleChange;
-
-                }
+                ScaleDown(Page2_gameObject_4);
 
                 //Page 3 GameObjects Scaling ( 0 to 2 )
 
                 //GameObject 1
                 Page3.SetActive(true);
-                    if (Page3.transform.localScale.y < 1f && Page3.transform.localScale.y > -0.1f)
-                    {
-                        Page3.gameObject.transform.localScale += scaleChange;
-                    }
+                ScaleUp(Page3);
 
-                    //GameObject 2
-                    Page3_2.SetActive(true);
-                    if (Page3_2.transform.localScale.y < 1f && Page3_2.transform.localScale.y > -0.1f)
-                    {
-                        Page3_2.gameObject.transform.localScale += scaleChange;
-                    }
+                //GameObject 2
+                Page3_2.SetActive(true);
+                ScaleUp(Page3_2);
 
-                    //GameObject 3
-                    Page3_3.SetActive(true);
-                    if (Page3_3.transform.localScale.y < 1f && Page3_3.transform.localScale.y > -0.1f)
-                    {
-                        Page3_3.gameObject.transform.localScale += scaleChange;
-                    }
-
-
-
-                }
-
-                else if (CURRENTSTATE == STATES.OPEN)
-                {
-                    PopUpText.SetActive(true);
-                    //Reverting Back to Scale 0 if the Book is Closed.
-
-                    //GameObject 1
-                    Page1_gameObject_1.SetActive(true);
-                    if (Page1_gameObject_1.transform.localScale.y > 0.1f && Page1_gameObject_1.transform.localScale.y < 2f)
-                    {
-                        Page1_gameObject_1.gameObject.transform.localScale -= scaleChange;
-
-                    }
-
-                    //GameObject 2
-                    Page1_gameObject_2.SetActive(true);
-                    if (Page1_gameObject_2.transform.localScale.y > 0.1f && Page1_gameObject_2.transform.localScale.y < 2f)
-                    {
-                        Page1_gameObject_2.gameObject.transform.localScale -= scaleChange;
-
-                    }
-
-                    //GameObject 3
-                    Page1_gameObject_3.SetActive(true);
-                    if (Page1_gameObject_3.transform.localScale.y > 0.1f && Page1_gameObject_3.transform.localScale.y < 2f)
-                    {
-                        Page1_gameObject_3.gameObject.transform.localScale -= scaleChange;
-
-                    }
-                    //GameObject 3
-                    Page1_gameObject_4.SetActive(true);
-                    if (Page1_gameObject_4.transform.localScale.y > 0.1f && Page1_gameObject_4.transform.localScale.y < 2f)
-                    {
-                        Page1_gameObject_4.gameObject.transform.localScale -= scaleChange;
-
-                    }
-
-                    //Page 2 GameObjects Scalings To ( 2 to 0 )
-
-                    //GameObject 1
-                    Page2_gameObject_1.SetActive(true);
-                    if (Page2_gameObject_1.transform.localScale.y > 0.1f && Page2_gameObject_1.transform.localScale.y < 2.1f)
-                    {
-                        Page2_gameObject_1.gameObject.transform.localScale -= scaleChange;
-
-                    }
-
-                    //GameObject 2
-                    Page2_gameObject_2.SetActive(true);
-                    if (Page2_gameObject_2.transform.localScale.y > 0.1f && Page2_gameObject_2.transform.localScale.y < 2.1f)
-                    {
-                        Page2_gameObject_2.gameObject.transform.localScale -= scaleChange;
-
-                    }
-
-                    //GameObject 3
-                    Page2_gameObject_3.SetActive(true);
-                    if (Page2_gameObject_3.transform.localScale.y > 0.1f && Page2_gameObject_3.transform.localScale.y < 2.1f)
-                    {
-                        Page2_gameObject_3.gameObject.transform.localScale -= scaleChange;
-
-                    }
                 //GameObject 3
-                Page2_gameObject_4.SetActive(true);
-                if (Page2_gameObject_4.transform.localScale.y > 0.1f && Page2_gameObject_4.transform.localScale.y < 2.1f)
-                {
-                    Page2_gameObject_4.gameObject.transform.localScale -= scaleChange;
+                Page3_3.SetActive(true);
+                ScaleUp(Page3_3);
 
-                }
+            }
+
+
+            else if (CURRENTSTATE == STATES.OPEN)
+            {
+                    PopUpText.SetActive(true);
+                //Reverting Back to Scale 0 if the Book is Closed.
+
+                //Page 1 Gameobjects
+
+                //GameObject 1
+                Page1_gameObject_1.SetActive(true);
+                ScaleDown(Page1_gameObject_1);
+
+                //GameObject 2
+                Page1_gameObject_2.SetActive(true);
+                ScaleDown(Page1_gameObject_2);
+
+                //GameObject 3
+                Page1_gameObject_3.SetActive(true);
+                ScaleDown(Page1_gameObject_3);
+
+                //GameObject 4
+                Page1_gameObject_4.SetActive(true);
+                ScaleDown(Page1_gameObject_4);
+
+                //Page 2 GameObjects 
+
+                //GameObject 1
+                Page2_gameObject_1.SetActive(true);
+                ScaleDown(Page2_gameObject_1);
+
+                //GameObject 2
+                Page2_gameObject_2.SetActive(true);
+                ScaleDown(Page2_gameObject_2);
+
+                //GameObject 3
+                Page2_gameObject_3.SetActive(true);
+                ScaleDown(Page2_gameObject_3);
+
+                //GameObject 4
+                Page2_gameObject_4.SetActive(true);
+                ScaleDown(Page2_gameObject_4);
 
                 //Page 3 GameObjects Scalings To ( 2 to 0 )
 
                 //GameObject 1
                 Page3.SetActive(true);
-                    if (Page3.transform.localScale.y > 0.1f && Page3.transform.localScale.y < 2.1f)
-                    {
-                        Page3.gameObject.transform.localScale -= scaleChange;
+                ScaleDown(Page3);
 
-                    }
+                //GameObject 2
+                Page3_2.SetActive(true);
+                ScaleDown(Page3_2);
 
-                    //GameObject 2
-                    Page3_2.SetActive(true);
-                    if (Page3_2.transform.localScale.y > 0.1f && Page3_2.transform.localScale.y < 2.1f)
-                    {
-                        Page3_2.gameObject.transform.localScale -= scaleChange;
+                //GameObject 3
+                Page3_3.SetActive(true);
+                ScaleDown(Page3_3);
 
-                    }
-
-                    //GameObject 3
-                    Page3_3.SetActive(true);
-                    if (Page3_3.transform.localScale.y > 0.1f && Page3_3.transform.localScale.y < 2.1f)
-                    {
-                        Page3_3.gameObject.transform.localScale -= scaleChange;
-
-                    }
-
-                }
-
-
+            }
                 break;
-
         }
-
-           
     }
 
     void ScaleUp(GameObject obj)
