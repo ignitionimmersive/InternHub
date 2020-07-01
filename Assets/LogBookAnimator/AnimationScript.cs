@@ -12,6 +12,7 @@ public class AnimationScript : MonoBehaviour
     public GameObject ReverseFlip;
     public AudioSource Audio;
     public AudioSource OpenClose;
+    public AudioSource ReverseAudio;
     
   
     
@@ -58,7 +59,7 @@ public class AnimationScript : MonoBehaviour
 
         Audio.Stop();
         OpenClose.Stop();
-
+        ReverseAudio.Play();
        
 
     }
