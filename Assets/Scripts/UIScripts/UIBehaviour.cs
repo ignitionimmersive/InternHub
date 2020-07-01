@@ -4,8 +4,6 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
 using System.Runtime.CompilerServices;
-using UnityEngine.XR.ARFoundation;
-using UnityEngine.XR.ARSubsystems;
 
 public class UIBehaviour : MonoBehaviour
 {
@@ -38,10 +36,9 @@ public class UIBehaviour : MonoBehaviour
     [SerializeField] TheParent parent;
     [SerializeField] GameObject Panel;
     [SerializeField] GameObject logBook;
-    //[SerializeField] ObjectPlacement placeMode;
-
-
+    
     Vector3 smallScopeLocation;
+
     public GameObject arCamera;
 
     public GameObject theScope;

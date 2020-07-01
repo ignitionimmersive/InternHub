@@ -12,7 +12,7 @@ public class RotateWorkbench : MonoBehaviour
 
     public void RotateLeft()
     {
-        WorkbenchParent.transform.Rotate(0, (-1) *  rotateSpeed * Time.deltaTime, 0);
+        WorkbenchParent.transform.Rotate(0, -1 *  rotateSpeed * Time.deltaTime, 0);
     }
     public void RotateRight()
     {
