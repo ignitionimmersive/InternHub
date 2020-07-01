@@ -193,13 +193,17 @@ public class UIBehaviour : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(Input.touchCount - 1).position);
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
-                if (hit.collider.gameObject.GetComponent<TheChild>() != null)
+                TheChild child = hit.collider.gameObject.GetComponent<TheChild>();
+                TheParent parent = hit.collider.gameObject.GetComponentInParent<TheParent>();
+
+                if (/*hit.collider.gameObject.GetComponent<TheChild>()*/ child != null)
                 {
                     if (hit.collider.gameObject.GetComponentInParent<TheParent>().CURRENT_STATE == TheParent.PARENT_STATE.ALL_CHILD_ON_BODY)
                     {
 
                         //debug.text = "Dismantle";
-                        hit.collider.gameObject.GetComponentInParent<TheParent>().DismantleAllChildren();
+                        //hit.collider.gameObject.GetComponentInParent<TheParent>().DismantleAllChildren();
+                        parent.DismantleAllChildren();
                     }
                     else if (hit.collider.gameObject.GetComponentInParent<TheParent>().CURRENT_STATE == TheParent.PARENT_STATE.ALL_CHILD_ON_BLUEPRINT)
                     {

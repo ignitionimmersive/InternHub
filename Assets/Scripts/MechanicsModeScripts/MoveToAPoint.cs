@@ -13,6 +13,7 @@ public class MoveToAPoint : MonoBehaviour
 
     public float moveSpeed;
     public float timeToStart;
+    public float range = 0.05f;
 
     public GameObject target;
     [HideInInspector] public Vector3 finalPosition;
@@ -51,12 +52,23 @@ public class MoveToAPoint : MonoBehaviour
 
                     StartCoroutine(MoveToPoint(moveSpeed, timeToStart));
 
-                    if ((this.gameObject.transform.position.x <= (this.finalPosition.x + 0.05)) &&
-                        (this.gameObject.transform.position.x >= (this.finalPosition.x - 0.05))&&
-                        (this.gameObject.transform.position.y <= (this.finalPosition.y + 0.05)) &&
-                        (this.gameObject.transform.position.y >= (this.finalPosition.y - 0.05)) &&
-                        (this.gameObject.transform.position.z <= (this.finalPosition.z + 0.05)) &&
-                        (this.gameObject.transform.position.z >= (this.finalPosition.z - 0.05)))
+                    //if ((this.gameObject.transform.position.x <= (this.finalPosition.x + 0.05)) &&
+                    //    (this.gameObject.transform.position.x >= (this.finalPosition.x - 0.05)) &&
+                    //    (this.gameObject.transform.position.y <= (this.finalPosition.y + 0.05)) &&
+                    //    (this.gameObject.transform.position.y >= (this.finalPosition.y - 0.05)) &&
+                    //    (this.gameObject.transform.position.z <= (this.finalPosition.z + 0.05)) &&
+                    //    (this.gameObject.transform.position.z >= (this.finalPosition.z - 0.05)))
+                    //{
+                    //    this.gameObject.transform.position = this.finalPosition;
+                    //    this.gameObject.GetComponent<MoveToAPoint>().CURRENTSTATE = MOVE_TO_A_POINT_STATE.FINAL_POSITION;
+                    //}
+
+                    Vector3 pos = this.gameObject.transform.position;
+                    Vector3 finalPos = this.finalPosition;
+
+                    if (pos.x <= (finalPos.x + range) && pos.x >= (finalPos.x - range) 
+                        && pos.y <= (finalPos.y + range) && pos.y >= (finalPos.y - range) 
+                        && pos.z <= (finalPos.z + range) && pos.z >= (finalPos.z - range))
                     {
                         this.gameObject.transform.position = this.finalPosition;
                         this.gameObject.GetComponent<MoveToAPoint>().CURRENTSTATE = MOVE_TO_A_POINT_STATE.FINAL_POSITION;
