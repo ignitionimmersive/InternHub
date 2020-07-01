@@ -59,7 +59,7 @@ public class AnimationScript : MonoBehaviour
 
         Audio.Stop();
         OpenClose.Stop();
-        ReverseAudio.Play();
+       
        
 
     }
@@ -145,10 +145,10 @@ public class AnimationScript : MonoBehaviour
                             {
                                 if (hit.collider.gameObject.name == "ReverseFlip")
                                 {
-                                    Audio.Play();
-                                    anim.Play("Page Flip Reverse");
-                                    this.CURRENTSTATE = STATES.PAGE1;
-
+                                    //Audio.Play();
+                                    //anim.Play("Page Flip Reverse");
+                                    //this.CURRENTSTATE = STATES.PAGE1;
+                                    PlayAnim("Page Flip Reverse", STATES.PAGE1);
                                 }
                                 if (hit.collider.gameObject.name == "Flip")
                                 {
@@ -203,10 +203,11 @@ public class AnimationScript : MonoBehaviour
 
                 //GameObject 1
                 Page1_gameObject_1.SetActive(true);
-                if (Page1_gameObject_1.transform.localScale.y < 1f && Page1_gameObject_1.transform.localScale.y > -0.1f)
-                {
-                    Page1_gameObject_1.gameObject.transform.localScale += scaleChange;
-                }
+                //if (Page1_gameObject_1.transform.localScale.y < 1f && Page1_gameObject_1.transform.localScale.y > -0.1f)
+                //{
+                //    Page1_gameObject_1.gameObject.transform.localScale += scaleChange;
+                //}
+                ScaleUp(Page1_gameObject_1);
 
                 //GameObject 2
                 Page1_gameObject_2.SetActive(true);
@@ -406,11 +407,12 @@ public class AnimationScript : MonoBehaviour
 
                     //GameObject 1
                     Page2_gameObject_1.SetActive(true);
-                    if (Page2_gameObject_1.transform.localScale.y > 0.1f && Page2_gameObject_1.transform.localScale.y < 2.1f)
-                    {
-                        Page2_gameObject_1.gameObject.transform.localScale -= scaleChange;
+                //if (Page2_gameObject_1.transform.localScale.y > 0.1f && Page2_gameObject_1.transform.localScale.y < 2.1f)
+                //{
+                //    Page2_gameObject_1.gameObject.transform.localScale -= scaleChange;
 
-                    }
+                //}
+                    ScaleDown(Page2_gameObject_1);
 
                     //GameObject 2
                     Page2_gameObject_2.SetActive(true);
@@ -566,6 +568,30 @@ public class AnimationScript : MonoBehaviour
         }
 
            
+    }
+
+    void ScaleUp(GameObject obj)
+    {
+        if (obj.transform.localScale.y < 1f && obj.transform.localScale.y > -0.1f)
+        {
+            obj.transform.localScale += scaleChange;
+        }
+    }
+
+    void ScaleDown(GameObject obj)
+    {
+        if (obj.transform.localScale.y > 0.1f && obj.transform.localScale.y < 2.1f)
+        {
+            obj.transform.localScale -= scaleChange;
+
+        }
+    }
+
+    void PlayAnim(string animName, STATES state)
+    {
+        Audio.Play();
+        anim.Play(animName);
+        this.CURRENTSTATE = state;
     }
 }
 
