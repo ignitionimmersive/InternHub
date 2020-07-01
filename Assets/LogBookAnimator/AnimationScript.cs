@@ -12,7 +12,7 @@ public class AnimationScript : MonoBehaviour
     public GameObject ReverseFlip;
     public AudioSource Audio;
     public AudioSource OpenClose;
-    public AudioSource ReverseAudio;
+    
     
   
     
@@ -140,21 +140,11 @@ public class AnimationScript : MonoBehaviour
                                 }
                                 break;
                             }
-
-
-
-
-
-
                     }
-
                 }
-
-
-
             }
-
         }
+           
         while (true)
         {
             if (CURRENTSTATE == STATES.PAGE1)
