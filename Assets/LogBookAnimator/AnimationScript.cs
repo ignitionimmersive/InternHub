@@ -31,8 +31,8 @@ public class AnimationScript : MonoBehaviour
 
 
     public GameObject Page3;
-    public GameObject Page3_2;
-    public GameObject Page3_3;
+    
+   
 
     private Vector3 scaleChange;
 
@@ -128,6 +128,22 @@ public class AnimationScript : MonoBehaviour
                                 {
 
                                     PlayAnim("Page Flip Reverse 0", STATES.PAGE2);
+
+                                }
+
+                                if (hit.collider.gameObject.name == "Flip")
+                                {
+                                    PlayAnim("Page Flip 1", STATES.PAGE4);
+
+                                }
+                                break;
+                            }
+                        case STATES.PAGE4:
+                            {
+                                if (hit.collider.gameObject.name == "ReverseFlip")
+                                {
+
+                                    PlayAnim("Page Flip Reverse 1", STATES.PAGE3);
 
                                 }
 
@@ -240,13 +256,7 @@ public class AnimationScript : MonoBehaviour
                 Page3.SetActive(true);
                 ScaleDown(Page3);
 
-                //GameObject 2
-                Page3_2.SetActive(true);
-                ScaleDown(Page3_2);
-
-                //GameObject 3
-                Page3_3.SetActive(true);
-                ScaleDown(Page3_3);
+                
 
             }
 
@@ -279,14 +289,17 @@ public class AnimationScript : MonoBehaviour
                 Page3.SetActive(true);
                 ScaleUp(Page3);
 
-                //GameObject 2
-                Page3_2.SetActive(true);
-                ScaleUp(Page3_2);
+               
 
-                //GameObject 3
-                Page3_3.SetActive(true);
-                ScaleUp(Page3_3);
+            }
+            
+            else if(CURRENTSTATE == STATES.PAGE4)
+            {
+                // page 3 GameObjects Scale ( 1 to 0 )
 
+                //GameObject 1
+                Page3.SetActive(true);
+                ScaleDown(Page3);
             }
 
 
@@ -337,13 +350,6 @@ public class AnimationScript : MonoBehaviour
                 Page3.SetActive(true);
                 ScaleDown(Page3);
 
-                //GameObject 2
-                Page3_2.SetActive(true);
-                ScaleDown(Page3_2);
-
-                //GameObject 3
-                Page3_3.SetActive(true);
-                ScaleDown(Page3_3);
 
             }
             break;
