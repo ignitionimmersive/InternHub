@@ -31,6 +31,9 @@ public class AnimationScript : MonoBehaviour
 
 
     public GameObject Page3;
+
+    public GameObject page4_1;
+    public GameObject page4_2;
     
    
 
@@ -289,7 +292,12 @@ public class AnimationScript : MonoBehaviour
                 Page3.SetActive(true);
                 ScaleUp(Page3);
 
-               
+                //page 4 GameObjects
+                page4_1.SetActive(true);
+                ScaleDown(page4_1);
+
+                page4_2.SetActive(true);
+                ScaleDown(page4_2);
 
             }
             
@@ -300,6 +308,13 @@ public class AnimationScript : MonoBehaviour
                 //GameObject 1
                 Page3.SetActive(true);
                 ScaleDown(Page3);
+
+
+                page4_1.SetActive(true);
+                ScaleUp(page4_1);
+
+                page4_2.SetActive(true);
+                ScaleUp(page4_2);
             }
 
 
@@ -350,7 +365,12 @@ public class AnimationScript : MonoBehaviour
                 Page3.SetActive(true);
                 ScaleDown(Page3);
 
+                //page 4 GameObjects
+                page4_1.SetActive(true);
+                ScaleDown(page4_1);
 
+                page4_2.SetActive(true);
+                ScaleDown(page4_2);
             }
             break;
         }
