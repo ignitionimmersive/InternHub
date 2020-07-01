@@ -6,11 +6,15 @@ using UnityEngine;
 
 public class AnimationScript : MonoBehaviour
 {
+    
 
     public GameObject Flip;
     public GameObject ReverseFlip;
     public AudioSource Audio;
     public AudioSource OpenClose;
+    public AudioSource ReverseAudio;
+    
+  
     
 
     public GameObject Page1_gameObject_1;
@@ -49,18 +53,22 @@ public class AnimationScript : MonoBehaviour
     void Start()
     {
 
-      
+        
         anim.GetComponent<Animator>();
         scaleChange = new Vector3(0.1f, 0.1f, 0.1f);
 
         Audio.Stop();
         OpenClose.Stop();
+        ReverseAudio.Play();
+       
 
     }
     // Update is called once per frame
     void Update()
     {
-
+        
+        
+        
 
         if (Input.touchCount > 0)
         {
