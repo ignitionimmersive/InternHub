@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public enum ActiveMode { MAIN, USAGE, BUILD, PLACE, LEARN }
@@ -17,6 +18,25 @@ public class UpdatedUIBehaviour : MonoBehaviour
     [SerializeField] GameObject exitLearn;
     [SerializeField] GameObject exitUse;
 
+    // BuildMode 
+    [SerializeField] TheParent BigScope;
+    [SerializeField] TheBlueprint Blueprint;
+
+    //Place Mode
+    [SerializeField] GameObject SmallScope;
+    [SerializeField] GameObject Spitfire;
+
+    // Use mode
+    [SerializeField] GameObject theLens;
+    [SerializeField] Collider MapCollider;
+
+    //learn mode
+    [SerializeField] GameObject Logbook;
+    [SerializeField] GameObject LogbookBuildings;
+
+
+
+
     //------------//
 
     #region Private Functions
@@ -31,6 +51,18 @@ public class UpdatedUIBehaviour : MonoBehaviour
         {
             case ActiveMode.MAIN:
                 {
+                    BigScope.gameObject.SetActive(true);
+                    Blueprint.gameObject.SetActive(false);
+
+                    SmallScope.SetActive(false);
+                    Spitfire.SetActive(false);
+
+                    theLens.SetActive(false);
+                    MapCollider.enabled = (false);
+
+                    Logbook.SetActive(false);
+                    LogbookBuildings.SetActive(false);
+
                     modeButtons.SetActive(true);
                     exitBuild.SetActive(false);
                     exitLearn.SetActive(false);
@@ -40,6 +72,8 @@ public class UpdatedUIBehaviour : MonoBehaviour
                 }
             case ActiveMode.BUILD:
                 {
+                    BigScope.gameObject.SetActive(true);
+                    Blueprint.gameObject.SetActive(true);
                     modeButtons.SetActive(false);
                     exitBuild.SetActive(true);
                     exitLearn.SetActive(false);
@@ -49,6 +83,13 @@ public class UpdatedUIBehaviour : MonoBehaviour
                 }
             case ActiveMode.USAGE:
                 {
+                    
+
+                    theLens.SetActive(true);
+                    MapCollider.enabled = (true);
+
+                    BigScope.gameObject.SetActive(false);
+
                     modeButtons.SetActive(false);
                     exitBuild.SetActive(false);
                     exitLearn.SetActive(false);
@@ -58,6 +99,12 @@ public class UpdatedUIBehaviour : MonoBehaviour
                 }
             case ActiveMode.LEARN:
                 {
+                    
+                    BigScope.gameObject.SetActive(false);
+
+                    Logbook.SetActive(true);
+                    LogbookBuildings.SetActive(true);
+
                     modeButtons.SetActive(false);
                     exitBuild.SetActive(false);
                     exitLearn.SetActive(true);
@@ -67,6 +114,13 @@ public class UpdatedUIBehaviour : MonoBehaviour
                 }
             case ActiveMode.PLACE:
                 {
+                    BigScope.gameObject.SetActive(false);
+
+                    SmallScope.SetActive(true);
+                    Spitfire.SetActive(true);
+
+                    
+
                     modeButtons.SetActive(false);
                     exitBuild.SetActive(false);
                     exitLearn.SetActive(false);
@@ -85,8 +139,10 @@ public class UpdatedUIBehaviour : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 GameObject open = hit.collider.gameObject;
+            
 
-                if (open.CompareTag("MechanicPanel"))
+               
+                 if (open.CompareTag("MechanicPanel"))
                 {
                     StatesSet(ActiveMode.BUILD);
                 }
@@ -102,10 +158,29 @@ public class UpdatedUIBehaviour : MonoBehaviour
                 {
                     StatesSet(ActiveMode.PLACE);
                 }
+                 else if (open.CompareTag("GoBack"))
+                {
+                    ExitLearn();
+                    StatesSet(ActiveMode.MAIN);
+                }
+                
 
             }
         }
                 }
+
+    void ExitLearn()
+    {
+        Logbook.GetComponent<AnimationScript>().CURRENTSTATE = AnimationScript.STATES.OPEN;
+
+        Logbook.SetActive(false);
+        GameObject[] buildings = GameObject.FindGameObjectsWithTag("Building");
+        foreach (GameObject building in buildings)
+        {
+            Debug.Log("CloseBuildings");
+            building.SetActive(false);
+        }
+    }
     #endregion
 
     //------------//
