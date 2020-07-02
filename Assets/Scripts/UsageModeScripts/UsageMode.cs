@@ -8,7 +8,6 @@ public class UsageMode : MonoBehaviour
     public List<VideoClip> theVideos;
     public List<AudioClip> theAudios;
 
-
     public GameObject theVideoPlane;
 
 
@@ -32,7 +31,7 @@ public class UsageMode : MonoBehaviour
         if (distance <= 2f)
         {
             //theVideoPlane.GetComponent<VideoPlayer>().SetDirectAudioVolume(0, 1 - distance);
-            theVideoPlane.GetComponent<VideoPlayer>().SetDirectAudioVolume(0, 1f - (distance * .5f));
+            theVideoPlane.GetComponent<VideoPlayer>().SetDirectAudioVolume(0, 0);
             //theVideoPlane.GetComponent<AudioSource>().volume = 1f - distance;
             theVideoPlane.GetComponent<AudioSource>().volume = 1f - (distance * .5f);
         }

@@ -32,11 +32,11 @@ public class TheChild : MonoBehaviour
 
     private void Awake()
     {
-        this.initialPosition = this.gameObject.GetComponent<Transform>().position;
-        this.initialRotation = this.gameObject.GetComponent<Transform>().rotation;
+        //this.initialPosition = this.gameObject.GetComponent<Transform>().position;
+        //this.initialRotation = this.gameObject.GetComponent<Transform>().rotation;
         
         //movePoint = this.gameObject.GetComponent<MoveToAPoint>();
-        //parent = this.gameObject.GetComponentInParent<TheParent>();
+        parent = this.gameObject.GetComponentInParent<TheParent>();
        //rigidB = this.gameObject.GetComponent<Rigidbody>();
     }
 
@@ -53,6 +53,7 @@ public class TheChild : MonoBehaviour
                         Destroy(this.gameObject.GetComponent<Rigidbody>());
                     }
                 }
+                this.parent.CheckParentState();
                 break;
             case CHILD_STATES.DISMANTLE:
                 { 
@@ -130,6 +131,7 @@ public class TheChild : MonoBehaviour
                     {
                         Destroy(this.gameObject.GetComponent<Rigidbody>());
                     }
+                    this.parent.CheckParentState();
                 }
                 break;
             case CHILD_STATES.MOVE_TO_INITIAL_ASSEMBLY:
@@ -162,7 +164,7 @@ public class TheChild : MonoBehaviour
                     Destroy(this.gameObject.GetComponent<MoveToAPoint>());
                     this.CURRENTSTATE = CHILD_STATES.INITIAL_ASSEMBLY;
                     this.GetComponentInParent<TheParent>().child_on_body_count++;
-                    this.GetComponentInParent<TheParent>().CURRENT_STATE = TheParent.PARENT_STATE.ALL_CHILD_ON_BODY;
+                    //this.GetComponentInParent<TheParent>().CURRENT_STATE = TheParent.PARENT_STATE.ALL_CHILD_ON_BODY;
                 }
                 break;
         }
