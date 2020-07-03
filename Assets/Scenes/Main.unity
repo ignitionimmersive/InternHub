@@ -743,12 +743,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 318965505}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &370197016 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4261666027886598517, guid: ecb89ffdd75e9264cb578e6bd2965031,
-    type: 3}
-  m_PrefabInstance: {fileID: 2927603876162667803}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &460626970
 GameObject:
   m_ObjectHideFlags: 0
@@ -2578,13 +2572,13 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 24eeb2274b5870a44936779e686ec12f, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.167
   m_Pitch: 3
   Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 197
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -6190,9 +6184,7 @@ MonoBehaviour:
   ReverseFlip: {fileID: 1546758799}
   Audio: {fileID: 1267468709}
   OpenClose: {fileID: 1891844248}
-
-  ReverseAudio: {fileID: 0}
-
+  ReverseAudio: {fileID: 977057729}
   Page1_gameObject_1: {fileID: 1326287032}
   Page1_gameObject_2: {fileID: 1496117665}
   Page1_gameObject_3: {fileID: 763359818}
