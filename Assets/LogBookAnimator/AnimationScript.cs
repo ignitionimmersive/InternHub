@@ -59,6 +59,11 @@ public class AnimationScript : MonoBehaviour
         anim.GetComponent<Animator>();
         scaleChange = new Vector3(0.1f, 0.1f, 0.1f);
     }
+
+    private void OnEnable()
+    {
+        ReverseAudio.Play();
+    }
     // Update is called once per frame
     void Update()
     {

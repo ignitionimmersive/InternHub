@@ -1828,53 +1828,6 @@ Transform:
   m_Father: {fileID: 1788517660}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 10.139001, z: 0}
---- !u!1 &767450478
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 767450479}
-  - component: {fileID: 767450480}
-  m_Layer: 0
-  m_Name: Building (1)
-  m_TagString: Building
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &767450479
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 767450478}
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: 10.14, y: 37.33, z: 9.92}
-  m_LocalScale: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 1788517660}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &767450480
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 767450478}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
 --- !u!1 &848218151
 GameObject:
   m_ObjectHideFlags: 0
@@ -2368,7 +2321,7 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 977057728}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 24eeb2274b5870a44936779e686ec12f, type: 3}
@@ -4156,7 +4109,7 @@ Transform:
   m_Children:
   - {fileID: 318965506}
   m_Father: {fileID: 1788517660}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 25.319002, z: 0}
 --- !u!1 &1690690754
 GameObject:
@@ -4301,7 +4254,7 @@ Transform:
   m_Children:
   - {fileID: 599263722}
   m_Father: {fileID: 1788517660}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 25.319002, z: 0}
 --- !u!95 &1717084786
 Animator:
@@ -5039,7 +4992,6 @@ Transform:
   - {fileID: 1350833723}
   - {fileID: 1521149593}
   - {fileID: 883864781}
-  - {fileID: 767450479}
   - {fileID: 1669541339}
   - {fileID: 1701480638}
   m_Father: {fileID: 7409018010781706902}
@@ -6003,9 +5955,7 @@ MonoBehaviour:
   ReverseFlip: {fileID: 1546758799}
   Audio: {fileID: 1267468709}
   OpenClose: {fileID: 1891844248}
-
-  ReverseAudio: {fileID: 0}
-
+  ReverseAudio: {fileID: 977057729}
   Page1_gameObject_1: {fileID: 1326287032}
   Page1_gameObject_2: {fileID: 1496117665}
   Page1_gameObject_3: {fileID: 763359818}
