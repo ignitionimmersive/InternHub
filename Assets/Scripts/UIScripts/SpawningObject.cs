@@ -9,8 +9,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(ARRaycastManager))]
 public class SpawningObject : MonoBehaviour
 {
-    public GameObject placedPrefab;
-    //public Text debug;
+    public GameObject Indicator;
+    public GameObject workbench;
 
     private bool objectPlaced = false;
     private bool activeIndicator = false;
@@ -27,11 +27,13 @@ public class SpawningObject : MonoBehaviour
     
     void Update()
     {
-        if (objectPlaced)
-            return;
-
         UpdateIndicatorPose();
         ActiveSpawnIndicator();
+
+        if (!objectPlaced && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+            InstantiateWorkbench();
+        }
     }
 
     private void UpdateIndicatorPose()
@@ -39,14 +41,17 @@ public class SpawningObject : MonoBehaviour
         screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
         arRaycastManager.Raycast(screenCenter, hits, TrackableType.Planes);
 
-        activeIndicator = hits.Count > 0;
-        if (activeIndicator)
+        if (!objectPlaced)
         {
-            indicatorPose = hits[0].pose;
+            activeIndicator = hits.Count > 0;
+            if (activeIndicator)
+            {
+                indicatorPose = hits[0].pose;
 
-            var cameraForward = Camera.current.transform.forward;
-            var cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
-            indicatorPose.rotation = Quaternion.LookRotation(cameraBearing);
+                var cameraForward = Camera.current.transform.forward;
+                var cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
+                indicatorPose.rotation = Quaternion.LookRotation(cameraBearing);
+            }
         }
     }
 
@@ -54,11 +59,18 @@ public class SpawningObject : MonoBehaviour
     {
         if (activeIndicator)
         {
-            placedPrefab.SetActive(true);
-            placedPrefab.transform.SetPositionAndRotation(indicatorPose.position, indicatorPose.rotation);
-            objectPlaced = true;
+            Indicator.SetActive(true);
+            Indicator.transform.SetPositionAndRotation(indicatorPose.position, indicatorPose.rotation);
         }         
         else
-            placedPrefab.SetActive(false);
+        {
+            Indicator.SetActive(false);
+        }
+    }
+
+    private void InstantiateWorkbench()
+    {
+        Instantiate(workbench, indicatorPose.position, indicatorPose.rotation);
+        objectPlaced = true;
     }
 }
