@@ -32,7 +32,8 @@ public class UpdatedUIBehaviour : MonoBehaviour
     [SerializeField] GameObject Spitfire;
 
     // Use mode
-    [SerializeField] GameObject theLens;
+    [SerializeField] UsageController UseModeController;
+   // [SerializeField] GameObject theLens;
     [SerializeField] Collider MapCollider;
 
     //learn mode
@@ -70,8 +71,9 @@ public class UpdatedUIBehaviour : MonoBehaviour
                     SmallScope.SetActive(false);
                     Spitfire.SetActive(false);
 
-                    theLens.SetActive(false);
+                   // theLens.SetActive(false);
                     MapCollider.enabled = (false);
+                    UseModeController.enabled = false;
 
                     Logbook.SetActive(false);
                     LogbookBuildings.SetActive(false);
@@ -105,8 +107,10 @@ public class UpdatedUIBehaviour : MonoBehaviour
 
                     activeMode = ActiveMode.USAGE;
 
-                    theLens.SetActive(true);
-                    MapCollider.enabled = (true);
+                   // theLens.SetActive(false);
+                    MapCollider.enabled = (false);
+                    UseModeController.enabled = true;
+                    UseModeController.StartMode();
 
                     BigScope.gameObject.SetActive(false);
 
@@ -168,14 +172,16 @@ public class UpdatedUIBehaviour : MonoBehaviour
 
                 if (open.CompareTag("GoBack"))
                 {
-                    //if (activeMode == ActiveMode.BUILD)
                      if (activeMode == ActiveMode.LEARN)
                     {
                         ExitLearn();
                     }
+
+                     if (activeMode == ActiveMode.USAGE)
+                    {
+                        ExitUse();
+                    }
                     
-                    //BigScope.gameObject.GetComponent<TheParent>().AssembleAllChildren();
-                    //ExitMechanics();
                     StatesSet(ActiveMode.MAIN);
                 }
                 else if (open.CompareTag("MechanicPanel"))
@@ -240,13 +246,11 @@ public class UpdatedUIBehaviour : MonoBehaviour
         }
     }
 
-    void ExitMechanics()
+    void ExitUse()
     {
-        if (BigScope.CURRENT_STATE != TheParent.PARENT_STATE.ALL_CHILD_ON_BLUEPRINT)
-        { 
-            BigScope.gameObject.GetComponent<TheParent>().AssembleAllChildren();
-        }
+        UseModeController.ExitMode();
     }
+
     #endregion
 
     //------------//
