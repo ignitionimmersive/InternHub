@@ -31,8 +31,11 @@ public class AnimationScript : MonoBehaviour
 
 
     public GameObject Page3;
-    public GameObject Page3_2;
-    public GameObject Page3_3;
+
+    public GameObject page4_1;
+    public GameObject page4_2;
+    
+   
 
     private Vector3 scaleChange;
 
@@ -52,12 +55,19 @@ public class AnimationScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         anim.GetComponent<Animator>();
         scaleChange = new Vector3(0.1f, 0.1f, 0.1f);
+    }
+
+    private void OnEnable()
+    {
+        ReverseAudio.Play();
     }
     // Update is called once per frame
     void Update()
     {
+        
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -128,6 +138,22 @@ public class AnimationScript : MonoBehaviour
                                 {
 
                                     PlayAnim("Page Flip Reverse 0", STATES.PAGE2);
+
+                                }
+
+                                if (hit.collider.gameObject.name == "Flip")
+                                {
+                                    PlayAnim("Page Flip 1", STATES.PAGE4);
+
+                                }
+                                break;
+                            }
+                        case STATES.PAGE4:
+                            {
+                                if (hit.collider.gameObject.name == "ReverseFlip")
+                                {
+
+                                    PlayAnim("Page Flip Reverse 1", STATES.PAGE3);
 
                                 }
 
@@ -240,13 +266,7 @@ public class AnimationScript : MonoBehaviour
                 Page3.SetActive(true);
                 ScaleDown(Page3);
 
-                //GameObject 2
-                Page3_2.SetActive(true);
-                ScaleDown(Page3_2);
-
-                //GameObject 3
-                Page3_3.SetActive(true);
-                ScaleDown(Page3_3);
+                
 
             }
 
@@ -279,14 +299,29 @@ public class AnimationScript : MonoBehaviour
                 Page3.SetActive(true);
                 ScaleUp(Page3);
 
-                //GameObject 2
-                Page3_2.SetActive(true);
-                ScaleUp(Page3_2);
+                //page 4 GameObjects
+                page4_1.SetActive(true);
+                ScaleDown(page4_1);
 
-                //GameObject 3
-                Page3_3.SetActive(true);
-                ScaleUp(Page3_3);
+                page4_2.SetActive(true);
+                ScaleDown(page4_2);
 
+            }
+            
+            else if(CURRENTSTATE == STATES.PAGE4)
+            {
+                // page 3 GameObjects Scale ( 1 to 0 )
+
+                //GameObject 1
+                Page3.SetActive(true);
+                ScaleDown(Page3);
+
+
+                page4_1.SetActive(true);
+                ScaleUp(page4_1);
+
+                page4_2.SetActive(true);
+                ScaleUp(page4_2);
             }
 
 
@@ -337,14 +372,12 @@ public class AnimationScript : MonoBehaviour
                 Page3.SetActive(true);
                 ScaleDown(Page3);
 
-                //GameObject 2
-                Page3_2.SetActive(true);
-                ScaleDown(Page3_2);
+                //page 4 GameObjects
+                page4_1.SetActive(true);
+                ScaleDown(page4_1);
 
-                //GameObject 3
-                Page3_3.SetActive(true);
-                ScaleDown(Page3_3);
-
+                page4_2.SetActive(true);
+                ScaleDown(page4_2);
             }
             break;
         }
