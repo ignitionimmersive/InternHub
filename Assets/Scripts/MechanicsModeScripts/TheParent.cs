@@ -21,6 +21,7 @@ public class TheParent : MonoBehaviour
     public int child_on_body_count;
     public int child_on_blueprint_count;
 
+
     private void Start()
     {
         InitialiseChildBodyComponents();
@@ -56,6 +57,13 @@ public class TheParent : MonoBehaviour
 
         }
 
+        foreach (GameObject child in children)
+        {
+            child.gameObject.GetComponent<TheChild>().initialRotation = child.gameObject.transform.rotation;
+            child.gameObject.GetComponent<TheChild>().initialPosition = child.gameObject.transform.position;
+
+        }
+
         this.child_on_body_count = this.children.Count;
     }
 
@@ -74,6 +82,48 @@ public class TheParent : MonoBehaviour
             child.gameObject.GetComponent<TheChild>().CURRENTSTATE = TheChild.CHILD_STATES.MOVE_TO_INITIAL_ASSEMBLY;
         }
     }
+
+    public void CheckParentState()
+    {
+
+        int ALL_CHILD_ON_BODY_count = 0;
+        int DISMANTLED_count = 0;
+        int ALL_CHILD_ON_BLUEPRINT_count = 0;
+
+        foreach (GameObject child in children)
+        {
+            if (child.gameObject.GetComponent<TheChild>().CURRENTSTATE == TheChild.CHILD_STATES.INITIAL_ASSEMBLY)
+            {
+                ALL_CHILD_ON_BODY_count++;
+            }
+            else if (child.gameObject.GetComponent<TheChild>().CURRENTSTATE == TheChild.CHILD_STATES.ON_BLUEPRINT)
+            {
+                ALL_CHILD_ON_BLUEPRINT_count++;
+            }
+            else
+            {
+                DISMANTLED_count++;
+            }
+
+        }
+
+        if (this.children.Count == ALL_CHILD_ON_BODY_count)
+        {
+            this.CURRENT_STATE = PARENT_STATE.ALL_CHILD_ON_BODY;
+        }
+
+        else if (this.children.Count == ALL_CHILD_ON_BLUEPRINT_count)
+        {
+            this.CURRENT_STATE = PARENT_STATE.ALL_CHILD_ON_BLUEPRINT;
+        }
+        else
+        {
+            this.CURRENT_STATE = PARENT_STATE.DISMANTLED;
+        }
+
+    }
+
+
 
 }
 

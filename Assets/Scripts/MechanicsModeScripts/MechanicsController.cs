@@ -13,7 +13,7 @@ public class MechanicsController : MonoBehaviour
     void Update()
     {
 
-        if (Input.touchCount > 0)
+        if (Input.touchCount > 0 &&  Input.GetTouch(0).phase == TouchPhase.Ended)
         { 
             Touch touch = Input.GetTouch(0);
             Vector3 worldTouchPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, 100f));

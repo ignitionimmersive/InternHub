@@ -8,18 +8,24 @@ public class UsageMode : MonoBehaviour
     public List<VideoClip> theVideos;
     public List<AudioClip> theAudios;
 
-
     public GameObject theVideoPlane;
 
+    VideoPlayer theVideoPlayer;
+    AudioSource theAudioSource;
 
     private void Start()
     {
         theVideoPlane.gameObject.AddComponent<AudioSource>();
         theVideoPlane.gameObject.AddComponent<VideoPlayer>();
-        theVideoPlane.GetComponent<AudioSource>().playOnAwake = false;
-        theVideoPlane.GetComponent<VideoPlayer>().playOnAwake = true;
-        theVideoPlane.GetComponent<VideoPlayer>().isLooping = false;
-        theVideoPlane.GetComponent<AudioSource>().loop = false;
+
+        theVideoPlayer = theVideoPlane.GetComponent<VideoPlayer>();
+        theAudioSource = theVideoPlane.GetComponent<AudioSource>();
+
+        theVideoPlayer.SetDirectAudioMute(0, true);
+        theAudioSource.playOnAwake = false;
+        theVideoPlayer.playOnAwake = true;
+        theVideoPlayer.isLooping = false;
+        theAudioSource.loop = false;
         AssignVideo(0);
         
 
@@ -32,24 +38,24 @@ public class UsageMode : MonoBehaviour
         if (distance <= 2f)
         {
             //theVideoPlane.GetComponent<VideoPlayer>().SetDirectAudioVolume(0, 1 - distance);
-            theVideoPlane.GetComponent<VideoPlayer>().SetDirectAudioVolume(0, 1f - (distance * .5f));
+            //theVideoPlane.GetComponent<VideoPlayer>().SetDirectAudioVolume(0, 0);
             //theVideoPlane.GetComponent<AudioSource>().volume = 1f - distance;
-            theVideoPlane.GetComponent<AudioSource>().volume = 1f - (distance * .5f);
+            theAudioSource.volume = 1f - (distance * .5f);
         }
 
         else
         {
-            theVideoPlane.GetComponent<VideoPlayer>().SetDirectAudioVolume(0, 0);
-            theVideoPlane.GetComponent<AudioSource>().volume = 0;
+            // theVideoPlane.GetComponent<VideoPlayer>().SetDirectAudioVolume(0, 0);
+            theAudioSource.volume = 0;
         }
     }
 
     public void AssignVideo(int videoNumber)
     { 
-        theVideoPlane.GetComponent<VideoPlayer>().clip = this.theVideos[videoNumber];
-        theVideoPlane.GetComponent<AudioSource>().clip = this.theAudios[videoNumber];
-        theVideoPlane.GetComponent<VideoPlayer>().Play();
-        theVideoPlane.GetComponent<AudioSource>().Play();
+        theVideoPlayer.clip = this.theVideos[videoNumber];
+        theAudioSource.clip = this.theAudios[videoNumber];
+        theAudioSource.Play();
+        theAudioSource.Play();
     }
 
 }

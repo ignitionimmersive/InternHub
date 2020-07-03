@@ -7,7 +7,7 @@ public enum ActiveMode { MAIN, USAGE, BUILD, PLACE, LEARN }
 
 public class UpdatedUIBehaviour : MonoBehaviour
 {
-    [HideInInspector] public ActiveMode activeMode = ActiveMode.MAIN;
+    private ActiveMode activeMode = ActiveMode.MAIN;
 
     [Header ("Mode Button Object")]
     [SerializeField] GameObject modeButtons;
@@ -22,20 +22,25 @@ public class UpdatedUIBehaviour : MonoBehaviour
     [SerializeField] MechanicsController BuildModeController;
     [SerializeField] TheParent BigScope;
     [SerializeField] TheBlueprint Blueprint;
+    [SerializeField] GameObject InstructionsDismantle;
+    [SerializeField] GameObject InstructionsBuild;
+
+
 
     //Place Mode
     [SerializeField] GameObject SmallScope;
     [SerializeField] GameObject Spitfire;
 
     // Use mode
-    [SerializeField] GameObject theLens;
+    [SerializeField] UsageController UseModeController;
+   // [SerializeField] GameObject theLens;
     [SerializeField] Collider MapCollider;
 
     //learn mode
     [SerializeField] GameObject Logbook;
     [SerializeField] GameObject LogbookBuildings;
 
-
+    Vector3 smallScopeLocation;
 
 
     //------------//
@@ -43,7 +48,7 @@ public class UpdatedUIBehaviour : MonoBehaviour
     #region Private Functions
     private void Start()
     {
-        StatesSet(ActiveMode.MAIN);
+        StatesSet(activeMode);
     }
 
     private void StatesSet(ActiveMode mode)
@@ -52,16 +57,23 @@ public class UpdatedUIBehaviour : MonoBehaviour
         {
             case ActiveMode.MAIN:
                 {
-                    
+                    activeMode = ActiveMode.MAIN;
+
+                    Spitfire.GetComponent<Animator>().enabled = false;
+
                     BigScope.gameObject.SetActive(true);
                     Blueprint.gameObject.SetActive(false);
                     BuildModeController.enabled = (false);
+                    InstructionsBuild.SetActive(false);
+                    InstructionsDismantle.SetActive(false);
 
+                    //SmallScope.transform.position = smallScopeLocation;
                     SmallScope.SetActive(false);
                     Spitfire.SetActive(false);
 
-                    theLens.SetActive(false);
+                   // theLens.SetActive(false);
                     MapCollider.enabled = (false);
+                    UseModeController.enabled = false;
 
                     Logbook.SetActive(false);
                     LogbookBuildings.SetActive(false);
@@ -75,13 +87,16 @@ public class UpdatedUIBehaviour : MonoBehaviour
                 }
             case ActiveMode.BUILD:
                 {
+
+                    activeMode = ActiveMode.BUILD;
+
                     BigScope.gameObject.SetActive(true);
                     Blueprint.gameObject.SetActive(true);
                     BuildModeController.enabled = true;
 
 
                     modeButtons.SetActive(false);
-                    exitBuild.SetActive(true);
+                    //exitBuild.SetActive(true);
                     exitLearn.SetActive(false);
                     exitUse.SetActive(false);
                     exitPlace.SetActive(false);
@@ -89,10 +104,13 @@ public class UpdatedUIBehaviour : MonoBehaviour
                 }
             case ActiveMode.USAGE:
                 {
-                    
 
-                    theLens.SetActive(true);
-                    MapCollider.enabled = (true);
+                    activeMode = ActiveMode.USAGE;
+
+                   // theLens.SetActive(false);
+                    MapCollider.enabled = (false);
+                    UseModeController.enabled = true;
+                    UseModeController.StartMode();
 
                     BigScope.gameObject.SetActive(false);
 
@@ -105,7 +123,9 @@ public class UpdatedUIBehaviour : MonoBehaviour
                 }
             case ActiveMode.LEARN:
                 {
-                    
+
+                    activeMode = ActiveMode.LEARN;
+
                     BigScope.gameObject.SetActive(false);
 
                     Logbook.SetActive(true);
@@ -120,13 +140,14 @@ public class UpdatedUIBehaviour : MonoBehaviour
                 }
             case ActiveMode.PLACE:
                 {
+
+                    activeMode = ActiveMode.PLACE;
+
                     BigScope.gameObject.SetActive(false);
 
                     SmallScope.SetActive(true);
                     Spitfire.SetActive(true);
-
                     
-
                     modeButtons.SetActive(false);
                     exitBuild.SetActive(false);
                     exitLearn.SetActive(false);
@@ -139,6 +160,8 @@ public class UpdatedUIBehaviour : MonoBehaviour
 
     private void Update()
     {
+        
+
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
@@ -149,16 +172,16 @@ public class UpdatedUIBehaviour : MonoBehaviour
 
                 if (open.CompareTag("GoBack"))
                 {
-                    //if (activeMode == ActiveMode.BUILD)
-                    
-                        
-                    
-
                      if (activeMode == ActiveMode.LEARN)
                     {
                         ExitLearn();
                     }
-                    ExitMechanics();
+
+                     if (activeMode == ActiveMode.USAGE)
+                    {
+                        ExitUse();
+                    }
+                    
                     StatesSet(ActiveMode.MAIN);
                 }
                 else if (open.CompareTag("MechanicPanel"))
@@ -182,6 +205,32 @@ public class UpdatedUIBehaviour : MonoBehaviour
 
             }
         }
+
+        if (activeMode == ActiveMode.BUILD)
+        {
+            if (BuildModeController.theParent.CURRENT_STATE != TheParent.PARENT_STATE.ALL_CHILD_ON_BODY)
+            {
+
+                exitBuild.SetActive(false);
+
+                if (BuildModeController.theParent.CURRENT_STATE == TheParent.PARENT_STATE.ALL_CHILD_ON_BLUEPRINT)
+                {
+                    InstructionsDismantle.SetActive(false);
+                    InstructionsBuild.SetActive(true);
+                }
+                else
+                {
+                    InstructionsDismantle.SetActive(false);
+                    InstructionsBuild.SetActive(false);
+                }
+            }
+            else
+            {
+                InstructionsBuild.SetActive(false);
+                InstructionsDismantle.SetActive(true);
+                exitBuild.SetActive(true);
+            }
+        }
     }
 
     void ExitLearn()
@@ -197,13 +246,11 @@ public class UpdatedUIBehaviour : MonoBehaviour
         }
     }
 
-    void ExitMechanics()
+    void ExitUse()
     {
-        if (BigScope.CURRENT_STATE != TheParent.PARENT_STATE.ALL_CHILD_ON_BODY)
-        { 
-            BigScope.gameObject.GetComponent<TheParent>().AssembleAllChildren();
-        }
+        UseModeController.ExitMode();
     }
+
     #endregion
 
     //------------//
