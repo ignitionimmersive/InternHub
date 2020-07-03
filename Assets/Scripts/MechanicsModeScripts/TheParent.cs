@@ -57,13 +57,7 @@ public class TheParent : MonoBehaviour
 
         }
 
-        foreach (GameObject child in children)
-        {
-            child.gameObject.GetComponent<TheChild>().initialRotation = child.gameObject.transform.rotation;
-            child.gameObject.GetComponent<TheChild>().initialPosition = child.gameObject.transform.position;
-
-        }
-
+        
         this.child_on_body_count = this.children.Count;
     }
 
@@ -71,6 +65,9 @@ public class TheParent : MonoBehaviour
     {
         foreach( GameObject child in children)
         {
+            child.gameObject.GetComponent<TheChild>().initialRotation = child.gameObject.transform.rotation;
+            child.gameObject.GetComponent<TheChild>().initialPosition = child.gameObject.transform.position;
+
             child.gameObject.GetComponent<TheChild>().CURRENTSTATE = TheChild.CHILD_STATES.DISMANTLE;
         }
     }
