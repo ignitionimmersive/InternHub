@@ -5,11 +5,16 @@ using UnityEngine;
 
 public class DragAndDrop : MonoBehaviour
 {
+    public GameObject spitFire;
+
     private Touch touch;
     [Range(0.00001f, 1f)] public float speedModifier = 1f;
+
+    private Vector3 initialPosition;
     private void Start()
     {
-        //speedModifier = 0.00001f;
+
+        initialPosition = this.gameObject.transform.position;
     }
     private void Update()
     {
@@ -31,15 +36,22 @@ public class DragAndDrop : MonoBehaviour
            
 
     }
-
+    public void resetToInitialPosition()
+    {
+        this.gameObject.transform.position = initialPosition;
+        this.gameObject.SetActive(false);
+    }
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Collided");
         if (other.gameObject.name == "Spitfire")
         {
             other.gameObject.GetComponent<Animator>().enabled = true;
+            other.gameObject.GetComponent<Animator>().SetInteger("SpitfireAnimController", 2);
+
+            resetToInitialPosition();
             
-            this.gameObject.SetActive(false);
+
         }
     }
 

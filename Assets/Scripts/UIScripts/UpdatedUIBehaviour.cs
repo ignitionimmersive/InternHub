@@ -59,19 +59,16 @@ public class UpdatedUIBehaviour : MonoBehaviour
                 {
                     activeMode = ActiveMode.MAIN;
 
-                    Spitfire.GetComponent<Animator>().enabled = false;
-
+                    
                     BigScope.gameObject.SetActive(true);
                     Blueprint.gameObject.SetActive(false);
                     BuildModeController.enabled = (false);
                     InstructionsBuild.SetActive(false);
                     InstructionsDismantle.SetActive(false);
 
-                    //SmallScope.transform.position = smallScopeLocation;
                     SmallScope.SetActive(false);
                     Spitfire.SetActive(false);
 
-                   // theLens.SetActive(false);
                     MapCollider.enabled = (false);
                     UseModeController.enabled = false;
 
@@ -96,7 +93,6 @@ public class UpdatedUIBehaviour : MonoBehaviour
 
 
                     modeButtons.SetActive(false);
-                    //exitBuild.SetActive(true);
                     exitLearn.SetActive(false);
                     exitUse.SetActive(false);
                     exitPlace.SetActive(false);
@@ -107,7 +103,6 @@ public class UpdatedUIBehaviour : MonoBehaviour
 
                     activeMode = ActiveMode.USAGE;
 
-                   // theLens.SetActive(false);
                     MapCollider.enabled = (false);
                     UseModeController.enabled = true;
                     UseModeController.StartMode();
@@ -147,7 +142,8 @@ public class UpdatedUIBehaviour : MonoBehaviour
 
                     SmallScope.SetActive(true);
                     Spitfire.SetActive(true);
-                    
+                    Spitfire.GetComponent<Animator>().SetInteger("SpitfireAnimController", 1);
+                    //Spitfire.GetComponent<Animator>().enabled = false;
                     modeButtons.SetActive(false);
                     exitBuild.SetActive(false);
                     exitLearn.SetActive(false);
@@ -181,7 +177,10 @@ public class UpdatedUIBehaviour : MonoBehaviour
                     {
                         ExitUse();
                     }
-                    
+                    if (Spitfire.GetComponent<Animator>().enabled == true)
+                    {
+                        Spitfire.GetComponent<Animator>().SetInteger("SpitfireAnimController", 1);
+                    }
                     StatesSet(ActiveMode.MAIN);
                 }
                 else if (open.CompareTag("MechanicPanel"))
