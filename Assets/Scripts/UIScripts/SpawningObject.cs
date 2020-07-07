@@ -11,6 +11,8 @@ public class SpawningObject : MonoBehaviour
 {
     public GameObject Indicator;
     public GameObject workbench;
+    public Button ResetButton;
+    public Text debug;
 
     private bool objectPlaced = false;
     private bool activeIndicator = false;
@@ -20,9 +22,24 @@ public class SpawningObject : MonoBehaviour
     private ARRaycastManager arRaycastManager;
     private static List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
+    public static SpawningObject Instance { get; set; }
+
+    public bool IsPlaced
+    {
+        get
+        {
+            return objectPlaced;
+        }
+        set
+        {
+            objectPlaced = value;
+        }
+    }
+
     private void Awake()
     {
         arRaycastManager = FindObjectOfType<ARRaycastManager>();
+        ResetButton.onClick.AddListener(OnResetClick);
     }
 
     void Update()
@@ -72,5 +89,13 @@ public class SpawningObject : MonoBehaviour
     {
         Instantiate(workbench, indicatorPose.position, indicatorPose.rotation);
         objectPlaced = true;
+    }
+
+    private void OnResetClick()
+    {
+        debug.text = "hit";
+        UpdatedUIBehaviour.Instance.CurrentMode = ActiveMode.INITIAL;
+        //UpdatedUIBehaviour.Instance.StatesSet(UpdatedUIBehaviour.Instance.CurrentMode);
+        debug.text = "RESET" + " " + objectPlaced + " " + IsPlaced;
     }
 }
