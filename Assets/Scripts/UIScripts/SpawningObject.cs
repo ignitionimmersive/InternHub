@@ -14,7 +14,7 @@ public class SpawningObject : MonoBehaviour
     public Button ResetButton;
     public Text debug;
 
-    private bool objectPlaced = false;
+    private bool _isPlaced = false;
     private bool activeIndicator = false;
     private Pose indicatorPose;
 
@@ -24,15 +24,17 @@ public class SpawningObject : MonoBehaviour
 
     public static SpawningObject Instance { get; set; }
 
+    public UpdatedUIBehaviour States;
+
     public bool IsPlaced
     {
         get
         {
-            return objectPlaced;
+            return _isPlaced;
         }
         set
         {
-            objectPlaced = value;
+            _isPlaced = value;
         }
     }
 
@@ -47,7 +49,7 @@ public class SpawningObject : MonoBehaviour
         UpdateIndicatorPose();
         ActiveSpawnIndicator();
 
-        if (!objectPlaced && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        if (!IsPlaced && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
             InstantiateWorkbench();
         }
@@ -58,7 +60,7 @@ public class SpawningObject : MonoBehaviour
         screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
         arRaycastManager.Raycast(screenCenter, hits, TrackableType.Planes);
 
-        if (!objectPlaced)
+        if (!IsPlaced)
         {
             activeIndicator = hits.Count > 0;
             if (activeIndicator)
@@ -88,14 +90,14 @@ public class SpawningObject : MonoBehaviour
     private void InstantiateWorkbench()
     {
         Instantiate(workbench, indicatorPose.position, indicatorPose.rotation);
-        objectPlaced = true;
+        activeIndicator = false;
+        IsPlaced = true;
     }
 
     private void OnResetClick()
     {
-        debug.text = "hit";
-        UpdatedUIBehaviour.Instance.CurrentMode = ActiveMode.INITIAL;
-        //UpdatedUIBehaviour.Instance.StatesSet(UpdatedUIBehaviour.Instance.CurrentMode);
-        debug.text = "RESET" + " " + objectPlaced + " " + IsPlaced;
+        States.CurrentMode = ActiveMode.INITIAL;
+        //States.StatesSet(States.CurrentMode);
+        IsPlaced = false;
     }
 }

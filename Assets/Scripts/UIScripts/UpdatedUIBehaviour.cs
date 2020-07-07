@@ -8,10 +8,10 @@ public enum ActiveMode {INITIAL, MAIN, USAGE, BUILD, PLACE, LEARN }
 
 public class UpdatedUIBehaviour : MonoBehaviour
 {
-    private static ActiveMode activeMode = ActiveMode.INITIAL;
+    private static ActiveMode activeMode = ActiveMode.MAIN;
 
     public GameObject mainContent;
-   
+  
     public static UpdatedUIBehaviour Instance { get; set; }
 
     public ActiveMode CurrentMode
@@ -64,21 +64,18 @@ public class UpdatedUIBehaviour : MonoBehaviour
         StatesSet(activeMode);
     }
 
-    public void StatesSet(ActiveMode mode)
+    private void StatesSet(ActiveMode mode)
     {
         switch(mode)
         {
             case ActiveMode.INITIAL:
                 {
-                    SpawningObject.Instance.IsPlaced = false;
-                    SpawningObject.Instance.debug.text = "Initial mode";
+                    //Session.IsPlaced = false;
 
                     if (this.mainContent.gameObject != null)
                     {
                         Destroy(this.mainContent.gameObject);
                     }
-
-                    SpawningObject.Instance.debug.text = "Placing..";
 
                     break;
                 }

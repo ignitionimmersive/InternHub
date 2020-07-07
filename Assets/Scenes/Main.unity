@@ -133,7 +133,6 @@ GameObject:
   - component: {fileID: 7387672}
   - component: {fileID: 7387671}
   - component: {fileID: 7387669}
-  - component: {fileID: 7387670}
   m_Layer: 0
   m_Name: AR Session Origin
   m_TagString: Untagged
@@ -155,23 +154,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PlanePrefab: {fileID: 0}
   m_DetectionMode: -1
---- !u!114 &7387670
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7387668}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a752fd2697927fa45bea972db4326b1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Indicator: {fileID: 1026096388}
-  workbench: {fileID: 468210137696059653, guid: b3765ebd5e8f8544fa3ba69a13ffbada,
-    type: 3}
-  ResetButton: {fileID: 1264890871}
-  debug: {fileID: 1901181824}
 --- !u!114 &7387671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1588,3 +1570,87 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1901181822}
   m_CullTransparentMesh: 0
+--- !u!1001 &5258385188204090685
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5258385188142284090, guid: 42ef37faf7188b049b60119711f997da,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 720
+      objectReference: {fileID: 0}
+    - target: {fileID: 5258385188142284090, guid: 42ef37faf7188b049b60119711f997da,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2560
+      objectReference: {fileID: 0}
+    - target: {fileID: 5258385188142284090, guid: 42ef37faf7188b049b60119711f997da,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5258385188142284090, guid: 42ef37faf7188b049b60119711f997da,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5258385188142284090, guid: 42ef37faf7188b049b60119711f997da,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5258385188142284090, guid: 42ef37faf7188b049b60119711f997da,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5258385188142284090, guid: 42ef37faf7188b049b60119711f997da,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5258385188142284090, guid: 42ef37faf7188b049b60119711f997da,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5258385188142284090, guid: 42ef37faf7188b049b60119711f997da,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5258385188142284090, guid: 42ef37faf7188b049b60119711f997da,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5258385188142284090, guid: 42ef37faf7188b049b60119711f997da,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5258385188142284091, guid: 42ef37faf7188b049b60119711f997da,
+        type: 3}
+      propertyPath: m_Name
+      value: ARController
+      objectReference: {fileID: 0}
+    - target: {fileID: 9213146508403706376, guid: 42ef37faf7188b049b60119711f997da,
+        type: 3}
+      propertyPath: Indicator
+      value: 
+      objectReference: {fileID: 1026096388}
+    - target: {fileID: 9213146508403706376, guid: 42ef37faf7188b049b60119711f997da,
+        type: 3}
+      propertyPath: ResetButton
+      value: 
+      objectReference: {fileID: 1264890871}
+    - target: {fileID: 9213146508403706376, guid: 42ef37faf7188b049b60119711f997da,
+        type: 3}
+      propertyPath: debug
+      value: 
+      objectReference: {fileID: 1901181824}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 42ef37faf7188b049b60119711f997da, type: 3}
