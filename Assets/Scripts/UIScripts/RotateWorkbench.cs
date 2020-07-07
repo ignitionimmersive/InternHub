@@ -7,6 +7,9 @@ public class RotateWorkbench : MonoBehaviour
 {
     public GameObject WorkbenchParent;
 
+    public Collider2D leftButton;
+    public Collider2D rightButton;
+
     public float rotateSpeed = 100;
 
 
