@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class SpawningObject : MonoBehaviour
 {
     public GameObject placedPrefab;
+   
     //public Text debug;
 
     private bool objectPlaced = false;
@@ -57,8 +58,11 @@ public class SpawningObject : MonoBehaviour
             placedPrefab.SetActive(true);
             placedPrefab.transform.SetPositionAndRotation(indicatorPose.position, indicatorPose.rotation);
             objectPlaced = true;
+            //SpawnWorkbench();
         }         
         else
             placedPrefab.SetActive(false);
     }
+
+    
 }
