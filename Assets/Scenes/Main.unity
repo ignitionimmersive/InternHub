@@ -1682,6 +1682,7 @@ MonoBehaviour:
   MapCollider: {fileID: 1154990377}
   Logbook: {fileID: 2107659342}
   LogbookBuildings: {fileID: 1788517659}
+  RotateButtons: {fileID: 0}
 --- !u!114 &643603848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2023,7 +2024,6 @@ GameObject:
   - component: {fileID: 737593682}
   - component: {fileID: 737593681}
   - component: {fileID: 737593680}
-  - component: {fileID: 737593684}
   m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
@@ -2113,20 +2113,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &737593684
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 737593679}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a835580a2ecd6fd4d8ffb0a243f86e77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WorkbenchParent: {fileID: 1154574010}
-  rotateSpeed: 1000
 --- !u!1 &763359818
 GameObject:
   m_ObjectHideFlags: 0
@@ -2170,6 +2156,7 @@ GameObject:
   - component: {fileID: 848218154}
   - component: {fileID: 848218153}
   - component: {fileID: 848218155}
+  - component: {fileID: 848218156}
   m_Layer: 5
   m_Name: LeftRotate
   m_TagString: Untagged
@@ -2237,7 +2224,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 848218151}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -2268,12 +2255,12 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 848218153}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 737593684}
+      - m_Target: {fileID: 0}
         m_MethodName: RotateLeft
         m_Mode: 1
         m_Arguments:
@@ -2284,6 +2271,32 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!61 &848218156
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 848218151}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -1.5579786, y: -3.4262772}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 36.884605, y: 72.09996}
+  m_EdgeRadius: 0
 --- !u!65 &857098244
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2513,6 +2526,7 @@ GameObject:
   - component: {fileID: 944007271}
   - component: {fileID: 944007270}
   - component: {fileID: 944007272}
+  - component: {fileID: 944007273}
   m_Layer: 5
   m_Name: RightRotate
   m_TagString: Untagged
@@ -2580,7 +2594,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 944007268}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -2611,12 +2625,12 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 944007270}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 737593684}
+      - m_Target: {fileID: 0}
         m_MethodName: RotateRight
         m_Mode: 1
         m_Arguments:
@@ -2627,6 +2641,32 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!61 &944007273
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 944007268}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -1.5579786, y: -3.4262772}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 36.884605, y: 72.09996}
+  m_EdgeRadius: 0
 --- !u!1 &977057728
 GameObject:
   m_ObjectHideFlags: 0
@@ -2664,8 +2704,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 197
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 0.76739717
+  MaxDistance: 1.3105412
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -2997,6 +3037,7 @@ MonoBehaviour:
   MapCollider: {fileID: 1154990377}
   Logbook: {fileID: 2107659342}
   LogbookBuildings: {fileID: 1788517659}
+  RotateButtons: {fileID: 0}
 --- !u!114 &1154574014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3642,7 +3683,7 @@ AudioSource:
   Priority: 187
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 1.7911063
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -4202,6 +4243,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1457110476}
+  - component: {fileID: 1457110477}
   m_Layer: 5
   m_Name: RotateButtons
   m_TagString: Untagged
@@ -4230,6 +4272,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -1820, y: -980}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1457110477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1457110475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a835580a2ecd6fd4d8ffb0a243f86e77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WorkbenchParent: {fileID: 1154574010}
+  leftButton: {fileID: 848218156}
+  rightButton: {fileID: 944007273}
+  rotateSpeed: 1000
 --- !u!1 &1496117665
 GameObject:
   m_ObjectHideFlags: 0

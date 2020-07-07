@@ -40,9 +40,8 @@ public class UpdatedUIBehaviour : MonoBehaviour
     [SerializeField] GameObject Logbook;
     [SerializeField] GameObject LogbookBuildings;
 
-    Vector3 smallScopeLocation;
-
-
+    //rotate buttons
+    [SerializeField] GameObject RotateButtons;
     //------------//
 
     #region Private Functions
@@ -58,7 +57,7 @@ public class UpdatedUIBehaviour : MonoBehaviour
             case ActiveMode.MAIN:
                 {
                     activeMode = ActiveMode.MAIN;
-
+                    RotateButtons.SetActive(true);
                     
                     BigScope.gameObject.SetActive(true);
                     Blueprint.gameObject.SetActive(false);
@@ -86,6 +85,7 @@ public class UpdatedUIBehaviour : MonoBehaviour
                 {
 
                     activeMode = ActiveMode.BUILD;
+                    RotateButtons.SetActive(false);
 
                     BigScope.gameObject.SetActive(true);
                     Blueprint.gameObject.SetActive(true);
@@ -102,6 +102,7 @@ public class UpdatedUIBehaviour : MonoBehaviour
                 {
 
                     activeMode = ActiveMode.USAGE;
+                    RotateButtons.SetActive(false);
 
                     MapCollider.enabled = (false);
                     UseModeController.enabled = true;
@@ -120,6 +121,7 @@ public class UpdatedUIBehaviour : MonoBehaviour
                 {
 
                     activeMode = ActiveMode.LEARN;
+                    RotateButtons.SetActive(false);
 
                     BigScope.gameObject.SetActive(false);
 
@@ -137,6 +139,7 @@ public class UpdatedUIBehaviour : MonoBehaviour
                 {
 
                     activeMode = ActiveMode.PLACE;
+                    RotateButtons.SetActive(false);
 
                     BigScope.gameObject.SetActive(false);
 
