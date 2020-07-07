@@ -1,5 +1,4 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
 <<<<<<< HEAD:Assets/StreamingAssets.meta
 guid: 5255511b35c53414aa1f87b2af057f24
 folderAsset: yes
@@ -8,11 +7,6 @@ DefaultImporter:
 guid: 764637159a6c19643bcf367f94635a4e
 PrefabImporter:
 >>>>>>> backup:Assets/Prefabs/BuildController.prefab.meta
-=======
-guid: 221c79becebd4764091c1baf98b99f87
-folderAsset: yes
-DefaultImporter:
->>>>>>> backup
   externalObjects: {}
   userData: 
   assetBundleName: 

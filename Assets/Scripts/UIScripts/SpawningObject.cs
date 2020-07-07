@@ -9,11 +9,12 @@ using UnityEngine.UI;
 [RequireComponent(typeof(ARRaycastManager))]
 public class SpawningObject : MonoBehaviour
 {
-    public GameObject placedPrefab;
-   
-    //public Text debug;
+    public GameObject Indicator;
+    public GameObject workbench;
+    public Button ResetButton;
+    public Text debug;
 
-    private bool objectPlaced = false;
+    private bool _isPlaced = false;
     private bool activeIndicator = false;
     private Pose indicatorPose;
 
@@ -21,18 +22,37 @@ public class SpawningObject : MonoBehaviour
     private ARRaycastManager arRaycastManager;
     private static List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
+    public static SpawningObject Instance { get; set; }
+
+    public UpdatedUIBehaviour States;
+
+    public bool IsPlaced
+    {
+        get
+        {
+            return _isPlaced;
+        }
+        set
+        {
+            _isPlaced = value;
+        }
+    }
+
     private void Awake()
     {
         arRaycastManager = FindObjectOfType<ARRaycastManager>();
+        ResetButton.onClick.AddListener(OnResetClick);
     }
-    
+
     void Update()
     {
-        if (objectPlaced)
-            return;
-
         UpdateIndicatorPose();
         ActiveSpawnIndicator();
+
+        if (!IsPlaced && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+            InstantiateWorkbench();
+        }
     }
 
     private void UpdateIndicatorPose()
@@ -40,14 +60,17 @@ public class SpawningObject : MonoBehaviour
         screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
         arRaycastManager.Raycast(screenCenter, hits, TrackableType.Planes);
 
-        activeIndicator = hits.Count > 0;
-        if (activeIndicator)
+        if (!IsPlaced)
         {
-            indicatorPose = hits[0].pose;
+            activeIndicator = hits.Count > 0;
+            if (activeIndicator)
+            {
+                indicatorPose = hits[0].pose;
 
-            var cameraForward = Camera.current.transform.forward;
-            var cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
-            indicatorPose.rotation = Quaternion.LookRotation(cameraBearing);
+                var cameraForward = Camera.current.transform.forward;
+                var cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
+                indicatorPose.rotation = Quaternion.LookRotation(cameraBearing);
+            }
         }
     }
 
@@ -55,14 +78,26 @@ public class SpawningObject : MonoBehaviour
     {
         if (activeIndicator)
         {
-            placedPrefab.SetActive(true);
-            placedPrefab.transform.SetPositionAndRotation(indicatorPose.position, indicatorPose.rotation);
-            objectPlaced = true;
-            //SpawnWorkbench();
-        }         
+            Indicator.SetActive(true);
+            Indicator.transform.SetPositionAndRotation(indicatorPose.position, indicatorPose.rotation);
+        }
         else
-            placedPrefab.SetActive(false);
+        {
+            Indicator.SetActive(false);
+        }
     }
 
-    
+    private void InstantiateWorkbench()
+    {
+        Instantiate(workbench, indicatorPose.position, indicatorPose.rotation);
+        activeIndicator = false;
+        IsPlaced = true;
+    }
+
+    private void OnResetClick()
+    {
+        States.CurrentMode = ActiveMode.INITIAL;
+        //States.StatesSet(States.CurrentMode);
+        IsPlaced = false;
+    }
 }

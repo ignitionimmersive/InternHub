@@ -9,6 +9,9 @@ public class RotateWorkbench : MonoBehaviour
 
     public float rotateSpeed = 100;
 
+    public GameObject LeftButton;
+    public GameObject RightButton;
+
 
     private void Update()
     {
