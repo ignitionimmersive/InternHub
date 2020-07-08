@@ -1177,7 +1177,7 @@ GameObject:
   - component: {fileID: 588719563}
   - component: {fileID: 588719562}
   m_Layer: 0
-  m_Name: Quad
+  m_Name: VideoPlane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1278,8 +1278,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 1.5
+  MinDistance: 2.1106977
+  MaxDistance: 3.8976572
   Pan2D: 0
   rolloffMode: 1
   BypassEffects: 0
@@ -1649,7 +1649,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 643603839}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4af04d5a5a07b9c479cfa173ccc249e9, type: 3}
   m_Name: 
@@ -1661,7 +1661,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 643603839}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 986fd523dd92f714cb74d972153cda68, type: 3}
   m_Name: 
@@ -1682,7 +1682,7 @@ MonoBehaviour:
   MapCollider: {fileID: 1154990377}
   Logbook: {fileID: 2107659342}
   LogbookBuildings: {fileID: 1788517659}
-  RotateButtons: {fileID: 0}
+  RotateButtons: {fileID: 1457110475}
 --- !u!114 &643603848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1690,7 +1690,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 643603839}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b70b088f30f1aa4499d0a14fdd217d97, type: 3}
   m_Name: 
@@ -1704,7 +1704,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 643603839}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c711cc964eb8bb4ca77c3140e160124, type: 3}
   m_Name: 
@@ -2024,6 +2024,7 @@ GameObject:
   - component: {fileID: 737593682}
   - component: {fileID: 737593681}
   - component: {fileID: 737593680}
+  - component: {fileID: 737593684}
   m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
@@ -2113,6 +2114,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &737593684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737593679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a835580a2ecd6fd4d8ffb0a243f86e77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WorkbenchParent: {fileID: 1154574010}
+  leftButton: {fileID: 848218151}
+  rightButton: {fileID: 944007268}
+  rotateSpeed: 1000
 --- !u!1 &763359818
 GameObject:
   m_ObjectHideFlags: 0
@@ -2156,7 +2173,6 @@ GameObject:
   - component: {fileID: 848218154}
   - component: {fileID: 848218153}
   - component: {fileID: 848218155}
-  - component: {fileID: 848218156}
   m_Layer: 5
   m_Name: LeftRotate
   m_TagString: Untagged
@@ -2224,7 +2240,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 848218151}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -2255,12 +2271,12 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 848218153}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 737593684}
         m_MethodName: RotateLeft
         m_Mode: 1
         m_Arguments:
@@ -2271,32 +2287,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!61 &848218156
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 848218151}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -1.5579786, y: -3.4262772}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 36.884605, y: 72.09996}
-  m_EdgeRadius: 0
 --- !u!65 &857098244
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2526,7 +2516,6 @@ GameObject:
   - component: {fileID: 944007271}
   - component: {fileID: 944007270}
   - component: {fileID: 944007272}
-  - component: {fileID: 944007273}
   m_Layer: 5
   m_Name: RightRotate
   m_TagString: Untagged
@@ -2594,7 +2583,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 944007268}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -2625,12 +2614,12 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 944007270}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 737593684}
         m_MethodName: RotateRight
         m_Mode: 1
         m_Arguments:
@@ -2641,32 +2630,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!61 &944007273
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 944007268}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -1.5579786, y: -3.4262772}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 36.884605, y: 72.09996}
-  m_EdgeRadius: 0
 --- !u!1 &977057728
 GameObject:
   m_ObjectHideFlags: 0
@@ -3004,7 +2967,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1154574010}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4af04d5a5a07b9c479cfa173ccc249e9, type: 3}
   m_Name: 
@@ -3016,7 +2979,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1154574010}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 986fd523dd92f714cb74d972153cda68, type: 3}
   m_Name: 
@@ -3045,7 +3008,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1154574010}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c711cc964eb8bb4ca77c3140e160124, type: 3}
   m_Name: 
@@ -3085,7 +3048,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1154574010}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b70b088f30f1aa4499d0a14fdd217d97, type: 3}
   m_Name: 
@@ -3494,7 +3457,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1233260995}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -11.9, y: 45.359997, z: -9.7}
+  m_LocalPosition: {x: -11.9, y: 45.359997, z: 0.8}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children:
   - {fileID: 737469183}
@@ -3521,7 +3484,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spitFire: {fileID: 1725312375}
-  speedModifier: 0.002
+  speedModifier: 0.05
 --- !u!65 &1233260998
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3533,7 +3496,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 21.92, y: 17.63, z: 17.74}
+  m_Size: {x: 21.92, y: 26.52, z: 115.2}
   m_Center: {x: 0, y: 0, z: -0.66}
 --- !u!54 &1233260999
 Rigidbody:
@@ -4243,7 +4206,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1457110476}
-  - component: {fileID: 1457110477}
   m_Layer: 5
   m_Name: RotateButtons
   m_TagString: Untagged
@@ -4272,22 +4234,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -1820, y: -980}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1457110477
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1457110475}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a835580a2ecd6fd4d8ffb0a243f86e77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WorkbenchParent: {fileID: 1154574010}
-  leftButton: {fileID: 848218156}
-  rightButton: {fileID: 944007273}
-  rotateSpeed: 1000
 --- !u!1 &1496117665
 GameObject:
   m_ObjectHideFlags: 0
@@ -4704,7 +4650,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1725312376
 Transform:
   m_ObjectHideFlags: 0
@@ -4750,7 +4696,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.82, y: 4.16, z: 5.39}
+  m_Size: {x: 3.82, y: 4.16, z: 41.71}
   m_Center: {x: 5.85, y: 3.58, z: 4.83}
 --- !u!1 &1747911843
 GameObject:
@@ -5424,7 +5370,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 2.686452
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
