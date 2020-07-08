@@ -13,7 +13,7 @@ public class SpawningObject : MonoBehaviour
     public GameObject workbench;
     public Button ResetButton;
     public Text debug;
-
+    
     private bool _isPlaced = false;
     private bool activeIndicator = false;
     private Pose indicatorPose;
@@ -51,6 +51,7 @@ public class SpawningObject : MonoBehaviour
 
         if (!IsPlaced && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
+            debug.text = "SPAWN";
             InstantiateWorkbench();
         }
     }
@@ -97,7 +98,8 @@ public class SpawningObject : MonoBehaviour
     private void OnResetClick()
     {
         States.CurrentMode = ActiveMode.INITIAL;
-        //States.StatesSet(States.CurrentMode);
+
+        debug.text = "RESET";
         IsPlaced = false;
     }
 }
