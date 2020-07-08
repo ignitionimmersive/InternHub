@@ -548,7 +548,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 986fd523dd92f714cb74d972153cda68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainContent: {fileID: 0}
   modeButtons: {fileID: 0}
   exitBuild: {fileID: 0}
   exitPlace: {fileID: 0}
@@ -823,6 +822,17 @@ PrefabInstance:
       propertyPath: ResetButton
       value: 
       objectReference: {fileID: 2064282419}
+    - target: {fileID: 9213146508403706376, guid: 42ef37faf7188b049b60119711f997da,
+        type: 3}
+      propertyPath: workbench
+      value: 
+      objectReference: {fileID: 8638307017981682494, guid: 161bf6440945efd4f8b5e9d6c909e30d,
+        type: 3}
+    - target: {fileID: 9213146508403706376, guid: 42ef37faf7188b049b60119711f997da,
+        type: 3}
+      propertyPath: debug
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42ef37faf7188b049b60119711f997da, type: 3}
 --- !u!1 &1627749919

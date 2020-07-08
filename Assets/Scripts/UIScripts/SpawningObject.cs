@@ -11,10 +11,14 @@ public class SpawningObject : MonoBehaviour
 {
     public GameObject Indicator;
     public GameObject workbench;
+
+    private GameObject clonePrefab;
+
     public Button ResetButton;
-    public Text debug;
+    //public Text debug;
     
     private bool _isPlaced = false;
+    private bool _isReset = false;
     private bool activeIndicator = false;
     private Pose indicatorPose;
 
@@ -26,15 +30,15 @@ public class SpawningObject : MonoBehaviour
 
     public UpdatedUIBehaviour States;
 
-    public bool IsPlaced
+    public bool IsReset
     {
         get
         {
-            return _isPlaced;
+            return _isReset;
         }
         set
         {
-            _isPlaced = value;
+            _isReset = value;
         }
     }
 
@@ -42,6 +46,11 @@ public class SpawningObject : MonoBehaviour
     {
         arRaycastManager = FindObjectOfType<ARRaycastManager>();
         ResetButton.onClick.AddListener(OnResetClick);
+
+        if (Instance == null)
+            Instance = this;
+        else if (Instance != this)
+            Destroy(gameObject);
     }
 
     void Update()
@@ -49,10 +58,16 @@ public class SpawningObject : MonoBehaviour
         UpdateIndicatorPose();
         ActiveSpawnIndicator();
 
-        if (!IsPlaced && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        if (!_isPlaced && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
         {
-            debug.text = "SPAWN";
-            InstantiateWorkbench();
+            if (IsReset)
+            {
+                OnResetSpawn();
+            }
+            else
+            {
+                InstantiateWorkbench();
+            }
         }
     }
 
@@ -61,7 +76,7 @@ public class SpawningObject : MonoBehaviour
         screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
         arRaycastManager.Raycast(screenCenter, hits, TrackableType.Planes);
 
-        if (!IsPlaced)
+        if (!_isPlaced)
         {
             activeIndicator = hits.Count > 0;
             if (activeIndicator)
@@ -90,16 +105,26 @@ public class SpawningObject : MonoBehaviour
 
     private void InstantiateWorkbench()
     {
-        Instantiate(workbench, indicatorPose.position, indicatorPose.rotation);
+        clonePrefab = Instantiate(workbench, indicatorPose.position, indicatorPose.rotation);
         activeIndicator = false;
-        IsPlaced = true;
+        _isPlaced = true;
     }
 
     private void OnResetClick()
     {
         States.CurrentMode = ActiveMode.INITIAL;
 
-        debug.text = "RESET";
-        IsPlaced = false;
+        clonePrefab.SetActive(false);
+        _isPlaced = false;
+    }
+
+    private void OnResetSpawn()
+    {
+        clonePrefab.transform.position = indicatorPose.position;
+        clonePrefab.transform.rotation = indicatorPose.rotation;
+
+        clonePrefab.SetActive(true);
+        _isPlaced = true;
+        activeIndicator = false;
     }
 }

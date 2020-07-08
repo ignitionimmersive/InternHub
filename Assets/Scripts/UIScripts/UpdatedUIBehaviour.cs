@@ -10,8 +10,6 @@ public class UpdatedUIBehaviour : MonoBehaviour
 {
     private static ActiveMode activeMode = ActiveMode.MAIN;
 
-    public GameObject mainContent;
-  
     public static UpdatedUIBehaviour Instance { get; set; }
 
     public ActiveMode CurrentMode
@@ -62,6 +60,11 @@ public class UpdatedUIBehaviour : MonoBehaviour
     private void Start()
     {
         StatesSet(activeMode);
+
+        if (Instance == null)
+            Instance = this;
+        else if (Instance != this)
+            Destroy(gameObject);
     }
 
     private void StatesSet(ActiveMode mode)
@@ -70,13 +73,7 @@ public class UpdatedUIBehaviour : MonoBehaviour
         {
             case ActiveMode.INITIAL:
                 {
-                    //Session.IsPlaced = false;
-
-                    if (this.mainContent.gameObject != null)
-                    {
-                        Destroy(this.mainContent.gameObject);
-                    }
-
+                    SpawningObject.Instance.IsReset = true;
                     break;
                 }
             case ActiveMode.MAIN:
@@ -193,7 +190,6 @@ public class UpdatedUIBehaviour : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 GameObject open = hit.collider.gameObject;
-
 
                 if (open.CompareTag("GoBack"))
                 {
