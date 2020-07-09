@@ -2,13 +2,28 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
-public enum ActiveMode { MAIN, USAGE, BUILD, PLACE, LEARN }
+public enum ActiveMode {INITIAL, MAIN, USAGE, BUILD, PLACE, LEARN }
 
 public class UpdatedUIBehaviour : MonoBehaviour
 {
-    private ActiveMode activeMode = ActiveMode.MAIN;
+    private static ActiveMode activeMode = ActiveMode.MAIN;
 
+    public static UpdatedUIBehaviour Instance { get; set; }
+
+    public ActiveMode CurrentMode
+    {
+        get
+        {
+            return activeMode;
+        }
+        set
+        {
+            activeMode = value;
+        }
+    }
+    
     [Header ("Mode Button Object")]
     [SerializeField] GameObject modeButtons;
 
@@ -25,8 +40,6 @@ public class UpdatedUIBehaviour : MonoBehaviour
     [SerializeField] GameObject InstructionsDismantle;
     [SerializeField] GameObject InstructionsBuild;
 
-
-
     //Place Mode
     [SerializeField] GameObject SmallScope;
     [SerializeField] GameObject Spitfire;
@@ -39,21 +52,30 @@ public class UpdatedUIBehaviour : MonoBehaviour
     //learn mode
     [SerializeField] GameObject Logbook;
     [SerializeField] GameObject LogbookBuildings;
-
-    //rotate buttons
     [SerializeField] GameObject RotateButtons;
+
     //------------//
 
     #region Private Functions
     private void Start()
     {
         StatesSet(activeMode);
+
+        if (Instance == null)
+            Instance = this;
+        else if (Instance != this)
+            Destroy(gameObject);
     }
 
     private void StatesSet(ActiveMode mode)
     {
         switch(mode)
         {
+            case ActiveMode.INITIAL:
+                {
+                    SpawningObject.Instance.IsReset = true;
+                    break;
+                }
             case ActiveMode.MAIN:
                 {
                     activeMode = ActiveMode.MAIN;
@@ -93,6 +115,7 @@ public class UpdatedUIBehaviour : MonoBehaviour
 
 
                     modeButtons.SetActive(false);
+                    exitBuild.SetActive(true);
                     exitLearn.SetActive(false);
                     exitUse.SetActive(false);
                     exitPlace.SetActive(false);
@@ -159,7 +182,7 @@ public class UpdatedUIBehaviour : MonoBehaviour
 
     private void Update()
     {
-        
+        StatesSet(CurrentMode);
 
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
         {
@@ -168,22 +191,23 @@ public class UpdatedUIBehaviour : MonoBehaviour
             {
                 GameObject open = hit.collider.gameObject;
 
-
                 if (open.CompareTag("GoBack"))
                 {
                      if (activeMode == ActiveMode.LEARN)
-                    {
+                     {
                         ExitLearn();
-                    }
+                     }
 
                      if (activeMode == ActiveMode.USAGE)
-                    {
+                     {
                         ExitUse();
-                    }
-                    if (Spitfire.GetComponent<Animator>().enabled == true)
-                    {
+                     }
+
+                     if (Spitfire.GetComponent<Animator>().enabled == true)
+                     {
                         Spitfire.GetComponent<Animator>().SetInteger("SpitfireAnimController", 1);
-                    }
+                     }
+
                     StatesSet(ActiveMode.MAIN);
                 }
                 else if (open.CompareTag("MechanicPanel"))
@@ -202,9 +226,7 @@ public class UpdatedUIBehaviour : MonoBehaviour
                 {
                     StatesSet(ActiveMode.PLACE);
                 }
-                
-                
-
+    
             }
         }
 

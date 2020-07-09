@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+﻿
 using UnityEngine;
 
 public class DragAndDrop : MonoBehaviour
@@ -8,30 +6,34 @@ public class DragAndDrop : MonoBehaviour
     public GameObject spitFire;
 
     private Touch touch;
-    [Range(0.00001f, 1f)] public float speedModifier = 1f;
+    [Range(0.00001f, 1f)] public float speedModifier = 0.1f;
+
+    GameObject target ;
 
     private Vector3 initialPosition;
     private void Start()
     {
-
+        target = Camera.main.gameObject;
         initialPosition = this.gameObject.transform.position;
     }
     private void Update()
     {
-        
-            if (Input.touchCount > 0)
-            {
+        Vector3 targetPosition = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
+        transform.LookAt(targetPosition);
+
+        if (Input.touchCount > 0)
+        {
             touch = Input.GetTouch(0);
             
                 if (touch.phase == TouchPhase.Moved)
                 {
                 
-                    transform.position = new Vector3(
-                        transform.position.x + touch.deltaPosition.x * speedModifier,
-                        transform.position.y,
-                        transform.position.z + touch.deltaPosition.y * speedModifier);
+                    this.gameObject.transform.localPosition = new Vector3(
+                        this.gameObject.transform.localPosition.x + touch.deltaPosition.x * speedModifier,
+                        transform.localPosition.y,
+                        transform.localPosition.z);
                 }
-            }
+        }
 
            
 
@@ -50,8 +52,6 @@ public class DragAndDrop : MonoBehaviour
             other.gameObject.GetComponent<Animator>().SetInteger("SpitfireAnimController", 2);
 
             resetToInitialPosition();
-            
-
         }
     }
 

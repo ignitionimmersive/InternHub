@@ -37,11 +37,11 @@ public class BuildModeScript : MonoBehaviour
             }
         }
 
-           if (!OnScope)
+        if (!OnScope)
         {
             MoveToBlueprint();
         }
-           else
+        else
         {
             MoveToScope();
         }

@@ -4,10 +4,13 @@ public class RotateWorkbench : MonoBehaviour
 {
     public GameObject WorkbenchParent;
 
-    public Collider2D leftButton;
-    public Collider2D rightButton;
+    public GameObject leftButton;
+    public GameObject rightButton;
 
-    public float rotateSpeed = 100;
+    public float rotateSpeed = 1000;
+
+    public GameObject LeftButton;
+    public GameObject RightButton;
 
 
     private void Update()
@@ -19,13 +22,13 @@ public class RotateWorkbench : MonoBehaviour
 
         if (Physics.Raycast(Camera.main.transform.position, direction, out hit))
         {
-            if (hit.collider == leftButton)
+            if (hit.collider.gameObject == leftButton)
             {
-                WorkbenchParent.transform.Rotate(0, 10* Time.deltaTime, 0);
+                WorkbenchParent.transform.Rotate(0, rotateSpeed* Time.deltaTime, 0);
             }
-            else if (hit.collider == rightButton)
+            else if (hit.collider.gameObject == rightButton)
             {
-                WorkbenchParent.transform.Rotate(0, -10 * Time.deltaTime, 0);
+                WorkbenchParent.transform.Rotate(0, -rotateSpeed * Time.deltaTime, 0);
             }
         }
     }
