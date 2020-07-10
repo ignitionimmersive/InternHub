@@ -15,6 +15,31 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Logbook_MAT
     second: {fileID: 2100000, guid: 9ea24259a973e3e4080d0c734ff2a74d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Page_Bombed_Street_MAT
+    second: {fileID: 2100000, guid: d169ffdff2156454e85c7595e20aa067, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Page_Inventors_MAT
+    second: {fileID: 2100000, guid: 3bbf56450a4e584498c4745a8305ad38, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Page_MassProduction_MAT
+    second: {fileID: 2100000, guid: c2648a1d27591774bb87cee69ad6d48f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pilots_Story_MAT
+    second: {fileID: 2100000, guid: 226d8af380b6e924e8a35c77e2723eb3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert11
+    second: {fileID: 2100000, guid: f54e71e5d84321f41a0d754678103bbd, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
@@ -47,7 +72,7 @@ ModelImporter:
       takeName: Take 001
       internalID: 0
       firstFrame: 1
-      lastFrame: 60
+      lastFrame: 94
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -103,7 +128,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 100
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -149,7 +174,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 100
+    globalScale: 0.01
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
